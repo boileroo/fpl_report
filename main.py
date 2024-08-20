@@ -2,6 +2,7 @@ import json
 import sys
 import requests
 import os
+from datetime import datetime
 
 BASE_URL = "https://fantasy.premierleague.com/api/"
 
@@ -139,7 +140,7 @@ def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_
     return gw_data_list
 
 def main():
-    gameweek = input("Please enter the current gameweek (only use the current gw or previous data will be overwritten): ")
+    gameweek = input("Please enter the current gameweek: ")
     league_id = input("Please enter the league id: ")
     
     os.makedirs("player_data", exist_ok=True)
@@ -148,18 +149,17 @@ def main():
     mini_league_file = f"league_data/mini_league_data_gw{gameweek}.json"
     player_data_file = f"player_data/players_data_gw{gameweek}.json"
 
-    if os.path.exists(mini_league_file) and os.path.exists(player_data_file):
-        print("Data for the specified gameweek already exists.")
-    else:
-        mini_league_data = retrieve_mini_league_data(int(league_id), int(gameweek))
-        save_to_json(mini_league_data, mini_league_file)
-    
-        player_data = fetch_bootstrap_data()
-        save_to_json(player_data, player_data_file)
-        print(f"Player data saved to {player_data_file}")
-        print(f"Data saved to {mini_league_file}")
+    # Always fetch new data
+    mini_league_data = retrieve_mini_league_data(int(league_id), int(gameweek))
+    save_to_json(mini_league_data, mini_league_file)
 
-    # Load the data from JSON files
+    player_data = fetch_bootstrap_data()
+    save_to_json(player_data, player_data_file)
+    
+    print(f"Player data saved to {player_data_file}")
+    print(f"Data saved to {mini_league_file}")
+
+    # Load the newly fetched data
     with open(mini_league_file, 'r') as file:
         mini_league_data = json.load(file)
 
@@ -170,7 +170,7 @@ def main():
     player_id_to_points = {player['id']: player['event_points'] for player in players_data}
     player_id_to_position = {player['id']: player['element_type'] for player in players_data}
 
-    output = ""
+    output = f"Analysis generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
 
     # Extract detailed gameweek data for all managers in the mini-league
     for manager_data in mini_league_data['standings']['results']:
@@ -209,7 +209,7 @@ def main():
     for team in team_data:
         output += f"{team['Team Name']},{team['Points']}\n"
 
-    # Save the output to a text file
+    # Save the output to a text file, overwriting any existing file
     with open(f"league_analysis_gw{gameweek}.txt", 'w') as file:
         file.write(output)
 
