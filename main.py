@@ -1,6 +1,6 @@
 from functions.data_operations import fetch_and_save_raw_data, load_data_and_create_mappings, get_formatted_league_name
 from functions.report_generation import generate_analysis_report, save_report_to_file, generate_all_time_analysis_report
-from functions.data_processing import get_detailed_gw_data
+from functions.data_processing import get_detailed_gw_data, get_differential_king_queen
 from functions.all_time_stats import AllTimeStatsManager
 import os
 
@@ -55,7 +55,10 @@ def main():
     # Save updated all-time stats
     all_time_stats_manager.save_stats()
     
-    output_content = generate_analysis_report(gameweek_str, mini_league_data, player_id_to_name, player_id_to_points, player_id_to_position)
+    # Get Differential King/Queen
+    differential_king_queen = get_differential_king_queen(mini_league_data, gameweek_int, player_id_to_name, player_id_to_points)
+
+    output_content = generate_analysis_report(gameweek_str, mini_league_data, player_id_to_name, player_id_to_points, player_id_to_position, differential_king_queen)
     save_report_to_file(output_content, gameweek_str, league_name)
 
     # Generate and save all-time analysis report

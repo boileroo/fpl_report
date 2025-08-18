@@ -78,6 +78,38 @@ def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_
 
     return gw_data_list
 
+def get_differential_king_queen(mini_league_data, desired_gw, player_id_to_name, player_id_to_points):
+    player_ownership = {} # player_id: [list of manager_names who own this player]
+
+    # Iterate through all managers to build player ownership data
+    for manager_data in mini_league_data['standings']['results']:
+        manager_name = manager_data['entry_name']
+        gw_picks = manager_data['gameweek_data'].get(str(desired_gw), {}).get('picks', [])
+        for pick in gw_picks:
+            player_id = pick['element']
+            if player_id not in player_ownership:
+                player_ownership[player_id] = []
+            player_ownership[player_id].append(manager_name)
+
+    differential_players = []
+    for player_id, owners in player_ownership.items():
+        if len(owners) == 1: # Owned by only one manager
+            player_name = player_id_to_name.get(player_id, 'Unknown Player')
+            player_points = player_id_to_points.get(player_id, 0)
+            differential_players.append({
+                'player_id': player_id,
+                'player_name': player_name,
+                'points': player_points,
+                'owner': owners[0] # The single owner
+            })
+
+    # Find the differential player with the highest score
+    if differential_players:
+        differential_king_queen = max(differential_players, key=lambda x: x['points'])
+        return differential_king_queen
+    else:
+        return None # No differential player found
+
 def update_all_time_stats(all_time_stats, current_gw_data, team_name, gameweek, manager_data):
     # Highest GW Score
     if current_gw_data['Points'] > all_time_stats['highest_gw_score']['value']:
