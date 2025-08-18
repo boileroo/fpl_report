@@ -31,6 +31,9 @@ def load_or_create_all_time_stats(filepath):
             "total_captaincy_points_per_manager": {},
             "most_popular_captain_choices": {},
             "total_bench_points_wasted_per_manager": {},
-            "best_autosub_cameo": {"team": None, "gameweek": None, "value": 0, "player": None}
+            "best_autosub_cameo": {"team": None, "gameweek": None, "value": 0, "player": None},
+            "best_chip_play": {"team": None, "gameweek": None, "value": 0, "chip": None, "player": None},
+            "worst_chip_play": {"team": None, "gameweek": None, "value": float('inf'), "chip": None, "player": None},
+            "chip_usage_tally": {}
         }
         return default_stats

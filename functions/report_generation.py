@@ -76,7 +76,11 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
         "lowest_overall_rank": "Lowest Overall Rank",
         "biggest_rank_drop": "Biggest Rank Drop",
         "biggest_rank_climb": "Biggest Rank Climb",
-        "best_autosub_cameo": "Best Autosub Cameo"
+        "best_autosub_cameo": "Best Autosub Cameo",
+        "best_chip_play": "Best Chip Play",
+        "worst_chip_play": "Worst Chip Play",
+        "highest_defensive_haul": "Highest Defensive Haul (GK+DEF)",
+        "highest_attacking_haul": "Highest Attacking Haul (MID+FWD)"
     }
 
     for key, display_name in stats_map.items():
@@ -107,10 +111,12 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
                 value_display = "N/A"
             elif "rank_climb" in key and value == 0:
                 value_display = "N/A"
+            elif "chip" in key and (value == 0 and "worst" in key):
+                value_display = "N/A"
             else:
                 value_display = str(value)
         
-        output += f"| {display_name:<24} | {team_display:<14} | {gameweek_display:<8} | {value_display:<10}{player_display} |\n"
+        output += f"| {display_name:<24} | {team_display:<14} | {gameweek_display:<8} | {value_display:<10}{player_display}{' (Chip: ' + stat.get('chip', '') if stat and 'chip' in stat else ''} |\n"
 
     output += "\n## Captaincy Stats\n\n"
     
@@ -199,7 +205,66 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
         for entry in all_time_stats["unusual_formations_spotted"]:
             output += f"| {entry['formation']:<9} | {entry['team']:<14} | {entry['gameweek']:<8} |\n"
         output += "\n"
-    
+
+    # Chip Usage Stats
+    if "chip_usage_tally" in all_time_stats and all_time_stats["chip_usage_tally"]:
+        output += "\n## Chip Usage Stats\n\n"
+
+        # Chip Usage Tally
+        output += "### Chip Usage Tally\n"
+        output += "| Manager        | BB | TC | FH | WC |\n"
+        output += "| -------------- | -- | -- | -- | -- |\n"
+
+        for manager, chips in all_time_stats["chip_usage_tally"].items():
+            bb_count = chips.get("BB", 0)
+            tc_count = chips.get("TC", 0)
+            fh_count = chips.get("FH", 0)
+            wc_count = chips.get("WC", 0)
+
+            output += f"| {manager:<14} | {bb_count:<3} | {tc_count:<3} | {fh_count:<3} | {wc_count:<3} |\n"
+        output += "\n"
+
+        # Add defensive/attacking balance stats
+        if "total_defensive_points_per_manager" in all_time_stats and "total_attacking_points_per_manager" in all_time_stats and "gameweek_count_per_manager" in all_time_stats:
+            output += "\n## Defensive vs Attacking Balance\n\n"
+            output += "### Team Balance Comparison\n"
+            output += "| Team Name | Avg Defensive Points | Avg Attacking Points | Balance Ratio (D/A) |\n"
+            output += "| --------- | -------------------- | -------------------- | ------------------- |\n"
+
+            # Calculate average defensive and attacking points per manager
+            defensive_averages = {}
+            attacking_averages = {}
+            for manager in all_time_stats["total_defensive_points_per_manager"]:
+                gameweek_count = all_time_stats["gameweek_count_per_manager"].get(manager, 0)
+                if gameweek_count > 0:
+                    defensive_averages[manager] = all_time_stats["total_defensive_points_per_manager"][manager] / gameweek_count
+                    attacking_averages[manager] = all_time_stats["total_attacking_points_per_manager"][manager] / gameweek_count
+
+            # Most defence-heavy team (highest average defensive points)
+            if defensive_averages:
+                most_defensive_team = max(defensive_averages.items(), key=lambda x: x[1])
+
+            # Most attack-heavy team (highest average attacking points)
+            if attacking_averages:
+                most_attacking_team = max(attacking_averages.items(), key=lambda x: x[1])
+
+            # Add the comparison table with all managers
+            for manager in sorted(defensive_averages.keys()):
+                def_avg = defensive_averages.get(manager, 0)
+                att_avg = attacking_averages.get(manager, 0)
+                balance_ratio = def_avg / att_avg if att_avg > 0 else float('inf')
+                output += f"| {manager} | {def_avg:.2f} | {att_avg:.2f} | {balance_ratio:.2f} |\n"
+            output += "\n"
+
+            output += f"### Most Defence-Heavy Team\n"
+            output += f"Team: {most_defensive_team[0]}\n"
+            output += f"Average Defensive Points (GK+DEF): {most_defensive_team[1]:.2f}\n\n"
+
+            output += f"### Most Attack-Heavy Team\n"
+            output += f"Team: {most_attacking_team[0]}\n"
+            output += f"Average Attacking Points (MID+FWD): {most_attacking_team[1]:.2f}\n\n"
+
+
     output_dir = f"outputs/{league_name}"
     os.makedirs(output_dir, exist_ok=True)
     filepath = f"{output_dir}/all_time_analysis.md"

@@ -199,4 +199,38 @@ def update_all_time_stats(all_time_stats, current_gw_data, team_name, gameweek, 
     all_time_stats["gameweek_count_per_manager"][team_name] = \
         all_time_stats["gameweek_count_per_manager"].get(team_name, 0) + 1
 
+    # Update chip-related stats
+    chip_used = current_gw_data.get('Chip Used', "No Chip Used")
+    if chip_used != "No Chip Used" and chip_used != "No Chip":
+        # Update chip usage tally
+        if "chip_usage_tally" not in all_time_stats:
+            all_time_stats["chip_usage_tally"] = {}
+        if team_name not in all_time_stats["chip_usage_tally"]:
+            all_time_stats["chip_usage_tally"][team_name] = {}
+        if chip_used not in all_time_stats["chip_usage_tally"][team_name]:
+            all_time_stats["chip_usage_tally"][team_name][chip_used] = 0
+        all_time_stats["chip_usage_tally"][team_name][chip_used] += 1
+
+        # Update best/worst chip play if it's a chip that affects points
+        # Common chips that affect points: BB (Bench Boost), TC (Triple Captain), FH (Free Hit), WC (Wildcard)
+        if chip_used in ["BB", "TC", "FH", "WC"]:
+            # For best chip play, we use the total points for that gameweek
+            if current_gw_data['Points'] > all_time_stats['best_chip_play']['value']:
+                all_time_stats['best_chip_play'] = {
+                    "team": team_name,
+                    "gameweek": gameweek,
+                    "value": current_gw_data['Points'],
+                    "chip": chip_used
+                }
+
+            # For worst chip play, we also use the total points
+            # (Note: lower points would be worse for a chip play)
+            if current_gw_data['Points'] < all_time_stats['worst_chip_play']['value']:
+                all_time_stats['worst_chip_play'] = {
+                    "team": team_name,
+                    "gameweek": gameweek,
+                    "value": current_gw_data['Points'],
+                    "chip": chip_used
+                }
+
     return all_time_stats

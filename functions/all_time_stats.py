@@ -40,7 +40,7 @@ class AllTimeStatsManager:
             "gameweek_count_per_manager",
             "most_common_formations",
             "highest_score_by_formation",
-            "unusual_formations_spotted"
+            "chip_usage_tally"
         ]
 
         for key in cumulative_keys:
@@ -56,7 +56,7 @@ class AllTimeStatsManager:
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
-    def _update_stat(self, stat_key, team_name, gameweek, value, is_highest=True, player_name=None):
+    def _update_stat(self, stat_key, team_name, gameweek, value, is_highest=True, player_name=None, chip_name=None):
         current_stat = self.stats.get(stat_key, {"value": None})
         current_value = current_stat["value"]
         updated = False
@@ -78,7 +78,9 @@ class AllTimeStatsManager:
             }
             if player_name:
                 self.stats[stat_key]["player"] = player_name
-            print(f"Updated all-time {stat_key}: {value} by ({team_name}) in GW {gameweek}{f' (Player: {player_name})' if player_name else ''}")
+            if chip_name:
+                self.stats[stat_key]["chip"] = chip_name
+            print(f"Updated all-time {stat_key}: {value} by ({team_name}) in GW {gameweek}{f' (Player: {player_name})' if player_name else ''}{f' (Chip: {chip_name})' if chip_name else ''}")
 
     def update_highest_gw_score(self, team_name, gameweek, value):
         self._update_stat("highest_gw_score", team_name, gameweek, value, is_highest=True)
@@ -103,6 +105,28 @@ class AllTimeStatsManager:
 
     def update_most_transfers(self, team_name, gameweek, value):
         self._update_stat("most_transfers", team_name, gameweek, value, is_highest=True)
+
+    def update_best_chip_play(self, team_name, gameweek, value, chip_name, player_name=None):
+        self._update_stat("best_chip_play", team_name, gameweek, value, is_highest=True, chip_name=chip_name, player_name=player_name)
+
+    def update_worst_chip_play(self, team_name, gameweek, value, chip_name, player_name=None):
+        self._update_stat("worst_chip_play", team_name, gameweek, value, is_highest=False, chip_name=chip_name, player_name=player_name)
+
+    def update_highest_defensive_haul(self, team_name, gameweek, value):
+        self._update_stat("highest_defensive_haul", team_name, gameweek, value, is_highest=True)
+
+    def update_highest_attacking_haul(self, team_name, gameweek, value):
+        self._update_stat("highest_attacking_haul", team_name, gameweek, value, is_highest=True)
+
+    def update_chip_usage_tally(self, team_name, chip_name):
+        if "chip_usage_tally" not in self.stats:
+            self.stats["chip_usage_tally"] = {}
+        if team_name not in self.stats["chip_usage_tally"]:
+            self.stats["chip_usage_tally"][team_name] = {}
+        if chip_name not in self.stats["chip_usage_tally"][team_name]:
+            self.stats["chip_usage_tally"][team_name][chip_name] = 0
+        self.stats["chip_usage_tally"][team_name][chip_name] += 1
+        print(f"Updated chip usage tally: {team_name} used {chip_name} (Total: {self.stats['chip_usage_tally'][team_name][chip_name]})")
 
     def update_highest_gw_rank(self, team_name, gameweek, value):
         self._update_stat("highest_gw_rank", team_name, gameweek, value, is_highest=False) # Lower rank is better
@@ -143,6 +167,18 @@ class AllTimeStatsManager:
     def update_best_autosub_cameo(self, team_name, gameweek, player_name, points):
         self._update_stat("best_autosub_cameo", team_name, gameweek, points, is_highest=True, player_name=player_name)
 
+    def update_total_defensive_points_per_manager(self, team_name, defensive_points):
+        if "total_defensive_points_per_manager" not in self.stats:
+            self.stats["total_defensive_points_per_manager"] = {}
+        self.stats["total_defensive_points_per_manager"][team_name] = self.stats["total_defensive_points_per_manager"].get(team_name, 0) + defensive_points
+        print(f"Updated total defensive points for {team_name}: {self.stats['total_defensive_points_per_manager'][team_name]}")
+
+    def update_total_attacking_points_per_manager(self, team_name, attacking_points):
+        if "total_attacking_points_per_manager" not in self.stats:
+            self.stats["total_attacking_points_per_manager"] = {}
+        self.stats["total_attacking_points_per_manager"][team_name] = self.stats["total_attacking_points_per_manager"].get(team_name, 0) + attacking_points
+        print(f"Updated total attacking points for {team_name}: {self.stats['total_attacking_points_per_manager'][team_name]}")
+
     def update_all_stats_for_manager(self, gw_data, team_name, gameweek_int, manager_data):
         # Update individual stats using the manager's methods
         self.update_highest_gw_score(team_name, gameweek_int, gw_data['Points'])
@@ -178,6 +214,30 @@ class AllTimeStatsManager:
 
         # Update gameweek count per manager
         self.stats["gameweek_count_per_manager"][team_name] = self.stats["gameweek_count_per_manager"].get(team_name, 0) + 1
+
+        # Update chip-related stats
+        chip_used = gw_data.get('Chip Used', "No Chip Used")
+        if chip_used != "No Chip Used" and chip_used != "No Chip":
+            # Update chip usage tally
+            self.update_chip_usage_tally(team_name, chip_used)
+
+            # Update best/worst chip play if it's a chip that affects points
+            # Common chips that affect points: BB (Bench Boost), TC (Triple Captain), FH (Free Hit), WC (Wildcard)
+            if chip_used in ["BB", "TC", "FH", "WC"]:
+                # For best chip play, we use the total points for that gameweek
+                self.update_best_chip_play(team_name, gameweek_int, gw_data['Points'], chip_used)
+
+                # For worst chip play, we also use the total points
+                # (Note: lower points would be worse for a chip play)
+                self.update_worst_chip_play(team_name, gameweek_int, gw_data['Points'], chip_used)
+
+        # Update defensive and attacking haul stats
+        self.update_highest_defensive_haul(team_name, gameweek_int, gw_data['Defensive Points'])
+        self.update_highest_attacking_haul(team_name, gameweek_int, gw_data['Attacking Points'])
+        
+        # Update cumulative defensive and attacking points for average calculations
+        self.update_total_defensive_points_per_manager(team_name, gw_data['Defensive Points'])
+        self.update_total_attacking_points_per_manager(team_name, gw_data['Attacking Points'])
 
         return self.stats
 
