@@ -1,5 +1,6 @@
 import os
 import copy
+import statistics
 from functions.file_operations import load_or_create_all_time_stats, save_to_json
 
 class AllTimeStatsManager:
@@ -40,7 +41,10 @@ class AllTimeStatsManager:
             "gameweek_count_per_manager",
             "most_common_formations",
             "highest_score_by_formation",
-            "chip_usage_tally"
+            "chip_usage_tally",
+            "total_defensive_points_per_manager", # Added for debugging
+            "total_attacking_points_per_manager",  # Added for debugging
+            "gw_scores_per_manager" # For consistency and YOLO awards
         ]
 
         for key in cumulative_keys:
@@ -239,7 +243,29 @@ class AllTimeStatsManager:
         self.update_total_defensive_points_per_manager(team_name, gw_data['Defensive Points'])
         self.update_total_attacking_points_per_manager(team_name, gw_data['Attacking Points'])
 
+        # Calculate and update GW score variance if enough data points exist
+        manager_gw_scores = self.stats["gw_scores_per_manager"].get(team_name, [])
+        if len(manager_gw_scores) >= 2: # Need at least 2 scores for variance
+            gw_variance = statistics.variance(manager_gw_scores)
+            self.update_narrowest_gw_score_variance(team_name, gameweek_int, gw_variance)
+            self.update_widest_gw_score_variance(team_name, gameweek_int, gw_variance)
+        else:
+            print(f"DEBUG: Not enough GW scores ({len(manager_gw_scores)}) for {team_name} to calculate variance.")
+
+        # Accumulate gameweek scores for variance calculation
+        if "gw_scores_per_manager" not in self.stats:
+            self.stats["gw_scores_per_manager"] = {}
+        if team_name not in self.stats["gw_scores_per_manager"]:
+            self.stats["gw_scores_per_manager"][team_name] = []
+        self.stats["gw_scores_per_manager"][team_name].append(gw_data['Points'])
+
         return self.stats
+
+    def update_narrowest_gw_score_variance(self, team_name, gameweek, variance):
+        self._update_stat("narrowest_gw_score_variance", team_name, gameweek, variance, is_highest=False)
+        
+    def update_widest_gw_score_variance(self, team_name, gameweek, variance):
+        self._update_stat("widest_gw_score_variance", team_name, gameweek, variance, is_highest=True)
 
     def update_most_common_formations(self, formation):
         if "most_common_formations" not in self.stats:

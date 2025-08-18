@@ -80,7 +80,9 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
         "best_chip_play": "Best Chip Play",
         "worst_chip_play": "Worst Chip Play",
         "highest_defensive_haul": "Highest Defensive Haul (GK+DEF)",
-        "highest_attacking_haul": "Highest Attacking Haul (MID+FWD)"
+        "highest_attacking_haul": "Highest Attacking Haul (MID+FWD)",
+        "narrowest_gw_score_variance": "Mr/Ms Consistency (Narrowest GW Score Variance)",
+        "widest_gw_score_variance": "YOLO Award (Widest GW Score Variance)"
     }
 
     for key, display_name in stats_map.items():
@@ -114,7 +116,7 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
             elif "chip" in key and (value == 0 and "worst" in key):
                 value_display = "N/A"
             else:
-                value_display = str(value)
+                value_display = f"{value:.2f}" # Format variance to 2 decimal places
         
         output += f"| {display_name:<24} | {team_display:<14} | {gameweek_display:<8} | {value_display:<10}{player_display}{' (Chip: ' + stat.get('chip', '') if stat and 'chip' in stat else ''} |\n"
 
