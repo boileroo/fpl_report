@@ -42,9 +42,11 @@ class AllTimeStatsManager:
             "most_common_formations",
             "highest_score_by_formation",
             "chip_usage_tally",
-            "total_defensive_points_per_manager", # Added for debugging
-            "total_attacking_points_per_manager",  # Added for debugging
-            "gw_scores_per_manager" # For consistency and YOLO awards
+            "total_defensive_points_per_manager",
+            "total_attacking_points_per_manager",
+            "gw_scores_per_manager",
+            "narrowest_gw_score_variance",
+            "widest_gw_score_variance"
         ]
 
         for key in cumulative_keys:
@@ -84,7 +86,6 @@ class AllTimeStatsManager:
                 self.stats[stat_key]["player"] = player_name
             if chip_name:
                 self.stats[stat_key]["chip"] = chip_name
-            print(f"Updated all-time {stat_key}: {value} by ({team_name}) in GW {gameweek}{f' (Player: {player_name})' if player_name else ''}{f' (Chip: {chip_name})' if chip_name else ''}")
 
     def update_highest_gw_score(self, team_name, gameweek, value):
         self._update_stat("highest_gw_score", team_name, gameweek, value, is_highest=True)
@@ -123,20 +124,14 @@ class AllTimeStatsManager:
         self._update_stat("highest_attacking_haul", team_name, gameweek, value, is_highest=True)
 
     def update_chip_usage_tally(self, team_name, chip_name):
-        if "chip_usage_tally" not in self.stats:
-            self.stats["chip_usage_tally"] = {}
-        if team_name not in self.stats["chip_usage_tally"]:
-            self.stats["chip_usage_tally"][team_name] = {}
-        if chip_name not in self.stats["chip_usage_tally"][team_name]:
-            self.stats["chip_usage_tally"][team_name][chip_name] = 0
+        self.stats["chip_usage_tally"].setdefault(team_name, {}).setdefault(chip_name, 0)
         self.stats["chip_usage_tally"][team_name][chip_name] += 1
-        print(f"Updated chip usage tally: {team_name} used {chip_name} (Total: {self.stats['chip_usage_tally'][team_name][chip_name]})")
 
-    def update_highest_gw_rank(self, team_name, gameweek, value):
-        self._update_stat("highest_gw_rank", team_name, gameweek, value, is_highest=False) # Lower rank is better
+    def update_highest_overall_gameweek_rank(self, team_name, gameweek, value):
+        self._update_stat("highest_overall_gameweek_rank", team_name, gameweek, value, is_highest=False) # Lower rank is better
 
-    def update_lowest_gw_rank(self, team_name, gameweek, value):
-        self._update_stat("lowest_gw_rank", team_name, gameweek, value, is_highest=True) # Higher rank is worse
+    def update_lowest_overall_gameweek_rank(self, team_name, gameweek, value):
+        self._update_stat("lowest_overall_gameweek_rank", team_name, gameweek, value, is_highest=True) # Higher rank is worse
 
     def update_highest_overall_rank(self, team_name, gameweek, value):
         self._update_stat("highest_overall_rank", team_name, gameweek, value, is_highest=False) # Lower rank is better
@@ -144,44 +139,29 @@ class AllTimeStatsManager:
     def update_lowest_overall_rank(self, team_name, gameweek, value):
         self._update_stat("lowest_overall_rank", team_name, gameweek, value, is_highest=True) # Higher rank is worse
 
-    def update_biggest_rank_drop(self, team_name, gameweek, value):
-        self._update_stat("biggest_rank_drop", team_name, gameweek, value, is_highest=True)
+    def update_biggest_league_rank_drop(self, team_name, gameweek, value):
+        self._update_stat("biggest_league_rank_drop", team_name, gameweek, value, is_highest=False)
 
-    def update_biggest_rank_climb(self, team_name, gameweek, value):
-        self._update_stat("biggest_rank_climb", team_name, gameweek, value, is_highest=True)
+    def update_biggest_league_rank_climb(self, team_name, gameweek, value):
+        self._update_stat("biggest_league_rank_climb", team_name, gameweek, value, is_highest=True)
 
     def update_total_captaincy_points_per_manager(self, team_name, captain_points):
-        if "total_captaincy_points_per_manager" not in self.stats:
-            self.stats["total_captaincy_points_per_manager"] = {}
         self.stats["total_captaincy_points_per_manager"][team_name] = self.stats["total_captaincy_points_per_manager"].get(team_name, 0) + captain_points
-        print(f"Updated total captaincy points for {team_name}: {self.stats['total_captaincy_points_per_manager'][team_name]}")
 
     def update_most_popular_captain_choices(self, player_name):
-        if "most_popular_captain_choices" not in self.stats:
-            self.stats["most_popular_captain_choices"] = {}
         self.stats["most_popular_captain_choices"][player_name] = self.stats["most_popular_captain_choices"].get(player_name, 0) + 1
-        print(f"Updated captain count for {player_name}: {self.stats['most_popular_captain_choices'][player_name]}")
 
     def update_total_bench_points_wasted_per_manager(self, team_name, bench_points):
-        if "total_bench_points_wasted_per_manager" not in self.stats:
-            self.stats["total_bench_points_wasted_per_manager"] = {}
         self.stats["total_bench_points_wasted_per_manager"][team_name] = self.stats["total_bench_points_wasted_per_manager"].get(team_name, 0) + bench_points
-        print(f"Updated total bench points wasted for {team_name}: {self.stats['total_bench_points_wasted_per_manager'][team_name]}")
 
     def update_best_autosub_cameo(self, team_name, gameweek, player_name, points):
         self._update_stat("best_autosub_cameo", team_name, gameweek, points, is_highest=True, player_name=player_name)
 
     def update_total_defensive_points_per_manager(self, team_name, defensive_points):
-        if "total_defensive_points_per_manager" not in self.stats:
-            self.stats["total_defensive_points_per_manager"] = {}
         self.stats["total_defensive_points_per_manager"][team_name] = self.stats["total_defensive_points_per_manager"].get(team_name, 0) + defensive_points
-        print(f"Updated total defensive points for {team_name}: {self.stats['total_defensive_points_per_manager'][team_name]}")
 
     def update_total_attacking_points_per_manager(self, team_name, attacking_points):
-        if "total_attacking_points_per_manager" not in self.stats:
-            self.stats["total_attacking_points_per_manager"] = {}
         self.stats["total_attacking_points_per_manager"][team_name] = self.stats["total_attacking_points_per_manager"].get(team_name, 0) + attacking_points
-        print(f"Updated total attacking points for {team_name}: {self.stats['total_attacking_points_per_manager'][team_name]}")
 
     def update_all_stats_for_manager(self, gw_data, team_name, gameweek_int, manager_data):
         # Update individual stats using the manager's methods
@@ -193,14 +173,14 @@ class AllTimeStatsManager:
         self.update_most_captain_points(team_name, gameweek_int, gw_data['Captain Points'], gw_data['Captain'])
         self.update_worst_captain_points(team_name, gameweek_int, gw_data['Captain Points'], gw_data['Captain'])
         self.update_most_transfers(team_name, gameweek_int, gw_data['Transfers'])
-        self.update_highest_gw_rank(team_name, gameweek_int, gw_data['Rank']) # Lower rank is better
-        self.update_lowest_gw_rank(team_name, gameweek_int, gw_data['Rank']) # Higher rank is worse
+        self.update_highest_overall_gameweek_rank(team_name, gameweek_int, gw_data['Overall Rank (gameweek)']) # Lower rank is better
+        self.update_lowest_overall_gameweek_rank(team_name, gameweek_int, gw_data['Overall Rank (gameweek)']) # Higher rank is worse
         # Only update overall ranks if a valid rank is present (i.e., not 0)
-        if manager_data.get('rank', 0) > 0:
-            self.update_highest_overall_rank(team_name, gameweek_int, manager_data['rank'])
-            self.update_lowest_overall_rank(team_name, gameweek_int, manager_data['rank'])
-        self.update_biggest_rank_drop(team_name, gameweek_int, gw_data['Rank Movement']) # Assuming rank_change is drop if positive
-        self.update_biggest_rank_climb(team_name, gameweek_int, gw_data['Rank Movement']) # Assuming rank_change is climb if negative
+        if manager_data.get('overall_rank', 0) > 0:
+            self.update_highest_overall_rank(team_name, gameweek_int, manager_data['overall_rank'])
+            self.update_lowest_overall_rank(team_name, gameweek_int, manager_data['overall_rank'])
+        self.update_biggest_league_rank_drop(team_name, gameweek_int, gw_data['League Rank Movement'])
+        self.update_biggest_league_rank_climb(team_name, gameweek_int, gw_data['League Rank Movement'])
 
         # Update cumulative stats
         self.update_total_captaincy_points_per_manager(team_name, gw_data['Captain Points'])
@@ -253,11 +233,7 @@ class AllTimeStatsManager:
             print(f"DEBUG: Not enough GW scores ({len(manager_gw_scores)}) for {team_name} to calculate variance.")
 
         # Accumulate gameweek scores for variance calculation
-        if "gw_scores_per_manager" not in self.stats:
-            self.stats["gw_scores_per_manager"] = {}
-        if team_name not in self.stats["gw_scores_per_manager"]:
-            self.stats["gw_scores_per_manager"][team_name] = []
-        self.stats["gw_scores_per_manager"][team_name].append(gw_data['Points'])
+        self.stats["gw_scores_per_manager"].setdefault(team_name, []).append(gw_data['Points'])
 
         return self.stats
 
@@ -268,14 +244,9 @@ class AllTimeStatsManager:
         self._update_stat("widest_gw_score_variance", team_name, gameweek, variance, is_highest=True)
 
     def update_most_common_formations(self, formation):
-        if "most_common_formations" not in self.stats:
-            self.stats["most_common_formations"] = {}
         self.stats["most_common_formations"][formation] = self.stats["most_common_formations"].get(formation, 0) + 1
-        print(f"Updated formation count for {formation}: {self.stats['most_common_formations'][formation]}")
 
     def update_highest_score_by_formation(self, formation, team_name, gameweek, score):
-        if "highest_score_by_formation" not in self.stats:
-            self.stats["highest_score_by_formation"] = {}
         
         current_highest = self.stats["highest_score_by_formation"].get(formation, {"value": None})
         
@@ -285,7 +256,6 @@ class AllTimeStatsManager:
                 "gameweek": gameweek,
                 "value": score
             }
-            print(f"Updated highest score for formation {formation}: {score} by {team_name} in GW {gameweek}")
 
     def save_stats(self):
         save_to_json(self.stats, self.filepath)

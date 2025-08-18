@@ -34,19 +34,43 @@ def fetch_gameweek_data_for_team(team_id, gameweek):
     return fetch_data(url)
 
 def retrieve_mini_league_data(league_id, gameweek):
-    bootstrap_data = fetch_bootstrap_data()
-    
     league_data = fetch_league_data(league_id)
     
-    for entry in league_data['standings']['results']:
+    if league_data is None:
+        print(f"Error: Could not retrieve league data for ID {league_id}.")
+        return None
+
+    for entry in league_data.get('standings', {}).get('results', []):
         team_id = entry['entry']
         
-        entry['manager_details'] = fetch_manager_data(team_id)
-        entry['transfers'] = fetch_manager_transfers(team_id)
-        entry['history'] = fetch_manager_history(team_id)
+        manager_details = fetch_manager_data(team_id)
+        if manager_details:
+            entry['manager_details'] = manager_details
+        else:
+            print(f"Warning: Could not retrieve manager details for team {team_id}.")
+            entry['manager_details'] = {} # Initialize to avoid KeyErrors later
+
+        transfers = fetch_manager_transfers(team_id)
+        if transfers:
+            entry['transfers'] = transfers
+        else:
+            print(f"Warning: Could not retrieve transfers for team {team_id}.")
+            entry['transfers'] = {}
+
+        history = fetch_manager_history(team_id)
+        if history:
+            entry['history'] = history
+        else:
+            print(f"Warning: Could not retrieve history for team {team_id}.")
+            entry['history'] = {}
         
         entry['gameweek_data'] = {}
         gw = str(gameweek)
-        entry['gameweek_data'][gw] = fetch_gameweek_data_for_team(team_id, gw)
+        gameweek_picks = fetch_gameweek_data_for_team(team_id, gw)
+        if gameweek_picks:
+            entry['gameweek_data'][gw] = gameweek_picks
+        else:
+            print(f"Warning: Could not retrieve gameweek {gw} data for team {team_id}.")
+            entry['gameweek_data'][gw] = {}
     
     return league_data

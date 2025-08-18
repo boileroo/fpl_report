@@ -1,4 +1,5 @@
 import os
+import sys # Added for sys.exit()
 from functions.fpl_api import retrieve_mini_league_data, fetch_bootstrap_data
 from functions.file_operations import save_to_json, load_json
 
@@ -7,6 +8,11 @@ def get_formatted_league_name(mini_league_data):
 
 def fetch_and_save_raw_data(gameweek, league_id):
     mini_league_data = retrieve_mini_league_data(int(league_id), int(gameweek))
+    if mini_league_data is None:
+        print("Error: Could not retrieve mini-league data.")
+        import sys
+        sys.exit(1)
+
     league_name = get_formatted_league_name(mini_league_data)
     
     output_dir = f"outputs/{league_name}/gameweek_{gameweek}"
@@ -18,6 +24,11 @@ def fetch_and_save_raw_data(gameweek, league_id):
     save_to_json(mini_league_data, mini_league_file)
 
     player_data = fetch_bootstrap_data()
+    if player_data is None:
+        print("Error: Could not retrieve player bootstrap data.")
+        import sys
+        sys.exit(1)
+        
     save_to_json(player_data, player_data_file)
     
     print(f"Player data saved to {player_data_file}")

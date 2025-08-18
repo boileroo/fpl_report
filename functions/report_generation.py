@@ -9,28 +9,34 @@ def generate_analysis_report(gameweek, mini_league_data, player_id_to_name, play
         manager_name = manager_data['entry_name']
         gw_data = get_detailed_gw_data(manager_data, int(gameweek), player_id_to_name, player_id_to_points, player_id_to_position, mini_league_data)
 
+        if not gw_data:
+            output += f"\nManager: {manager_name} (No Gameweek {gameweek} data available)\n"
+            output += "-" * 80 + "\n"
+            continue
+
         output += f"\nManager: {manager_name}\n"
         output += "-" * 80 + "\n"
-        for data in gw_data:
-            output += f"Gameweek: {data['Gameweek']}\n"
-            output += f"Points: {data['Points']}\n"
-            output += f"Rank: {data['Rank']}\n"
-            output += f"Captain: {data['Captain']}, {data['Captain Points']} points\n"
-            output += f"Vice-Captain: {data['Vice-Captain']}, {data['Vice-Captain Points']} points\n"
-            output += f"Transfers: {data['Transfers']}\n"
-            output += f"Transfer Cost: {data['Transfer Cost']}\n"
-            output += f"Team Value: {data['Team Value']}\n"
-            output += f"Points on Bench: {data['Points on Bench']}\n"
-            output += f"Bank Money: {data['Bank Money']}\n"
-            output += f"Top Scorer: {data['Top Scorer']}, {data['Top Scorer Points']} points{' (on bench)' if not data['Top Scorer Played'] else ''}\n"
-            output += f"Underperformer: {data['Underperformer']}, {data['Underperformer Points']} points\n"
-            output += f"Formation: {data['Formation']}\n"
-            output += f"Defensive Points: {data['Defensive Points']}\n"
-            output += f"Attacking Points: {data['Attacking Points']}\n"
-            output += f"Chip Used: {data['Chip Used']}\n"
-            output += f"Performance vs Avg: {data['Performance vs Avg']}\n"
-            output += f"Rank Movement: {data['Rank Movement']}\n"
-            output += "-" * 80 + "\n"
+
+        data = gw_data[0]
+        output += f"Gameweek: {data['Gameweek']}\n"
+        output += f"Points: {data['Points']}\n"
+        output += f"Overall Rank (gameweek): {data['Overall Rank (gameweek)']}\n"
+        output += f"Captain: {data['Captain']}, {data['Captain Points']} points\n"
+        output += f"Vice-Captain: {data['Vice-Captain']}, {data['Vice-Captain Points']} points\n"
+        output += f"Transfers: {data['Transfers']}\n"
+        output += f"Transfer Cost: {data['Transfer Cost']}\n"
+        output += f"Team Value: {data['Team Value']}\n"
+        output += f"Points on Bench: {data['Points on Bench']}\n"
+        output += f"Bank Money: {data['Bank Money']}\n"
+        output += f"Top Scorer: {data['Top Scorer']}, {data['Top Scorer Points']} points{' (on bench)' if not data['Top Scorer Played'] else ''}\n"
+        output += f"Underperformer: {data['Underperformer']}, {data['Underperformer Points']} points\n"
+        output += f"Formation: {data['Formation']}\n"
+        output += f"Defensive Points: {data['Defensive Points']}\n"
+        output += f"Attacking Points: {data['Attacking Points']}\n"
+        output += f"Chip Used: {data['Chip Used']}\n"
+        output += f"Performance vs Avg: {data['Performance vs Avg']}\n"
+        output += f"League Rank Movement: {data['League Rank Movement']}\n"
+        output += "-" * 80 + "\n"
 
     # Extract league standings
     league_standings = mini_league_data.get('standings', {}).get('results', [])
@@ -80,12 +86,12 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
         "most_captain_points": "Most Captain Points",
         "worst_captain_points": "Worst Captain Points",
         "most_transfers": "Most Transfers",
-        "highest_gw_rank": "Highest Gameweek Rank",
-        "lowest_gw_rank": "Lowest Gameweek Rank",
+        "highest_overall_gameweek_rank": "Highest Overall Gameweek Rank",
+        "lowest_overall_gameweek_rank": "Lowest Overall Gameweek Rank",
         "highest_overall_rank": "Highest Overall Rank",
         "lowest_overall_rank": "Lowest Overall Rank",
-        "biggest_rank_drop": "Biggest Rank Drop",
-        "biggest_rank_climb": "Biggest Rank Climb",
+        "biggest_league_rank_drop": "Biggest League Rank Drop",
+        "biggest_league_rank_climb": "Biggest League Rank Climb",
         "best_autosub_cameo": "Best Autosub Cameo",
         "best_chip_play": "Best Chip Play",
         "worst_chip_play": "Worst Chip Play",
@@ -119,16 +125,25 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
                 value_display = "N/A"
             elif "score" in key and (value == float('inf') or (value == 0 and "lowest" in key)):
                 value_display = "N/A"
-            elif "rank_drop" in key and value == 0:
+            elif "league_rank_drop" in key and value == float('inf'): # Adjusted for float('inf') default
                 value_display = "N/A"
-            elif "rank_climb" in key and value == 0:
+            elif "league_rank_climb" in key and value == 0: # Adjusted for 0 default (should be highest delta)
                 value_display = "N/A"
-            elif "chip" in key and (value == 0 and "worst" in key):
+            elif "worst_captain_points" in key and value == float('inf'):
+                value_display = "N/A"
+            elif "worst_chip_play" in key and value == float('inf'):
+                value_display = "N/A"
+            elif key == "highest_overall_gameweek_rank" and value == float('inf'):
+                value_display = "N/A"
+            elif key == "highest_overall_rank" and value == float('inf'):
+                value_display = "N/A"
+            elif key == "narrowest_gw_score_variance" and value == float('inf'):
                 value_display = "N/A"
             else:
                 value_display = f"{value:.2f}" # Format variance to 2 decimal places
         
-        output += f"| {display_name:<24} | {team_display:<14} | {gameweek_display:<8} | {value_display:<10}{player_display}{' (Chip: ' + stat.get('chip', '') if stat and 'chip' in stat else ''} |\n"
+        chip_display = f" (Chip: {stat['chip']})" if stat and 'chip' in stat and stat['chip'] not in ["No Chip Used", "No Chip"] else ""
+        output += f"| {display_name:<24} | {team_display:<14} | {gameweek_display:<8} | {value_display:<10}{player_display}{chip_display} |\n"
 
     output += "\n## Captaincy Stats\n\n"
     
@@ -205,18 +220,6 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
             output += f"| {formation:<9} | {data['team']:<14} | {data['gameweek']:<8} | {data['value']:<5} |\n"
         output += "\n"
 
-    # Unusual Formations Spotted
-    if "unusual_formations_spotted" in all_time_stats and all_time_stats["unusual_formations_spotted"]:
-        output += "### Unusual Formations Spotted\n"
-        output += "| Formation | Team Name      | Gameweek |\n"
-        output += "| --------- | -------------- | -------- |\n"
-        # To avoid duplicates in the report, we can use a set of tuples
-        # (formation, team, gameweek) to track unique entries.
-        # However, the current implementation in all_time_stats.py already appends
-        # only if the exact entry is not present. So, we can just iterate.
-        for entry in all_time_stats["unusual_formations_spotted"]:
-            output += f"| {entry['formation']:<9} | {entry['team']:<14} | {entry['gameweek']:<8} |\n"
-        output += "\n"
 
     # Chip Usage Stats
     if "chip_usage_tally" in all_time_stats and all_time_stats["chip_usage_tally"]:

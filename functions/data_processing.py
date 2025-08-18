@@ -9,20 +9,33 @@ def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_
 
     gw_data = manager_data['gameweek_data'].get(str(desired_gw), {})
     picks = gw_data.get('picks', [])
+    if not picks: # If no picks data, return empty list
+        return []
+
     entry_history = gw_data.get('entry_history', {})
     gw_data['points'] = entry_history.get('points', 0)
-    gw_data['rank'] = entry_history.get('rank', 0)
+    gw_data['overall_gameweek_rank'] = entry_history.get('rank', 0)
     gw_data['event_transfers'] = entry_history.get('event_transfers', 0)
     gw_data['event_transfers_cost'] = entry_history.get('event_transfers_cost', 0)
     active_chip = gw_data.get('active_chip', "No Chip Used")
 
-    top_scorer_id = max(picks, key=lambda x: player_id_to_points.get(x['element'], 0))['element']
-    max_points = player_id_to_points.get(top_scorer_id, 0)
+    # Safely get max/min when picks might be empty or points are uniform
+    top_scorer_id = None
+    max_points = 0
+    underperformer_id = None
+    min_points = 0
+    
+    if picks:
+        top_scorer_pick = max(picks, key=lambda x: player_id_to_points.get(x['element'], 0))
+        top_scorer_id = top_scorer_pick['element']
+        max_points = player_id_to_points.get(top_scorer_id, 0)
+
+        underperformer_pick = min(picks, key=lambda x: player_id_to_points.get(x['element'], 0))
+        underperformer_id = underperformer_pick['element']
+        min_points = player_id_to_points.get(underperformer_id, 0)
+
     top_scorer_position = next((pick['position'] for pick in picks if pick['element'] == top_scorer_id), None)
     top_scorer_played = top_scorer_position < 12 if top_scorer_position else False
-
-    underperformer_id = min(picks, key=lambda x: player_id_to_points.get(x['element'], 0))['element']
-    min_points = player_id_to_points.get(underperformer_id, 0)
 
     starting_players = [pick for pick in picks if pick['position'] <= 11]
     formation = "{}-{}-{}".format(
@@ -48,12 +61,12 @@ def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_
 
     avg_points = calculate_gw_average(mini_league_data, desired_gw)
     gw_performance_vs_avg = gw_data['points'] - avg_points
-    rank_movement = (manager_data.get('last_rank', 0) - manager_data.get('rank', 0))
+    league_rank_movement = (manager_data.get('last_rank', 0) - manager_data.get('rank', 0))
 
     gw_data_list.append({
         'Gameweek': desired_gw,
         'Points': gw_data['points'],
-        'Rank': gw_data['rank'],
+        'Overall Rank (gameweek)': gw_data['overall_gameweek_rank'],
         'Captain': captain_name,
         'Captain Points': captain_points,
         'Vice-Captain': vice_captain_name,
@@ -73,7 +86,7 @@ def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_
         'Attacking Points': attacking_points,
         'Chip Used': chip_used,
         'Performance vs Avg': gw_performance_vs_avg,
-        'Rank Movement': rank_movement
+        'League Rank Movement': league_rank_movement
     })
 
     return gw_data_list
@@ -109,160 +122,3 @@ def get_differential_king_queen(mini_league_data, desired_gw, player_id_to_name,
         return differential_king_queen
     else:
         return None # No differential player found
-
-def update_all_time_stats(all_time_stats, current_gw_data, team_name, gameweek, manager_data):
-    # Highest GW Score
-    if current_gw_data['Points'] > all_time_stats['highest_gw_score']['value']:
-        all_time_stats['highest_gw_score'] = {
-            "team": team_name,
-            "gameweek": gameweek,
-            "value": current_gw_data['Points']
-        }
-
-    # Lowest GW Score
-    if current_gw_data['Points'] < all_time_stats['lowest_gw_score']['value']:
-        all_time_stats['lowest_gw_score'] = {
-            "team": team_name,
-            "gameweek": gameweek,
-            "value": current_gw_data['Points']
-        }
-
-    # Most Points on Bench
-    if current_gw_data['Points on Bench'] > all_time_stats['most_points_on_bench']['value']:
-        all_time_stats['most_points_on_bench'] = {
-            "team": team_name,
-            "gameweek": gameweek,
-            "value": current_gw_data['Points on Bench']
-        }
-
-    # Highest Team Value
-    if current_gw_data['Team Value'] > all_time_stats['highest_team_value']['value']:
-        all_time_stats['highest_team_value'] = {
-            "team": team_name,
-            "gameweek": gameweek,
-            "value": current_gw_data['Team Value']
-        }
-
-    # Biggest Bank Balance
-    if current_gw_data['Bank Money'] > all_time_stats['biggest_bank_balance']['value']:
-        all_time_stats['biggest_bank_balance'] = {
-            "team": team_name,
-            "gameweek": gameweek,
-            "value": current_gw_data['Bank Money']
-        }
-
-    # Most Captain Points
-    if current_gw_data['Captain Points'] > all_time_stats['most_captain_points']['value']:
-        all_time_stats['most_captain_points'] = {
-            "team": team_name,
-            "gameweek": gameweek,
-            "value": current_gw_data['Captain Points']
-        }
-
-    # Worst Captain Points
-    if current_gw_data['Captain Points'] < all_time_stats['worst_captain_points']['value']:
-        all_time_stats['worst_captain_points'] = {
-            "team": team_name,
-            "gameweek": gameweek,
-            "value": current_gw_data['Captain Points']
-        }
-
-    # Most Transfers
-    if current_gw_data['Transfers'] > all_time_stats['most_transfers']['value']:
-        all_time_stats['most_transfers'] = {
-            "team": team_name,
-            "gameweek": gameweek,
-            "value": current_gw_data['Transfers']
-        }
-
-    # Highest GW Rank (lower value is better)
-    if current_gw_data['Rank'] < all_time_stats['highest_gw_rank']['value']:
-        all_time_stats['highest_gw_rank'] = {
-            "team": team_name,
-            "gameweek": gameweek,
-            "value": current_gw_data['Rank']
-        }
-
-    # Lowest GW Rank (higher value is worse)
-    if current_gw_data['Rank'] > all_time_stats['lowest_gw_rank']['value']:
-        all_time_stats['lowest_gw_rank'] = {
-            "team": team_name,
-            "gameweek": gameweek,
-            "value": current_gw_data['Rank']
-        }
-
-    # Highest Overall Rank (lower value is better)
-    # This requires overall rank from manager_data, not gw_data
-    # Assuming manager_data['rank'] is the overall rank
-    if manager_data['rank'] < all_time_stats['highest_overall_rank']['value']:
-        all_time_stats['highest_overall_rank'] = {
-            "team": team_name,
-            "gameweek": gameweek,
-            "value": manager_data['rank']
-        }
-
-    # Lowest Overall Rank (higher value is worse)
-    if manager_data['rank'] > all_time_stats['lowest_overall_rank']['value']:
-        all_time_stats['lowest_overall_rank'] = {
-            "team": team_name,
-            "gameweek": gameweek,
-            "value": manager_data['rank']
-        }
-
-    # Biggest Rank Drop (positive value means drop)
-    if current_gw_data['Rank Movement'] > all_time_stats['biggest_rank_drop']['value']:
-        all_time_stats['biggest_rank_drop'] = {
-            "team": team_name,
-            "gameweek": gameweek,
-            "value": current_gw_data['Rank Movement']
-        }
-
-    # Biggest Rank Climb (negative value means climb, so we compare absolute value)
-    if abs(current_gw_data['Rank Movement']) > all_time_stats['biggest_rank_climb']['value']:
-        all_time_stats['biggest_rank_climb'] = {
-            "team": team_name,
-            "gameweek": gameweek,
-            "value": abs(current_gw_data['Rank Movement'])
-        }
-
-    # Update total bank balance and gameweek count for "Most Frugal Manager"
-    all_time_stats["total_bank_balance_per_manager"][team_name] = \
-        all_time_stats["total_bank_balance_per_manager"].get(team_name, 0) + current_gw_data['Bank Money']
-    all_time_stats["gameweek_count_per_manager"][team_name] = \
-        all_time_stats["gameweek_count_per_manager"].get(team_name, 0) + 1
-
-    # Update chip-related stats
-    chip_used = current_gw_data.get('Chip Used', "No Chip Used")
-    if chip_used != "No Chip Used" and chip_used != "No Chip":
-        # Update chip usage tally
-        if "chip_usage_tally" not in all_time_stats:
-            all_time_stats["chip_usage_tally"] = {}
-        if team_name not in all_time_stats["chip_usage_tally"]:
-            all_time_stats["chip_usage_tally"][team_name] = {}
-        if chip_used not in all_time_stats["chip_usage_tally"][team_name]:
-            all_time_stats["chip_usage_tally"][team_name][chip_used] = 0
-        all_time_stats["chip_usage_tally"][team_name][chip_used] += 1
-
-        # Update best/worst chip play if it's a chip that affects points
-        # Common chips that affect points: BB (Bench Boost), TC (Triple Captain), FH (Free Hit), WC (Wildcard)
-        if chip_used in ["BB", "TC", "FH", "WC"]:
-            # For best chip play, we use the total points for that gameweek
-            if current_gw_data['Points'] > all_time_stats['best_chip_play']['value']:
-                all_time_stats['best_chip_play'] = {
-                    "team": team_name,
-                    "gameweek": gameweek,
-                    "value": current_gw_data['Points'],
-                    "chip": chip_used
-                }
-
-            # For worst chip play, we also use the total points
-            # (Note: lower points would be worse for a chip play)
-            if current_gw_data['Points'] < all_time_stats['worst_chip_play']['value']:
-                all_time_stats['worst_chip_play'] = {
-                    "team": team_name,
-                    "gameweek": gameweek,
-                    "value": current_gw_data['Points'],
-                    "chip": chip_used
-                }
-
-    return all_time_stats
