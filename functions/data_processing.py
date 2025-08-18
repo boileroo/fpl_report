@@ -111,6 +111,14 @@ def update_all_time_stats(all_time_stats, current_gw_data, team_name, gameweek, 
             "value": current_gw_data['Team Value']
         }
 
+    # Biggest Bank Balance
+    if current_gw_data['Bank Money'] > all_time_stats['biggest_bank_balance']['value']:
+        all_time_stats['biggest_bank_balance'] = {
+            "team": team_name,
+            "gameweek": gameweek,
+            "value": current_gw_data['Bank Money']
+        }
+
     # Most Captain Points
     if current_gw_data['Captain Points'] > all_time_stats['most_captain_points']['value']:
         all_time_stats['most_captain_points'] = {
@@ -184,4 +192,11 @@ def update_all_time_stats(all_time_stats, current_gw_data, team_name, gameweek, 
             "gameweek": gameweek,
             "value": abs(current_gw_data['Rank Movement'])
         }
+
+    # Update total bank balance and gameweek count for "Most Frugal Manager"
+    all_time_stats["total_bank_balance_per_manager"][team_name] = \
+        all_time_stats["total_bank_balance_per_manager"].get(team_name, 0) + current_gw_data['Bank Money']
+    all_time_stats["gameweek_count_per_manager"][team_name] = \
+        all_time_stats["gameweek_count_per_manager"].get(team_name, 0) + 1
+
     return all_time_stats

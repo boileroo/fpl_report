@@ -66,6 +66,7 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
         "lowest_gw_score": "Lowest Gameweek Score",
         "most_points_on_bench": "Most Points on Bench",
         "highest_team_value": "Highest Team Value",
+        "biggest_bank_balance": "Biggest Bank Balance",
         "most_captain_points": "Most Captain Points",
         "worst_captain_points": "Worst Captain Points",
         "most_transfers": "Most Transfers",
@@ -143,6 +144,26 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
         sorted_managers = sorted(all_time_stats["total_bench_points_wasted_per_manager"].items(), key=lambda item: item[1], reverse=True)
         for manager, points in sorted_managers:
             output += f"| {manager:<14} | {points:<19} |\n"
+        output += "\n"
+
+    # Most Frugal Manager (Average Bank Left Unused)
+    if "total_bank_balance_per_manager" in all_time_stats and "gameweek_count_per_manager" in all_time_stats:
+        output += "## Frugality Stats\n\n"
+        output += "### Most Frugal Manager (Average Bank Left Unused)\n"
+        output += "| Manager        | Average Bank Left Unused |\n"
+        output += "| -------------- | ------------------------ |\n"
+        
+        frugal_managers = {}
+        for manager, total_bank in all_time_stats["total_bank_balance_per_manager"].items():
+            gameweek_count = all_time_stats["gameweek_count_per_manager"].get(manager, 0)
+            if gameweek_count > 0:
+                frugal_managers[manager] = total_bank / gameweek_count
+            else:
+                frugal_managers[manager] = 0 # Handle managers with no gameweek data
+
+        sorted_frugal_managers = sorted(frugal_managers.items(), key=lambda item: item[1], reverse=True)
+        for manager, avg_bank in sorted_frugal_managers:
+            output += f"| {manager:<14} | {avg_bank:<24.1f} |\n"
         output += "\n"
     
     output_dir = f"outputs/{league_name}"
