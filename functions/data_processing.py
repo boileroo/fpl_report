@@ -77,3 +77,111 @@ def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_
     })
 
     return gw_data_list
+
+def update_all_time_stats(all_time_stats, current_gw_data, team_name, gameweek, manager_data):
+    # Highest GW Score
+    if current_gw_data['Points'] > all_time_stats['highest_gw_score']['value']:
+        all_time_stats['highest_gw_score'] = {
+            "team": team_name,
+            "gameweek": gameweek,
+            "value": current_gw_data['Points']
+        }
+
+    # Lowest GW Score
+    if current_gw_data['Points'] < all_time_stats['lowest_gw_score']['value']:
+        all_time_stats['lowest_gw_score'] = {
+            "team": team_name,
+            "gameweek": gameweek,
+            "value": current_gw_data['Points']
+        }
+
+    # Most Points on Bench
+    if current_gw_data['Points on Bench'] > all_time_stats['most_points_on_bench']['value']:
+        all_time_stats['most_points_on_bench'] = {
+            "team": team_name,
+            "gameweek": gameweek,
+            "value": current_gw_data['Points on Bench']
+        }
+
+    # Highest Team Value
+    if current_gw_data['Team Value'] > all_time_stats['highest_team_value']['value']:
+        all_time_stats['highest_team_value'] = {
+            "team": team_name,
+            "gameweek": gameweek,
+            "value": current_gw_data['Team Value']
+        }
+
+    # Most Captain Points
+    if current_gw_data['Captain Points'] > all_time_stats['most_captain_points']['value']:
+        all_time_stats['most_captain_points'] = {
+            "team": team_name,
+            "gameweek": gameweek,
+            "value": current_gw_data['Captain Points']
+        }
+
+    # Worst Captain Points
+    if current_gw_data['Captain Points'] < all_time_stats['worst_captain_points']['value']:
+        all_time_stats['worst_captain_points'] = {
+            "team": team_name,
+            "gameweek": gameweek,
+            "value": current_gw_data['Captain Points']
+        }
+
+    # Most Transfers
+    if current_gw_data['Transfers'] > all_time_stats['most_transfers']['value']:
+        all_time_stats['most_transfers'] = {
+            "team": team_name,
+            "gameweek": gameweek,
+            "value": current_gw_data['Transfers']
+        }
+
+    # Highest GW Rank (lower value is better)
+    if current_gw_data['Rank'] < all_time_stats['highest_gw_rank']['value']:
+        all_time_stats['highest_gw_rank'] = {
+            "team": team_name,
+            "gameweek": gameweek,
+            "value": current_gw_data['Rank']
+        }
+
+    # Lowest GW Rank (higher value is worse)
+    if current_gw_data['Rank'] > all_time_stats['lowest_gw_rank']['value']:
+        all_time_stats['lowest_gw_rank'] = {
+            "team": team_name,
+            "gameweek": gameweek,
+            "value": current_gw_data['Rank']
+        }
+
+    # Highest Overall Rank (lower value is better)
+    # This requires overall rank from manager_data, not gw_data
+    # Assuming manager_data['rank'] is the overall rank
+    if manager_data['rank'] < all_time_stats['highest_overall_rank']['value']:
+        all_time_stats['highest_overall_rank'] = {
+            "team": team_name,
+            "gameweek": gameweek,
+            "value": manager_data['rank']
+        }
+
+    # Lowest Overall Rank (higher value is worse)
+    if manager_data['rank'] > all_time_stats['lowest_overall_rank']['value']:
+        all_time_stats['lowest_overall_rank'] = {
+            "team": team_name,
+            "gameweek": gameweek,
+            "value": manager_data['rank']
+        }
+
+    # Biggest Rank Drop (positive value means drop)
+    if current_gw_data['Rank Movement'] > all_time_stats['biggest_rank_drop']['value']:
+        all_time_stats['biggest_rank_drop'] = {
+            "team": team_name,
+            "gameweek": gameweek,
+            "value": current_gw_data['Rank Movement']
+        }
+
+    # Biggest Rank Climb (negative value means climb, so we compare absolute value)
+    if abs(current_gw_data['Rank Movement']) > all_time_stats['biggest_rank_climb']['value']:
+        all_time_stats['biggest_rank_climb'] = {
+            "team": team_name,
+            "gameweek": gameweek,
+            "value": abs(current_gw_data['Rank Movement'])
+        }
+    return all_time_stats

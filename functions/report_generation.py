@@ -53,3 +53,101 @@ def save_report_to_file(output_content, gameweek, league_name):
         file.write(output_content)
     print(output_content)
     print(f"Analysis saved to {filepath}")
+
+def generate_all_time_analysis_report(all_time_stats, league_name):
+    output = f"# All-Time FPL League Records\n\n"
+    output += f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+    output += "## League Records\n\n"
+    output += "| Statistic                | Team Name      | Gameweek | Value      |\n"
+    output += "| ------------------------ | -------------- | -------- | ---------- |\n"
+
+    stats_map = {
+        "highest_gw_score": "Highest Gameweek Score",
+        "lowest_gw_score": "Lowest Gameweek Score",
+        "most_points_on_bench": "Most Points on Bench",
+        "highest_team_value": "Highest Team Value",
+        "most_captain_points": "Most Captain Points",
+        "worst_captain_points": "Worst Captain Points",
+        "most_transfers": "Most Transfers",
+        "highest_gw_rank": "Highest Gameweek Rank",
+        "lowest_gw_rank": "Lowest Gameweek Rank",
+        "highest_overall_rank": "Highest Overall Rank",
+        "lowest_overall_rank": "Lowest Overall Rank",
+        "biggest_rank_drop": "Biggest Rank Drop",
+        "biggest_rank_climb": "Biggest Rank Climb",
+        "best_autosub_cameo": "Best Autosub Cameo"
+    }
+
+    for key, display_name in stats_map.items():
+        stat = all_time_stats.get(key)
+        
+        team_display = "N/A"
+        gameweek_display = "N/A"
+        value_display = "N/A"
+        player_display = ""
+
+        if stat and stat.get('value') is not None:
+            value = stat['value']
+            team_display = stat['team'] if stat.get('team') is not None else "N/A"
+            gameweek_display = stat['gameweek'] if stat.get('gameweek') is not None else "N/A"
+            
+            if "player" in stat:
+                player_display = f" (Player: {stat['player']})"
+            
+            if "team_value" in key:
+                value_display = f"{value:.1f}m"
+            elif "rank" in key and (value == float('inf') or value == 0):
+                value_display = "N/A"
+            elif "captain_points" in key and value == float('inf'):
+                value_display = "N/A"
+            elif "score" in key and (value == float('inf') or (value == 0 and "lowest" in key)):
+                value_display = "N/A"
+            elif "rank_drop" in key and value == 0:
+                value_display = "N/A"
+            elif "rank_climb" in key and value == 0:
+                value_display = "N/A"
+            else:
+                value_display = str(value)
+        
+        output += f"| {display_name:<24} | {team_display:<14} | {gameweek_display:<8} | {value_display:<10}{player_display} |\n"
+
+    output += "\n## Captaincy Stats\n\n"
+    
+    # Total captaincy points accumulated per manager
+    if "total_captaincy_points_per_manager" in all_time_stats:
+        output += "### Total Captaincy Points Per Manager\n"
+        output += "| Manager        | Total Points |\n"
+        output += "| -------------- | ------------ |\n"
+        sorted_managers = sorted(all_time_stats["total_captaincy_points_per_manager"].items(), key=lambda item: item[1], reverse=True)
+        for manager, points in sorted_managers:
+            output += f"| {manager:<14} | {points:<12} |\n"
+        output += "\n"
+
+    # Most popular captain choices
+    if "most_popular_captain_choices" in all_time_stats:
+        output += "### Most Popular Captain Choices\n"
+        output += "| Player Name    | Times Captained |\n"
+        output += "| -------------- | --------------- |\n"
+        sorted_players = sorted(all_time_stats["most_popular_captain_choices"].items(), key=lambda item: item[1], reverse=True)
+        for player, count in sorted_players:
+            output += f"| {player:<14} | {count:<15} |\n"
+        output += "\n"
+
+    output += "\n## Bench and Autosub Stats\n\n"
+
+    # Total bench points wasted per manager
+    if "total_bench_points_wasted_per_manager" in all_time_stats:
+        output += "### Total Bench Points Wasted Per Manager\n"
+        output += "| Manager        | Total Points Wasted |\n"
+        output += "| -------------- | ------------------- |\n"
+        sorted_managers = sorted(all_time_stats["total_bench_points_wasted_per_manager"].items(), key=lambda item: item[1], reverse=True)
+        for manager, points in sorted_managers:
+            output += f"| {manager:<14} | {points:<19} |\n"
+        output += "\n"
+    
+    output_dir = f"outputs/{league_name}"
+    os.makedirs(output_dir, exist_ok=True)
+    filepath = f"{output_dir}/all_time_analysis.md"
+    with open(filepath, 'w') as file:
+        file.write(output)
+    print(f"All-time analysis saved to {filepath}")
