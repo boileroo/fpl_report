@@ -43,7 +43,7 @@ This Python script (`main.py`) provides detailed analysis for Fantasy Premier Le
 
 2. When prompted, enter:
    - The current gameweek number
-   - Your mini-league ID (you can find this in the URL when viewing your mini-league on the FPL website)
+   - Your mini-league ID (you can find this in the URL when viewing your mini-league on the FPL website). LoC = 1523783. CF = .
 
 3. The script will fetch the latest data and perform the analysis.
 
