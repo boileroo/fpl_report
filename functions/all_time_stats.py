@@ -6,20 +6,27 @@ class AllTimeStatsManager:
     def __init__(self, base_filepath, current_gameweek):
         self.base_filepath = base_filepath
         self.current_gameweek = current_gameweek
-        
+
         # Construct filepath for the current gameweek
         filename, ext = os.path.splitext(os.path.basename(base_filepath))
         current_gw_filename = f"{filename}_gw_{current_gameweek}{ext}"
-        self.filepath = os.path.join(os.path.dirname(base_filepath), current_gw_filename)
+
+        # Get the league name from the base filepath
+        league_name = os.path.basename(os.path.dirname(base_filepath))
+
+        # Create gameweek-specific directory path
+        gameweek_dir = os.path.join("outputs", league_name, f"gameweek_{current_gameweek}")
+        self.filepath = os.path.join(gameweek_dir, current_gw_filename)
 
         # Load previous gameweek's stats
         previous_gameweek_stats = {}
         previous_gameweek = current_gameweek - 1
         if previous_gameweek > 0:
             previous_gw_filename = f"{filename}_gw_{previous_gameweek}{ext}"
-            previous_gw_filepath = os.path.join(os.path.dirname(base_filepath), previous_gw_filename)
+            previous_gw_dir = os.path.join("outputs", league_name, f"gameweek_{previous_gameweek}")
+            previous_gw_filepath = os.path.join(previous_gw_dir, previous_gw_filename)
             previous_gameweek_stats = load_or_create_all_time_stats(previous_gw_filepath)
-        
+
         # Initialize current stats with defaults
         self.stats = load_or_create_all_time_stats(self.filepath) # This will create default if file doesn't exist
 
@@ -30,9 +37,12 @@ class AllTimeStatsManager:
             "most_popular_captain_choices",
             "total_bench_points_wasted_per_manager",
             "total_bank_balance_per_manager",
-            "gameweek_count_per_manager"
+            "gameweek_count_per_manager",
+            "most_common_formations",
+            "highest_score_by_formation",
+            "unusual_formations_spotted"
         ]
-        
+
         for key in cumulative_keys:
             if key in previous_gameweek_stats:
                 self.stats[key] = copy.deepcopy(previous_gameweek_stats[key])
@@ -157,6 +167,12 @@ class AllTimeStatsManager:
         self.update_most_popular_captain_choices(gw_data['Captain'])
         self.update_total_bench_points_wasted_per_manager(team_name, gw_data['Points on Bench'])
 
+        # New formation stats
+        formation = gw_data.get('Formation') # Assuming 'Formation' key exists in gw_data
+        if formation:
+            self.update_most_common_formations(formation)
+            self.update_highest_score_by_formation(formation, team_name, gameweek_int, gw_data['Points'])
+
         # Update total bank balance per manager
         self.stats["total_bank_balance_per_manager"][team_name] = self.stats["total_bank_balance_per_manager"].get(team_name, 0) + gw_data['Bank Money']
 
@@ -164,6 +180,26 @@ class AllTimeStatsManager:
         self.stats["gameweek_count_per_manager"][team_name] = self.stats["gameweek_count_per_manager"].get(team_name, 0) + 1
 
         return self.stats
+
+    def update_most_common_formations(self, formation):
+        if "most_common_formations" not in self.stats:
+            self.stats["most_common_formations"] = {}
+        self.stats["most_common_formations"][formation] = self.stats["most_common_formations"].get(formation, 0) + 1
+        print(f"Updated formation count for {formation}: {self.stats['most_common_formations'][formation]}")
+
+    def update_highest_score_by_formation(self, formation, team_name, gameweek, score):
+        if "highest_score_by_formation" not in self.stats:
+            self.stats["highest_score_by_formation"] = {}
+        
+        current_highest = self.stats["highest_score_by_formation"].get(formation, {"value": None})
+        
+        if current_highest["value"] is None or score > current_highest["value"]:
+            self.stats["highest_score_by_formation"][formation] = {
+                "team": team_name,
+                "gameweek": gameweek,
+                "value": score
+            }
+            print(f"Updated highest score for formation {formation}: {score} by {team_name} in GW {gameweek}")
 
     def save_stats(self):
         save_to_json(self.stats, self.filepath)

@@ -165,6 +165,40 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
         for manager, avg_bank in sorted_frugal_managers:
             output += f"| {manager:<14} | {avg_bank:<24.1f} |\n"
         output += "\n"
+
+    output += "\n## Formation Stats\n\n"
+
+    # Most Common Formations
+    if "most_common_formations" in all_time_stats:
+        output += "### Most Common Formations\n"
+        output += "| Formation | Count |\n"
+        output += "| --------- | ----- |\n"
+        sorted_formations = sorted(all_time_stats["most_common_formations"].items(), key=lambda item: item[1], reverse=True)
+        for formation, count in sorted_formations:
+            output += f"| {formation:<9} | {count:<5} |\n"
+        output += "\n"
+
+    # Highest Score by Formation
+    if "highest_score_by_formation" in all_time_stats:
+        output += "### Highest Score by Formation\n"
+        output += "| Formation | Team Name      | Gameweek | Score |\n"
+        output += "| --------- | -------------- | -------- | ----- |\n"
+        for formation, data in all_time_stats["highest_score_by_formation"].items():
+            output += f"| {formation:<9} | {data['team']:<14} | {data['gameweek']:<8} | {data['value']:<5} |\n"
+        output += "\n"
+
+    # Unusual Formations Spotted
+    if "unusual_formations_spotted" in all_time_stats and all_time_stats["unusual_formations_spotted"]:
+        output += "### Unusual Formations Spotted\n"
+        output += "| Formation | Team Name      | Gameweek |\n"
+        output += "| --------- | -------------- | -------- |\n"
+        # To avoid duplicates in the report, we can use a set of tuples
+        # (formation, team, gameweek) to track unique entries.
+        # However, the current implementation in all_time_stats.py already appends
+        # only if the exact entry is not present. So, we can just iterate.
+        for entry in all_time_stats["unusual_formations_spotted"]:
+            output += f"| {entry['formation']:<9} | {entry['team']:<14} | {entry['gameweek']:<8} |\n"
+        output += "\n"
     
     output_dir = f"outputs/{league_name}"
     os.makedirs(output_dir, exist_ok=True)
