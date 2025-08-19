@@ -142,7 +142,12 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
             elif key == "narrowest_gw_score_variance" and value == float('inf'):
                 value_display = "N/A"
             else:
-                value_display = value # Format variance to 2 decimal places
+                if "variance" in key and value != float('inf'): # Check for variance keys and not infinity
+                    value_display = f"{value:.2f}"
+                elif "variance" in key and value == float('inf'):
+                    value_display = "N/A"
+                else:
+                    value_display = str(value)
         
         chip_display = f" (Chip: {stat['chip']})" if stat and 'chip' in stat and stat['chip'] not in ["No Chip Used", "No Chip"] else ""
         output += f"| {display_name:<24} | {team_display:<14} | {gameweek_display:<8} | {value_display:<10}{player_display}{chip_display} |\n"

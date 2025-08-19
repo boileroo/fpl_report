@@ -214,10 +214,20 @@ class AllTimeStatsManager:
         self.update_highest_overall_gameweek_rank(team_name, gameweek_int, gw_data['Overall Gameweek Rank']) # Lower rank is better
         self.update_lowest_overall_gameweek_rank(team_name, gameweek_int, gw_data['Overall Gameweek Rank']) # Higher rank is worse
 
-        self.update_biggest_league_rank_drop(team_name, gameweek_int, gw_data['League Rank Movement'])
-        self.update_biggest_league_rank_climb(team_name, gameweek_int, gw_data['League Rank Movement'])
+        # Update league rank movement stats
+        # For Gameweek 1, rank changes should be 0
+        if self.current_gameweek == 1:
+            league_rank_movement_for_stats = 0
+        else:
+            league_rank_movement_for_stats = gw_data.get('League Rank Movement', 0)
+            
+        print(f"DEBUG: gw:{gameweek_int}, current_gw:{self.current_gameweek}, movement:{league_rank_movement_for_stats}") # Keep for debugging
 
-        # Update manager-specific league rank stats
+        if league_rank_movement_for_stats < 0: # Rank drop
+            self.update_biggest_league_rank_drop(team_name, gameweek_int, league_rank_movement_for_stats)
+        elif league_rank_movement_for_stats > 0: # Rank climb
+            self.update_biggest_league_rank_climb(team_name, gameweek_int, league_rank_movement_for_stats)
+
         self.update_highest_league_rank_per_manager(team_name, gameweek_int, gw_data['League Rank']) # Lower rank is better
         self.update_lowest_league_rank_per_manager(team_name, gameweek_int, gw_data['League Rank'])  # Higher rank is worse
 
