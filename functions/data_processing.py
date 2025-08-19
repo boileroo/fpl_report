@@ -63,7 +63,10 @@ def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_
 
     avg_points = calculate_gw_average(league_data, desired_gw)
     gw_performance_vs_avg = round(gw_data['points'] - avg_points, 1)
-    league_rank_movement = (manager_data.get('last_rank', 0) - manager_data.get('rank', 0))
+    if desired_gw == 1:
+        league_rank_movement = 0
+    else:
+        league_rank_movement = (manager_data.get('last_rank', 0) - manager_data.get('rank', 0))
 
     gw_data_list.append({
         'Gameweek': desired_gw,
