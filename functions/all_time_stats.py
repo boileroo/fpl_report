@@ -46,7 +46,9 @@ class AllTimeStatsManager:
             "total_attacking_points_per_manager",
             "gw_scores_per_manager",
             "narrowest_gw_score_variance",
-            "widest_gw_score_variance"
+            "widest_gw_score_variance",
+            "highest_league_rank_per_manager", # New cumulative stat
+            "lowest_league_rank_per_manager"  # New cumulative stat
         ]
 
         for key in cumulative_keys:
@@ -86,6 +88,32 @@ class AllTimeStatsManager:
                 self.stats[stat_key]["player"] = player_name
             if chip_name:
                 self.stats[stat_key]["chip"] = chip_name
+
+    def _update_manager_league_rank_stat(self, stat_key, team_name, gameweek, value, is_highest=True):
+        """
+        Updates a manager's highest or lowest league rank.
+        This handles a nested structure: stats[stat_key][team_name] = {"value": ..., "gameweek": ...}
+        """
+        manager_stat = self.stats.get(stat_key, {}) # Get the dictionary for all managers for this stat
+        current_manager_record = manager_stat.get(team_name, {"value": None})
+        current_value = current_manager_record["value"]
+        updated = False
+
+        if current_value is None: # Initialize if not set
+            updated = True
+        elif is_highest: # For 'lowest_league_rank_per_manager' (higher rank number is worse/higher)
+            if value > current_value:
+                updated = True
+        else: # For 'highest_league_rank_per_manager' (lower rank number is better/lower)
+            if value < current_value:
+                updated = True
+
+        if updated:
+            manager_stat[team_name] = {
+                "gameweek": gameweek,
+                "value": value
+            }
+            self.stats[stat_key] = manager_stat # Ensure the updated manager_stat is saved back
 
     def update_highest_gw_score(self, team_name, gameweek, value):
         self._update_stat("highest_gw_score", team_name, gameweek, value, is_highest=True)
@@ -145,6 +173,12 @@ class AllTimeStatsManager:
     def update_biggest_league_rank_climb(self, team_name, gameweek, value):
         self._update_stat("biggest_league_rank_climb", team_name, gameweek, value, is_highest=True)
 
+    def update_highest_league_rank_per_manager(self, team_name, gameweek, value):
+        self._update_manager_league_rank_stat("highest_league_rank_per_manager", team_name, gameweek, value, is_highest=False) # Lower rank number is better
+
+    def update_lowest_league_rank_per_manager(self, team_name, gameweek, value):
+        self._update_manager_league_rank_stat("lowest_league_rank_per_manager", team_name, gameweek, value, is_highest=True) # Higher rank number is worse
+
     def update_total_captaincy_points_per_manager(self, team_name, captain_points):
         self.stats["total_captaincy_points_per_manager"][team_name] = self.stats["total_captaincy_points_per_manager"].get(team_name, 0) + captain_points
 
@@ -181,6 +215,10 @@ class AllTimeStatsManager:
 
         self.update_biggest_league_rank_drop(team_name, gameweek_int, gw_data['League Rank Movement'])
         self.update_biggest_league_rank_climb(team_name, gameweek_int, gw_data['League Rank Movement'])
+
+        # Update manager-specific league rank stats
+        self.update_highest_league_rank_per_manager(team_name, gameweek_int, gw_data['League Rank']) # Lower rank is better
+        self.update_lowest_league_rank_per_manager(team_name, gameweek_int, gw_data['League Rank'])  # Higher rank is worse
 
         # Update cumulative stats
         self.update_total_captaincy_points_per_manager(team_name, gw_data['Captain Points'])

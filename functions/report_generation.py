@@ -147,6 +147,26 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
         chip_display = f" (Chip: {stat['chip']})" if stat and 'chip' in stat and stat['chip'] not in ["No Chip Used", "No Chip"] else ""
         output += f"| {display_name:<24} | {team_display:<14} | {gameweek_display:<8} | {value_display:<10}{player_display}{chip_display} |\n"
 
+    output += "\n## League Rank History\n\n"
+    # Highest/Lowest League Rank per Manager
+    if "highest_league_rank_per_manager" in all_time_stats and all_time_stats["highest_league_rank_per_manager"]:
+        output += "### Highest (Best) League Rank Per Manager\n"
+        output += "| Manager        | Best Rank | Gameweek |\n"
+        output += "| -------------- | --------- | -------- |\n"
+        sorted_managers = sorted(all_time_stats["highest_league_rank_per_manager"].items(), key=lambda item: item[1]['value'])
+        for manager, data in sorted_managers:
+            output += f"| {manager:<14} | {data['value']:<9} | {data['gameweek']:<8} |\n"
+        output += "\n"
+
+    if "lowest_league_rank_per_manager" in all_time_stats and all_time_stats["lowest_league_rank_per_manager"]:
+        output += "### Lowest (Worst) League Rank Per Manager\n"
+        output += "| Manager        | Worst Rank | Gameweek |\n"
+        output += "| -------------- | ---------- | -------- |\n"
+        sorted_managers = sorted(all_time_stats["lowest_league_rank_per_manager"].items(), key=lambda item: item[1]['value'], reverse=True)
+        for manager, data in sorted_managers:
+            output += f"| {manager:<14} | {data['value']:<10} | {data['gameweek']:<8} |\n"
+        output += "\n"
+
     output += "\n## Captaincy Stats\n\n"
     
     # Total captaincy points accumulated per manager
