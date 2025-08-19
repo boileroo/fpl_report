@@ -1,0 +1,262 @@
+Analysis generated on: 2025-08-19 08:57:28
+
+
+Manager: No Pukki No Party
+--------------------------------------------------------------------------------
+Gameweek: 1
+Points: 72
+Overall Gameweek Rank: 728920
+Overall Rank: 728920
+League Rank: 1
+League Rank Movement: 0
+Captain: Haaland, 26 points
+Vice-Captain: Palmer, 3 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.0
+Points on Bench: 8
+Bank Money: 0.0
+Top Scorer: Haaland, 13 points
+Underperformer: Marc Guiu, 0 points
+Formation: 4-4-2
+Defensive Points: 22
+Attacking Points: 37
+Chip Used: None
+Performance vs League Avg: 17.3
+--------------------------------------------------------------------------------
+
+Manager: Sesko Extra
+--------------------------------------------------------------------------------
+Gameweek: 1
+Points: 66
+Overall Gameweek Rank: 1560764
+Overall Rank: 1560765
+League Rank: 2
+League Rank Movement: 0
+Captain: Haaland, 26 points
+Vice-Captain: Sels, 2 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.0
+Points on Bench: 12
+Bank Money: 0.0
+Top Scorer: Haaland, 13 points
+Underperformer: Obafemi, 0 points
+Formation: 3-5-2
+Defensive Points: 23
+Attacking Points: 30
+Chip Used: None
+Performance vs League Avg: 11.3
+--------------------------------------------------------------------------------
+
+Manager: Anusol FC
+--------------------------------------------------------------------------------
+Gameweek: 1
+Points: 65
+Overall Gameweek Rank: 1743774
+Overall Rank: 1743774
+League Rank: 3
+League Rank Movement: 0
+Captain: M.Salah, 16 points
+Vice-Captain: Gyökeres, 1 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.0
+Points on Bench: 21
+Bank Money: 0.0
+Top Scorer: Wood, 13 points
+Underperformer: Collins, 0 points
+Formation: 5-3-2
+Defensive Points: 31
+Attacking Points: 26
+Chip Used: None
+Performance vs League Avg: 10.3
+--------------------------------------------------------------------------------
+
+Manager: Ripon Rovers
+--------------------------------------------------------------------------------
+Gameweek: 1
+Points: 62
+Overall Gameweek Rank: 2372236
+Overall Rank: 2372235
+League Rank: 4
+League Rank Movement: 0
+Captain: M.Salah, 16 points
+Vice-Captain: João Pedro, 2 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.0
+Points on Bench: 13
+Bank Money: 0.0
+Top Scorer: Raya, 10 points
+Underperformer: Gvardiol, 0 points
+Formation: 3-4-3
+Defensive Points: 24
+Attacking Points: 30
+Chip Used: None
+Performance vs League Avg: 7.3
+--------------------------------------------------------------------------------
+
+Manager: Sarr Chasm Bridged
+--------------------------------------------------------------------------------
+Gameweek: 1
+Points: 55
+Overall Gameweek Rank: 4223904
+Overall Rank: 4223898
+League Rank: 5
+League Rank Movement: 0
+Captain: Watkins, 4 points
+Vice-Captain: Pickford, 2 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.0
+Points on Bench: 2
+Bank Money: 0.0
+Top Scorer: Semenyo, 15 points
+Underperformer: Kinsky, 0 points
+Formation: 3-5-2
+Defensive Points: 20
+Attacking Points: 33
+Chip Used: None
+Performance vs League Avg: 0.3
+--------------------------------------------------------------------------------
+
+Manager: McGinty's Marauders
+--------------------------------------------------------------------------------
+Gameweek: 1
+Points: 53
+Overall Gameweek Rank: 4864965
+Overall Rank: 4864958
+League Rank: 6
+League Rank Movement: 0
+Captain: M.Salah, 16 points
+Vice-Captain: Palmer, 3 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.0
+Points on Bench: 6
+Bank Money: 0.5
+Top Scorer: Sánchez, 8 points
+Underperformer: Marc Guiu, 0 points
+Formation: 3-5-2
+Defensive Points: 21
+Attacking Points: 24
+Chip Used: None
+Performance vs League Avg: -1.7
+--------------------------------------------------------------------------------
+
+Manager: Peaky Reijnders
+--------------------------------------------------------------------------------
+Gameweek: 1
+Points: 51
+Overall Gameweek Rank: 5471408
+Overall Rank: 5471399
+League Rank: 7
+League Rank Movement: 0
+Captain: M.Salah, 16 points
+Vice-Captain: Watkins, 2 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.0
+Points on Bench: 9
+Bank Money: 0.0
+Top Scorer: Reijnders, 10 points
+Underperformer: Marc Guiu, 0 points
+Formation: 3-5-2
+Defensive Points: 14
+Attacking Points: 29
+Chip Used: None
+Performance vs League Avg: -3.7
+--------------------------------------------------------------------------------
+
+Manager: Viva la Villa
+--------------------------------------------------------------------------------
+Gameweek: 1
+Points: 44
+Overall Gameweek Rank: 7400956
+Overall Rank: 7400945
+League Rank: 8
+League Rank Movement: 0
+Captain: Bowen, 4 points
+Vice-Captain: Saka, 3 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.0
+Points on Bench: 7
+Bank Money: 0.5
+Top Scorer: Reijnders, 10 points
+Underperformer: Kelleher, 1 points
+Formation: 3-5-2
+Defensive Points: 18
+Attacking Points: 24
+Chip Used: None
+Performance vs League Avg: -10.7
+--------------------------------------------------------------------------------
+
+Manager: Redwood Rebels
+--------------------------------------------------------------------------------
+Gameweek: 1
+Points: 43
+Overall Gameweek Rank: 7620856
+Overall Rank: 7620845
+League Rank: 9
+League Rank Movement: 0
+Captain: Bowen, 4 points
+Vice-Captain: Watkins, 2 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.0
+Points on Bench: 30
+Bank Money: 1.0
+Top Scorer: Pope, 9 points (on bench)
+Underperformer: Konaté, 1 points
+Formation: 3-4-3
+Defensive Points: 18
+Attacking Points: 23
+Chip Used: None
+Performance vs League Avg: -11.7
+--------------------------------------------------------------------------------
+
+Manager: Amorim or out?
+--------------------------------------------------------------------------------
+Gameweek: 1
+Points: 36
+Overall Gameweek Rank: 8771522
+Overall Rank: 8771507
+League Rank: 10
+League Rank Movement: 0
+Captain: Havertz, 2 points
+Vice-Captain: Pope, 9 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.0
+Points on Bench: 16
+Bank Money: 0.5
+Top Scorer: Wood, 13 points (on bench)
+Underperformer: McGill, 0 points
+Formation: 4-4-2
+Defensive Points: 19
+Attacking Points: 16
+Chip Used: None
+Performance vs League Avg: -18.7
+--------------------------------------------------------------------------------
+
+League Standings:
+Team Name,Points
+No Pukki No Party,72
+Sesko Extra,66
+Anusol FC,65
+Ripon Rovers,62
+Sarr Chasm Bridged,55
+McGinty's Marauders,53
+Peaky Reijnders,51
+Viva la Villa,44
+Redwood Rebels,43
+Amorim or out?,36
+
+## Differential King
+
+The Differential King for Gameweek 1 is: 
+Player: Semenyo (15 points)
+Owned by: Sarr Chasm Bridged
+
