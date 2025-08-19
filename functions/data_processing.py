@@ -95,7 +95,7 @@ def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_
 
     return gw_data_list
 
-def get_differential_king_queen(league_data, desired_gw, player_id_to_name, player_id_to_points):
+def get_differential_king(league_data, desired_gw, player_id_to_name, player_id_to_points):
     player_ownership = {} # player_id: [list of manager_names who own this player]
 
     # Iterate through all managers to build player ownership data
@@ -122,7 +122,7 @@ def get_differential_king_queen(league_data, desired_gw, player_id_to_name, play
 
     # Find the differential player with the highest score
     if differential_players:
-        differential_king_queen = max(differential_players, key=lambda x: x['points'])
-        return differential_king_queen
+        differential_king = max(differential_players, key=lambda x: x['points'])
+        return differential_king
     else:
         return None # No differential player found

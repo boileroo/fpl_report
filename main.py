@@ -1,6 +1,6 @@
 from functions.data_operations import fetch_and_save_raw_data, load_data_and_create_mappings, get_formatted_league_name
 from functions.report_generation import generate_analysis_report, save_report_to_file, generate_all_time_analysis_report
-from functions.data_processing import get_detailed_gw_data, get_differential_king_queen
+from functions.data_processing import get_detailed_gw_data, get_differential_king
 from functions.all_time_stats import AllTimeStatsManager
 import os
 
@@ -55,8 +55,8 @@ def _process_autosubs(manager_data, team_name, gameweek_int, player_id_to_name, 
             player_in_points = player_id_to_points.get(player_in_id, 0)
             all_time_stats_manager.update_best_autosub_cameo(team_name, gameweek_int, player_in_name, player_in_points)
 
-def _generate_reports(gameweek_str, league_name, league_data, player_id_to_name, player_id_to_points, player_id_to_position, differential_king_queen, all_time_stats_manager):
-    output_content = generate_analysis_report(gameweek_str, league_data, player_id_to_name, player_id_to_points, player_id_to_position, differential_king_queen)
+def _generate_reports(gameweek_str, league_name, league_data, player_id_to_name, player_id_to_points, player_id_to_position, differential_king, all_time_stats_manager):
+    output_content = generate_analysis_report(gameweek_str, league_data, player_id_to_name, player_id_to_points, player_id_to_position, differential_king)
     save_report_to_file(output_content, gameweek_str, league_name)
     
     generate_all_time_analysis_report(all_time_stats_manager.stats, league_name)
@@ -71,9 +71,9 @@ def main():
     
     _process_manager_data(league_data, gameweek_int, player_id_to_name, player_id_to_points, player_id_to_position, all_time_stats_manager)
     
-    differential_king_queen = get_differential_king_queen(league_data, gameweek_int, player_id_to_name, player_id_to_points)
+    differential_king = get_differential_king(league_data, gameweek_int, player_id_to_name, player_id_to_points)
     
-    _generate_reports(gameweek_str, league_name, league_data, player_id_to_name, player_id_to_points, player_id_to_position, differential_king_queen, all_time_stats_manager)
+    _generate_reports(gameweek_str, league_name, league_data, player_id_to_name, player_id_to_points, player_id_to_position, differential_king, all_time_stats_manager)
 
 if __name__ == "__main__":
     main()

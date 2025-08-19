@@ -1,7 +1,7 @@
 from datetime import datetime
 from functions.data_processing import get_detailed_gw_data
 
-def generate_analysis_report(gameweek, league_data, player_id_to_name, player_id_to_points, player_id_to_position, differential_king_queen):
+def generate_analysis_report(gameweek, league_data, player_id_to_name, player_id_to_points, player_id_to_position, differential_king):
     output = f"Analysis generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
 
     # Extract detailed gameweek data for all managers in the mini-league
@@ -49,14 +49,14 @@ def generate_analysis_report(gameweek, league_data, player_id_to_name, player_id
     for team in team_data:
         output += f"{team['Team Name']},{team['Points']}\n"
     
-    # Differential King/Queen
-    output += "\n## Differential King/Queen\n\n"
-    if differential_king_queen:
-        output += f"The Differential King/Queen for Gameweek {gameweek} is: \n"
-        output += f"Player: {differential_king_queen['player_name']} ({differential_king_queen['points']} points)\n"
-        output += f"Owned by: {differential_king_queen['owner']}\n"
+    # Differential King
+    output += "\n## Differential King\n\n"
+    if differential_king:
+        output += f"The Differential King for Gameweek {gameweek} is: \n"
+        output += f"Player: {differential_king['player_name']} ({differential_king['points']} points)\n"
+        output += f"Owned by: {differential_king['owner']}\n"
     else:
-        output += "No Differential King/Queen found for this gameweek (no player owned by only one manager scored points).\n"
+        output += "No Differential King found for this gameweek (no player owned by only one manager scored points).\n"
     output += "\n"
 
     return output
