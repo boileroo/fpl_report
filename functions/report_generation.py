@@ -1,13 +1,13 @@
 from datetime import datetime
 from functions.data_processing import get_detailed_gw_data
 
-def generate_analysis_report(gameweek, mini_league_data, player_id_to_name, player_id_to_points, player_id_to_position, differential_king_queen):
+def generate_analysis_report(gameweek, league_data, player_id_to_name, player_id_to_points, player_id_to_position, differential_king_queen):
     output = f"Analysis generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
 
     # Extract detailed gameweek data for all managers in the mini-league
-    for manager_data in mini_league_data['standings']['results']:
+    for manager_data in league_data['standings']['results']:
         manager_name = manager_data['entry_name']
-        gw_data = get_detailed_gw_data(manager_data, int(gameweek), player_id_to_name, player_id_to_points, player_id_to_position, mini_league_data)
+        gw_data = get_detailed_gw_data(manager_data, int(gameweek), player_id_to_name, player_id_to_points, player_id_to_position, league_data)
 
         if not gw_data:
             output += f"\nManager: {manager_name} (No Gameweek {gameweek} data available)\n"
@@ -20,7 +20,10 @@ def generate_analysis_report(gameweek, mini_league_data, player_id_to_name, play
         data = gw_data[0]
         output += f"Gameweek: {data['Gameweek']}\n"
         output += f"Points: {data['Points']}\n"
-        output += f"Overall Rank (gameweek): {data['Overall Rank (gameweek)']}\n"
+        output += f"Overall Gameweek Rank: {data['Overall Gameweek Rank']}\n"
+        output += f"Overall Rank: {data['Overall Rank']}\n"
+        output += f"League Rank: {data['League Rank']}\n"
+        output += f"League Rank Movement: {data['League Rank Movement']}\n"
         output += f"Captain: {data['Captain']}, {data['Captain Points']} points\n"
         output += f"Vice-Captain: {data['Vice-Captain']}, {data['Vice-Captain Points']} points\n"
         output += f"Transfers: {data['Transfers']}\n"
@@ -34,12 +37,11 @@ def generate_analysis_report(gameweek, mini_league_data, player_id_to_name, play
         output += f"Defensive Points: {data['Defensive Points']}\n"
         output += f"Attacking Points: {data['Attacking Points']}\n"
         output += f"Chip Used: {data['Chip Used']}\n"
-        output += f"Performance vs Avg: {data['Performance vs Avg']}\n"
-        output += f"League Rank Movement: {data['League Rank Movement']}\n"
+        output += f"Performance vs League Avg: {data['Performance vs Avg']}\n"
         output += "-" * 80 + "\n"
 
     # Extract league standings
-    league_standings = mini_league_data.get('standings', {}).get('results', [])
+    league_standings = league_data.get('standings', {}).get('results', [])
     team_data = [{'Team Name': team['entry_name'], 'Points': team['total']} for team in league_standings]
 
     output += "\nLeague Standings:\n"
@@ -133,14 +135,14 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
                 value_display = "N/A"
             elif "worst_chip_play" in key and value == float('inf'):
                 value_display = "N/A"
-            elif key == "highest_overall_gameweek_rank" and value == float('inf'):
+            elif key == "highest_overall_gameweek_rank" and value == float('inf'): # Keep this as Overall Gameweek Rank handles 0 differently
                 value_display = "N/A"
             elif key == "highest_overall_rank" and value == float('inf'):
                 value_display = "N/A"
             elif key == "narrowest_gw_score_variance" and value == float('inf'):
                 value_display = "N/A"
             else:
-                value_display = f"{value:.2f}" # Format variance to 2 decimal places
+                value_display = value # Format variance to 2 decimal places
         
         chip_display = f" (Chip: {stat['chip']})" if stat and 'chip' in stat and stat['chip'] not in ["No Chip Used", "No Chip"] else ""
         output += f"| {display_name:<24} | {team_display:<14} | {gameweek_display:<8} | {value_display:<10}{player_display}{chip_display} |\n"

@@ -25,8 +25,8 @@ def load_or_create_all_time_stats(filepath):
             "most_transfers": {"team": None, "gameweek": None, "value": 0},
             "highest_overall_gameweek_rank": {"team": None, "gameweek": None, "value": float('inf')},
             "lowest_overall_gameweek_rank": {"team": None, "gameweek": None, "value": 0},
-            "highest_overall_rank": {"team": None, "gameweek": None, "value": float('inf')},
-            "lowest_overall_rank": {"team": None, "gameweek": None, "value": 0},
+            "highest_league_rank": {"team": None, "gameweek": None, "value": float('inf')},
+            "lowest_league_rank": {"team": None, "gameweek": None, "value": 0},
             "biggest_league_rank_drop": {"team": None, "gameweek": None, "value": float('inf')}, # Changed default to inf for lowest
             "biggest_league_rank_climb": {"team": None, "gameweek": None, "value": 0}, # Rank climb is typically negative, so '0' is not correct lowest value. Should be -float('inf').
             "highest_defensive_haul": {"team": None, "gameweek": None, "value": 0}, # Added missing key

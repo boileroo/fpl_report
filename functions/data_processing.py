@@ -1,10 +1,10 @@
-def calculate_gw_average(mini_league_data, gw):
-    total_points = sum(manager['history']['current'][gw - 1]['points'] for manager in mini_league_data['standings']['results'] if len(manager['history']['current']) > gw - 1)
-    count = len(mini_league_data['standings']['results'])
+def calculate_gw_average(league_data, gw):
+    total_points = sum(manager['history']['current'][gw - 1]['points'] for manager in league_data['standings']['results'] if len(manager['history']['current']) > gw - 1)
+    count = len(league_data['standings']['results'])
     
     return total_points / count if count != 0 else 0
 
-def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_to_points, player_id_to_position, mini_league_data):
+def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_to_points, player_id_to_position, league_data):
     gw_data_list = []
 
     gw_data = manager_data['gameweek_data'].get(str(desired_gw), {})
@@ -15,6 +15,8 @@ def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_
     entry_history = gw_data.get('entry_history', {})
     gw_data['points'] = entry_history.get('points', 0)
     gw_data['overall_gameweek_rank'] = entry_history.get('rank', 0)
+    gw_data['overall_rank'] = entry_history.get('overall_rank', 0)
+    gw_data['league_rank'] = manager_data.get('rank_sort', 0)
     gw_data['event_transfers'] = entry_history.get('event_transfers', 0)
     gw_data['event_transfers_cost'] = entry_history.get('event_transfers_cost', 0)
     active_chip = gw_data.get('active_chip', "No Chip Used")
@@ -59,14 +61,17 @@ def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_
 
     chip_used = active_chip
 
-    avg_points = calculate_gw_average(mini_league_data, desired_gw)
-    gw_performance_vs_avg = gw_data['points'] - avg_points
+    avg_points = calculate_gw_average(league_data, desired_gw)
+    gw_performance_vs_avg = round(gw_data['points'] - avg_points, 1)
     league_rank_movement = (manager_data.get('last_rank', 0) - manager_data.get('rank', 0))
 
     gw_data_list.append({
         'Gameweek': desired_gw,
         'Points': gw_data['points'],
-        'Overall Rank (gameweek)': gw_data['overall_gameweek_rank'],
+        'Overall Gameweek Rank': gw_data['overall_gameweek_rank'],
+        'Overall Rank': gw_data['overall_rank'],
+        'League Rank': gw_data['league_rank'],
+        'League Rank Movement': league_rank_movement,
         'Captain': captain_name,
         'Captain Points': captain_points,
         'Vice-Captain': vice_captain_name,
@@ -85,17 +90,16 @@ def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_
         'Defensive Points': defensive_points,
         'Attacking Points': attacking_points,
         'Chip Used': chip_used,
-        'Performance vs Avg': gw_performance_vs_avg,
-        'League Rank Movement': league_rank_movement
+        'Performance vs Avg': gw_performance_vs_avg
     })
 
     return gw_data_list
 
-def get_differential_king_queen(mini_league_data, desired_gw, player_id_to_name, player_id_to_points):
+def get_differential_king_queen(league_data, desired_gw, player_id_to_name, player_id_to_points):
     player_ownership = {} # player_id: [list of manager_names who own this player]
 
     # Iterate through all managers to build player ownership data
-    for manager_data in mini_league_data['standings']['results']:
+    for manager_data in league_data['standings']['results']:
         manager_name = manager_data['entry_name']
         gw_picks = manager_data['gameweek_data'].get(str(desired_gw), {}).get('picks', [])
         for pick in gw_picks:

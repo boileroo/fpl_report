@@ -33,7 +33,7 @@ def fetch_gameweek_data_for_team(team_id, gameweek):
     url = BASE_URL + f"entry/{team_id}/event/{gameweek}/picks/"
     return fetch_data(url)
 
-def retrieve_mini_league_data(league_id, gameweek):
+def retrieve_league_data(league_id, gameweek):
     league_data = fetch_league_data(league_id)
     
     if league_data is None:

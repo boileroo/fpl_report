@@ -164,6 +164,7 @@ class AllTimeStatsManager:
         self.stats["total_attacking_points_per_manager"][team_name] = self.stats["total_attacking_points_per_manager"].get(team_name, 0) + attacking_points
 
     def update_all_stats_for_manager(self, gw_data, team_name, gameweek_int, manager_data):
+        print(f"DEBUG: Keys in gw_data: {gw_data.keys()}") # Added for debugging
         # Update individual stats using the manager's methods
         self.update_highest_gw_score(team_name, gameweek_int, gw_data['Points'])
         self.update_lowest_gw_score(team_name, gameweek_int, gw_data['Points'])
@@ -173,12 +174,11 @@ class AllTimeStatsManager:
         self.update_most_captain_points(team_name, gameweek_int, gw_data['Captain Points'], gw_data['Captain'])
         self.update_worst_captain_points(team_name, gameweek_int, gw_data['Captain Points'], gw_data['Captain'])
         self.update_most_transfers(team_name, gameweek_int, gw_data['Transfers'])
-        self.update_highest_overall_gameweek_rank(team_name, gameweek_int, gw_data['Overall Rank (gameweek)']) # Lower rank is better
-        self.update_lowest_overall_gameweek_rank(team_name, gameweek_int, gw_data['Overall Rank (gameweek)']) # Higher rank is worse
-        # Only update overall ranks if a valid rank is present (i.e., not 0)
-        if manager_data.get('overall_rank', 0) > 0:
-            self.update_highest_overall_rank(team_name, gameweek_int, manager_data['overall_rank'])
-            self.update_lowest_overall_rank(team_name, gameweek_int, manager_data['overall_rank'])
+        self.update_highest_overall_rank(team_name, gameweek_int, gw_data['Overall Rank']) # Lower rank is better
+        self.update_lowest_overall_rank(team_name, gameweek_int, gw_data['Overall Rank']) # Higher rank is worse
+        self.update_highest_overall_gameweek_rank(team_name, gameweek_int, gw_data['Overall Gameweek Rank']) # Lower rank is better
+        self.update_lowest_overall_gameweek_rank(team_name, gameweek_int, gw_data['Overall Gameweek Rank']) # Higher rank is worse
+
         self.update_biggest_league_rank_drop(team_name, gameweek_int, gw_data['League Rank Movement'])
         self.update_biggest_league_rank_climb(team_name, gameweek_int, gw_data['League Rank Movement'])
 
