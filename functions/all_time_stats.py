@@ -47,8 +47,9 @@ class AllTimeStatsManager:
             "gw_scores_per_manager",
             "narrowest_gw_score_variance",
             "widest_gw_score_variance",
-            "highest_league_rank_per_manager", # New cumulative stat
-            "lowest_league_rank_per_manager"  # New cumulative stat
+            "highest_league_rank_per_manager",
+            "lowest_league_rank_per_manager", 
+            "differential_king_per_gameweek"
         ]
 
         for key in cumulative_keys:
@@ -274,6 +275,45 @@ class AllTimeStatsManager:
         self.stats["gw_scores_per_manager"].setdefault(team_name, []).append(gw_data['Points'])
 
         return self.stats
+
+    def process_differential_king(self, differential_king_data):
+        """
+        Processes and updates the differential king for the current gameweek.
+        Accepts data directly from get_differential_king in data_processing.py
+        """
+        if differential_king_data:
+            print(differential_king_data)
+            self.update_differential_king_per_gameweek(
+                gameweek=self.current_gameweek,
+                player_name=differential_king_data['player_name'],
+                points=differential_king_data['points'],
+                team_name=differential_king_data['owner']
+            )
+
+    def update_differential_king_per_gameweek(self, gameweek, player_name, points, team_name):
+        """
+        Updates the differential king stat for a specific gameweek.
+        The differential king is the highest scoring differential player (owned by only one manager) of the gameweek.
+        """
+        # Ensure the differential_king_per_gameweek structure exists
+        if "differential_king_per_gameweek" not in self.stats:
+            self.stats["differential_king_per_gameweek"] = {}
+        
+        # Check if this gameweek's differential king is already set or if the new one has more points
+        current_differential_king = self.stats["differential_king_per_gameweek"].get(str(gameweek))
+        
+        updated = False
+        if current_differential_king is None: # No differential king yet for this gameweek
+            updated = True
+        elif points > current_differential_king["points"]: # New player has more points
+            updated = True
+            
+        if updated:
+            self.stats["differential_king_per_gameweek"][str(gameweek)] = {
+                "player": player_name,
+                "points": points,
+                "team": team_name
+            }
 
     def update_narrowest_gw_score_variance(self, team_name, gameweek, variance):
         self._update_stat("narrowest_gw_score_variance", team_name, gameweek, variance, is_highest=False)

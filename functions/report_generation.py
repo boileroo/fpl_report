@@ -167,6 +167,19 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
             output += f"| {manager:<14} | {data['value']:<10} | {data['gameweek']:<8} |\n"
         output += "\n"
 
+    # Differential King per Gameweek
+    if "differential_king_per_gameweek" in all_time_stats and all_time_stats["differential_king_per_gameweek"]:
+        output += "\n## Differential King Per Gameweek\n"
+        output += "| Gameweek | Player         | Points | Team           |\n"
+        output += "| -------- | -------------- | ------ | -------------- |\n"
+        
+        # Sort by gameweek in ascending order
+        sorted_gameweeks = sorted(all_time_stats["differential_king_per_gameweek"].items(), key=lambda item: int(item[0]))
+        
+        for gameweek, data in sorted_gameweeks:
+            output += f"| {gameweek:<8} | {data['player']:<14} | {data['points']:<6} | {data['team']:<14} |\n"
+        output += "\n"
+
     output += "\n## Captaincy Stats\n\n"
     
     # Total captaincy points accumulated per manager

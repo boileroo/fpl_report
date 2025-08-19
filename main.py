@@ -72,6 +72,7 @@ def main():
     _process_manager_data(league_data, gameweek_int, player_id_to_name, player_id_to_points, player_id_to_position, all_time_stats_manager)
     
     differential_king = get_differential_king(league_data, gameweek_int, player_id_to_name, player_id_to_points)
+    all_time_stats_manager.process_differential_king(differential_king)
     
     _generate_reports(gameweek_str, league_name, league_data, player_id_to_name, player_id_to_points, player_id_to_position, differential_king, all_time_stats_manager)
 
