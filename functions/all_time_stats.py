@@ -1,38 +1,24 @@
-import os
 import copy
 import statistics
+from pathlib import Path
 from functions.file_operations import load_or_create_all_time_stats, save_to_json
 
 class AllTimeStatsManager:
-    def __init__(self, base_filepath, current_gameweek):
-        self.base_filepath = base_filepath
-        self.current_gameweek = current_gameweek
+    def __init__(self, league_name, gameweek):
+        self.league_name = league_name
+        self.gameweek = gameweek
 
-        # Construct filepath for the current gameweek
-        filename, ext = os.path.splitext(os.path.basename(base_filepath))
-        current_gw_filename = f"{filename}_gw_{current_gameweek}{ext}"
+        self.filepath = self._get_gameweek_filepath(league_name, gameweek)
 
-        # Get the league name from the base filepath
-        league_name = os.path.basename(os.path.dirname(base_filepath))
+        print(self.filepath)
 
-        # Create gameweek-specific directory path
-        gameweek_dir = os.path.join("outputs", league_name, f"gameweek_{current_gameweek}")
-        self.filepath = os.path.join(gameweek_dir, current_gw_filename)
-
-        # Load previous gameweek's stats
         previous_gameweek_stats = {}
-        previous_gameweek = current_gameweek - 1
+        previous_gameweek = gameweek - 1
         if previous_gameweek > 0:
-            previous_gw_filename = f"{filename}_gw_{previous_gameweek}{ext}"
-            previous_gw_dir = os.path.join("outputs", league_name, f"gameweek_{previous_gameweek}")
-            previous_gw_filepath = os.path.join(previous_gw_dir, previous_gw_filename)
-            previous_gameweek_stats = load_or_create_all_time_stats(previous_gw_filepath)
+            previous_gw_filepath = self._get_gameweek_filepath(league_name, previous_gameweek)
+            previous_gameweek_stats = load_or_create_all_time_stats(str(previous_gw_filepath))
 
-        # Initialize current stats with defaults
-        self.stats = load_or_create_all_time_stats(self.filepath) # This will create default if file doesn't exist
-
-        # Copy cumulative stats from previous gameweek
-        # These are the stats that should carry over and accumulate
+        self.stats = load_or_create_all_time_stats(str(self.filepath))
         cumulative_keys = [
             "total_captaincy_points_per_manager",
             "most_popular_captain_choices",
@@ -48,7 +34,7 @@ class AllTimeStatsManager:
             "narrowest_gw_score_variance",
             "widest_gw_score_variance",
             "highest_league_rank_per_manager",
-            "lowest_league_rank_per_manager", 
+            "lowest_league_rank_per_manager",
             "differential_king_per_gameweek"
         ]
 
@@ -56,26 +42,33 @@ class AllTimeStatsManager:
             if key in previous_gameweek_stats:
                 self.stats[key] = copy.deepcopy(previous_gameweek_stats[key])
             else:
-                self.stats[key] = {} # Ensure it's initialized if not present in previous
+                self.stats[key] = {}
 
         self._ensure_output_directory_exists()
 
+    @staticmethod
+    def _generate_gameweek_filename(base_filename, gameweek, extension):
+        return f"{base_filename}_gw_{gameweek}{extension}"
+
+    @staticmethod
+    def _get_gameweek_filepath(league_name, gameweek, base_filename="all_time_stats", extension=".json"):
+        filename = AllTimeStatsManager._generate_gameweek_filename(base_filename, gameweek, extension)
+        return Path("outputs") / league_name / f"gameweek_{gameweek}" / filename
+
     def _ensure_output_directory_exists(self):
-        output_dir = os.path.dirname(self.filepath)
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
+        self.filepath.parent.mkdir(parents=True, exist_ok=True)
 
     def _update_stat(self, stat_key, team_name, gameweek, value, is_highest=True, player_name=None, chip_name=None):
         current_stat = self.stats.get(stat_key, {"value": None})
         current_value = current_stat["value"]
         updated = False
 
-        if current_value is None: # Initialize if not set
+        if current_value is None:
             updated = True
         elif is_highest:
             if value > current_value:
                 updated = True
-        else: # is_lowest
+        else: 
             if value < current_value:
                 updated = True
 
@@ -91,10 +84,6 @@ class AllTimeStatsManager:
                 self.stats[stat_key]["chip"] = chip_name
 
     def _update_manager_league_rank_stat(self, stat_key, team_name, gameweek, value, is_highest=True):
-        """
-        Updates a manager's highest or lowest league rank.
-        This handles a nested structure: stats[stat_key][team_name] = {"value": ..., "gameweek": ...}
-        """
         manager_stat = self.stats.get(stat_key, {}) # Get the dictionary for all managers for this stat
         current_manager_record = manager_stat.get(team_name, {"value": None})
         current_value = current_manager_record["value"]
@@ -199,7 +188,6 @@ class AllTimeStatsManager:
         self.stats["total_attacking_points_per_manager"][team_name] = self.stats["total_attacking_points_per_manager"].get(team_name, 0) + attacking_points
 
     def update_all_stats_for_manager(self, gw_data, team_name, gameweek_int, manager_data):
-        print(f"DEBUG: Keys in gw_data: {gw_data.keys()}") # Added for debugging
         # Update individual stats using the manager's methods
         self.update_highest_gw_score(team_name, gameweek_int, gw_data['Points'])
         self.update_lowest_gw_score(team_name, gameweek_int, gw_data['Points'])
@@ -216,13 +204,11 @@ class AllTimeStatsManager:
 
         # Update league rank movement stats
         # For Gameweek 1, rank changes should be 0
-        if self.current_gameweek == 1:
+        if self.gameweek == 1:
             league_rank_movement_for_stats = 0
         else:
             league_rank_movement_for_stats = gw_data.get('League Rank Movement', 0)
             
-        print(f"DEBUG: gw:{gameweek_int}, current_gw:{self.current_gameweek}, movement:{league_rank_movement_for_stats}") # Keep for debugging
-
         if league_rank_movement_for_stats < 0: # Rank drop
             self.update_biggest_league_rank_drop(team_name, gameweek_int, league_rank_movement_for_stats)
         elif league_rank_movement_for_stats > 0: # Rank climb
@@ -278,8 +264,6 @@ class AllTimeStatsManager:
             gw_variance = statistics.variance(manager_gw_scores)
             self.update_narrowest_gw_score_variance(team_name, gameweek_int, gw_variance)
             self.update_widest_gw_score_variance(team_name, gameweek_int, gw_variance)
-        else:
-            print(f"DEBUG: Not enough GW scores ({len(manager_gw_scores)}) for {team_name} to calculate variance.")
 
         # Accumulate gameweek scores for variance calculation
         self.stats["gw_scores_per_manager"].setdefault(team_name, []).append(gw_data['Points'])
@@ -292,9 +276,8 @@ class AllTimeStatsManager:
         Accepts data directly from get_differential_king in data_processing.py
         """
         if differential_king_data:
-            print(differential_king_data)
             self.update_differential_king_per_gameweek(
-                gameweek=self.current_gameweek,
+                gameweek=self.gameweek,
                 player_name=differential_king_data['player_name'],
                 points=differential_king_data['points'],
                 team_name=differential_king_data['owner']
@@ -346,5 +329,4 @@ class AllTimeStatsManager:
             }
 
     def save_stats(self):
-        save_to_json(self.stats, self.filepath)
-        print(f"All-time stats saved to {self.filepath}")
+        save_to_json(self.stats, str(self.filepath))

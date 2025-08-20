@@ -2,7 +2,15 @@
     "new_entries": {
         "has_next": false,
         "page": 1,
-        "results": []
+        "results": [
+            {
+                "entry": 5056421,
+                "entry_name": "Mee, Isak and Stones",
+                "joined_time": "2025-08-19T09:43:35.334512Z",
+                "player_first_name": "Thalita",
+                "player_last_name": "Vergilio"
+            }
+        ]
     },
     "last_updated_data": "2025-08-18T22:16:23Z",
     "league": {
@@ -35,7 +43,7 @@
                 "entry": 7675,
                 "entry_name": "Craig's Crunchers",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 7675,
                     "joined_time": "2025-07-21T11:34:02.355809Z",
                     "started_event": 1,
@@ -1006,7 +1014,7 @@
                 "entry": 3287395,
                 "entry_name": "Under my Cucurella",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 3287395,
                     "joined_time": "2025-08-01T07:25:50.973439Z",
                     "started_event": 1,
@@ -1781,7 +1789,7 @@
                 "entry": 5951930,
                 "entry_name": "No Pukki No Party",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 5951930,
                     "joined_time": "2025-08-12T08:18:05.819341Z",
                     "started_event": 1,
@@ -2315,7 +2323,7 @@
                 "entry": 4635235,
                 "entry_name": "Montyrose",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 4635235,
                     "joined_time": "2025-08-08T11:31:53.809657Z",
                     "started_event": 1,
@@ -2804,7 +2812,7 @@
                 "entry": 9166796,
                 "entry_name": "Haalandaise Sauce FC",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 9166796,
                     "joined_time": "2025-08-15T16:03:30.846797Z",
                     "started_event": 1,
@@ -3547,7 +3555,7 @@
                 "entry": 3645634,
                 "entry_name": "BOY BETO KNOW",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 3645634,
                     "joined_time": "2025-08-03T11:16:25.884688Z",
                     "started_event": 1,
@@ -4247,7 +4255,7 @@
                 "entry": 4171131,
                 "entry_name": "Red Star Bellegarde",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 4171131,
                     "joined_time": "2025-08-06T07:37:20.597844Z",
                     "started_event": 1,
@@ -4847,7 +4855,7 @@
                 "entry": 5912276,
                 "entry_name": "\u00d2Y\u00c8K\u00da M\u00c9J\u00cc",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 5912276,
                     "joined_time": "2025-08-12T05:51:21.967216Z",
                     "started_event": 1,
@@ -5777,7 +5785,7 @@
                 "entry": 1290075,
                 "entry_name": "Yoro Wissa Harry",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 1290075,
                     "joined_time": "2025-07-22T20:22:54.061581Z",
                     "started_event": 1,
@@ -6377,7 +6385,7 @@
                 "entry": 9400503,
                 "entry_name": "ThomasMuellersDayOff",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 9400503,
                     "joined_time": "2025-08-15T17:12:43.689836Z",
                     "started_event": 1,
@@ -6917,7 +6925,7 @@
                 "entry": 2844101,
                 "entry_name": "ChatGPTs Picks",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 2844101,
                     "joined_time": "2025-07-29T14:30:57.410830Z",
                     "started_event": 1,
@@ -7864,7 +7872,7 @@
                 "entry": 3865678,
                 "entry_name": "Wirtz case Vicario",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 3865678,
                     "joined_time": "2025-08-04T14:53:38.940308Z",
                     "started_event": 1,
@@ -8669,7 +8677,7 @@
                 "entry": 8253221,
                 "entry_name": "Neville Wears Prada",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 8253221,
                     "joined_time": "2025-08-15T08:56:15.307924Z",
                     "started_event": 1,
@@ -9293,7 +9301,7 @@
                 "entry": 8296315,
                 "entry_name": "Full Slot Ahead",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 8296315,
                     "joined_time": "2025-08-15T09:24:47.098930Z",
                     "started_event": 1,
@@ -9905,7 +9913,7 @@
                 "entry": 9118329,
                 "entry_name": "Don'tLookBackElanga",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 9118329,
                     "joined_time": "2025-08-15T15:46:51.556857Z",
                     "started_event": 1,
@@ -10502,7 +10510,7 @@
                 "entry": 292643,
                 "entry_name": "Sesko Extra",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 292643,
                     "joined_time": "2025-07-21T13:45:27.144880Z",
                     "started_event": 1,
@@ -11407,7 +11415,7 @@
                 "entry": 9374205,
                 "entry_name": "Logan's Runners",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 9374205,
                     "joined_time": "2025-08-15T17:05:36.177810Z",
                     "started_event": 1,
@@ -11948,7 +11956,7 @@
                 "entry": 8933768,
                 "entry_name": "Bruno's Mars",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 8933768,
                     "joined_time": "2025-08-15T14:37:22.144878Z",
                     "started_event": 1,
@@ -12693,7 +12701,7 @@
                 "entry": 4410509,
                 "entry_name": "The Bearded One",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 4410509,
                     "joined_time": "2025-08-07T11:13:57.634976Z",
                     "started_event": 1,

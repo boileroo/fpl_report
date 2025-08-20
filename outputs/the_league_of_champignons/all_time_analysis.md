@@ -1,6 +1,6 @@
 # All-Time FPL League Records
 
-Last updated: 2025-08-19 08:57:28
+Last updated: 2025-08-20 09:05:52
 
 ## League Records
 
@@ -20,7 +20,7 @@ Last updated: 2025-08-19 08:57:28
 | Lowest Overall Rank      | Amorim or out? | 1        | 8771507    |
 | Biggest League Rank Drop | N/A            | N/A      | N/A        |
 | Biggest League Rank Climb | N/A            | N/A      | N/A        |
-| Best Autosub Cameo       | Amorim or out? | 1        | 3          (Player: Virgil) |
+| Best Autosub Cameo       | N/A            | N/A      | 0          (Player: None) |
 | Best Chip Play           | N/A            | N/A      | 0          (Player: None) (Chip: None) |
 | Worst Chip Play          | N/A            | N/A      | N/A        (Player: None) (Chip: None) |
 | Highest Defensive Haul (GK+DEF) | Anusol FC      | 1        | 31         |

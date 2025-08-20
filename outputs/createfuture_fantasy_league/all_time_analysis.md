@@ -1,6 +1,6 @@
 # All-Time FPL League Records
 
-Last updated: 2025-08-19 09:38:58
+Last updated: 2025-08-20 09:01:48
 
 ## League Records
 
@@ -20,7 +20,7 @@ Last updated: 2025-08-19 09:38:58
 | Lowest Overall Rank      | The Bearded One | 1        | 8771507    |
 | Biggest League Rank Drop | N/A            | N/A      | N/A        |
 | Biggest League Rank Climb | N/A            | N/A      | N/A        |
-| Best Autosub Cameo       | Haalandaise Sauce FC | 1        | 10         (Player: Reijnders) |
+| Best Autosub Cameo       | N/A            | N/A      | 0          (Player: None) |
 | Best Chip Play           | N/A            | N/A      | 0          (Player: None) (Chip: None) |
 | Worst Chip Play          | N/A            | N/A      | N/A        (Player: None) (Chip: None) |
 | Highest Defensive Haul (GK+DEF) | ThomasMuellersDayOff | 1        | 33         |

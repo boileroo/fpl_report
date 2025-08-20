@@ -2,36 +2,38 @@ import requests
 
 BASE_URL = "https://fantasy.premierleague.com/api/"
 
-def fetch_data(url):
+TEAM_ID_KEY = 'entry'
+
+def _fetch_data(url):
     response = requests.get(url)
     if response.status_code != 200:
         print(f"Failed to fetch data from {url}.")
         return None
     return response.json()
 
-def fetch_bootstrap_data():
+def fetch_game_data():
     url = BASE_URL + "bootstrap-static/"
-    return fetch_data(url)
+    return _fetch_data(url)
 
 def fetch_league_data(league_id):
     url = BASE_URL + f"leagues-classic/{league_id}/standings/"
-    return fetch_data(url)
+    return _fetch_data(url)
 
-def fetch_manager_data(team_id):
+def fetch_team_data(team_id):
     url = BASE_URL + f"entry/{team_id}/"
-    return fetch_data(url)
+    return _fetch_data(url)
 
-def fetch_manager_transfers(team_id):
+def fetch_team_transfers(team_id):
     url = BASE_URL + f"entry/{team_id}/transfers/"
-    return fetch_data(url)
+    return _fetch_data(url)
 
-def fetch_manager_history(team_id):
+def fetch_team_history(team_id):
     url = BASE_URL + f"entry/{team_id}/history/"
-    return fetch_data(url)
+    return _fetch_data(url)
 
-def fetch_gameweek_data_for_team(team_id, gameweek):
+def fetch_team_gameweek_data(team_id, gameweek):
     url = BASE_URL + f"entry/{team_id}/event/{gameweek}/picks/"
-    return fetch_data(url)
+    return _fetch_data(url)
 
 def retrieve_league_data(league_id, gameweek):
     league_data = fetch_league_data(league_id)
@@ -43,21 +45,22 @@ def retrieve_league_data(league_id, gameweek):
     for entry in league_data.get('standings', {}).get('results', []):
         team_id = entry['entry']
         
-        manager_details = fetch_manager_data(team_id)
-        if manager_details:
-            entry['manager_details'] = manager_details
+        team_data = fetch_team_data(team_id)
+
+        if team_data:
+            entry['team_data'] = team_data
         else:
             print(f"Warning: Could not retrieve manager details for team {team_id}.")
-            entry['manager_details'] = {} # Initialize to avoid KeyErrors later
+            entry['team_data'] = {} # Initialize to avoid KeyErrors later
 
-        transfers = fetch_manager_transfers(team_id)
+        transfers = fetch_team_transfers(team_id)
         if transfers:
             entry['transfers'] = transfers
         else:
             print(f"Warning: Could not retrieve transfers for team {team_id}.")
             entry['transfers'] = {}
 
-        history = fetch_manager_history(team_id)
+        history = fetch_team_history(team_id)
         if history:
             entry['history'] = history
         else:
@@ -65,12 +68,11 @@ def retrieve_league_data(league_id, gameweek):
             entry['history'] = {}
         
         entry['gameweek_data'] = {}
-        gw = str(gameweek)
-        gameweek_picks = fetch_gameweek_data_for_team(team_id, gw)
+        gameweek_picks = fetch_team_gameweek_data(team_id, gameweek)
         if gameweek_picks:
-            entry['gameweek_data'][gw] = gameweek_picks
+            entry['gameweek_data'][gameweek] = gameweek_picks
         else:
-            print(f"Warning: Could not retrieve gameweek {gw} data for team {team_id}.")
-            entry['gameweek_data'][gw] = {}
+            print(f"Warning: Could not retrieve gameweek {gameweek} data for team {team_id}.")
+            entry['gameweek_data'][gameweek] = {}
     
     return league_data

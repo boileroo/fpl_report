@@ -43,7 +43,7 @@
                 "entry": 5951930,
                 "entry_name": "No Pukki No Party",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 5951930,
                     "joined_time": "2025-08-12T08:18:05.819341Z",
                     "started_event": 1,
@@ -577,7 +577,7 @@
                 "entry": 6739991,
                 "entry_name": "Sesko Extra",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 6739991,
                     "joined_time": "2025-08-13T19:35:04.482065Z",
                     "started_event": 1,
@@ -1132,7 +1132,7 @@
                 "entry": 8099137,
                 "entry_name": "Anusol FC",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 8099137,
                     "joined_time": "2025-08-15T06:46:32.882526Z",
                     "started_event": 1,
@@ -1649,7 +1649,7 @@
                 "entry": 5946495,
                 "entry_name": "Ripon Rovers",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 5946495,
                     "joined_time": "2025-08-12T08:01:54.887914Z",
                     "started_event": 1,
@@ -2291,7 +2291,7 @@
                 "entry": 6117890,
                 "entry_name": "Sarr Chasm Bridged",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 6117890,
                     "joined_time": "2025-08-12T14:19:35.854141Z",
                     "started_event": 1,
@@ -2856,7 +2856,7 @@
                 "entry": 9328909,
                 "entry_name": "McGinty's Marauders",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 9328909,
                     "joined_time": "2025-08-15T16:53:18.879873Z",
                     "started_event": 1,
@@ -3491,7 +3491,7 @@
                 "entry": 603,
                 "entry_name": "Peaky Reijnders",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 603,
                     "joined_time": "2025-07-21T11:31:14.888269Z",
                     "started_event": 1,
@@ -4291,7 +4291,7 @@
                 "entry": 3348336,
                 "entry_name": "Viva la Villa",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 3348336,
                     "joined_time": "2025-08-01T14:16:05.852711Z",
                     "started_event": 1,
@@ -4915,7 +4915,7 @@
                 "entry": 6616006,
                 "entry_name": "Redwood Rebels",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 6616006,
                     "joined_time": "2025-08-13T16:38:12.132631Z",
                     "started_event": 1,
@@ -5449,7 +5449,7 @@
                 "entry": 6763971,
                 "entry_name": "Amorim or out?",
                 "has_played": true,
-                "manager_details": {
+                "team_data": {
                     "id": 6763971,
                     "joined_time": "2025-08-13T20:04:01.157660Z",
                     "started_event": 1,

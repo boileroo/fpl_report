@@ -1,93 +1,92 @@
-def calculate_gw_average(league_data, gw):
-    total_points = sum(manager['history']['current'][gw - 1]['points'] for manager in league_data['standings']['results'] if len(manager['history']['current']) > gw - 1)
+def calculate_gw_average(league_data, gameweek):
+    total_points = sum(manager['history']['current'][gameweek - 1]['points'] for manager in league_data['standings']['results'] if len(manager['history']['current']) > gameweek - 1)
     count = len(league_data['standings']['results'])
     
     return total_points / count if count != 0 else 0
 
-def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_to_points, player_id_to_position, league_data):
-    gw_data_list = []
+def get_detailed_gw_data(league_data, team_data, player_data, gameweek):
+    team_gameweek_data_list = []
 
-    gw_data = manager_data['gameweek_data'].get(str(desired_gw), {})
-    picks = gw_data.get('picks', [])
-    if not picks: # If no picks data, return empty list
+    team_data_for_gameweek = team_data['gameweek_data'].get(str(gameweek), {})
+    players = team_data_for_gameweek.get('picks', [])
+    if not players: 
+
         return []
+    
+    entry_history = team_data_for_gameweek.get('entry_history', {})
+    team_data_for_gameweek['points'] = entry_history.get('points', 0)
+    team_data_for_gameweek['overall_gameweek_rank'] = entry_history.get('rank', 0)
+    team_data_for_gameweek['overall_rank'] = entry_history.get('overall_rank', 0)
+    team_data_for_gameweek['league_rank'] = team_data.get('rank_sort', 0)
+    team_data_for_gameweek['event_transfers'] = entry_history.get('event_transfers', 0)
+    team_data_for_gameweek['event_transfers_cost'] = entry_history.get('event_transfers_cost', 0)
+    active_chip = team_data_for_gameweek.get('active_chip', "No Chip Used")
 
-    entry_history = gw_data.get('entry_history', {})
-    gw_data['points'] = entry_history.get('points', 0)
-    gw_data['overall_gameweek_rank'] = entry_history.get('rank', 0)
-    gw_data['overall_rank'] = entry_history.get('overall_rank', 0)
-    gw_data['league_rank'] = manager_data.get('rank_sort', 0)
-    gw_data['event_transfers'] = entry_history.get('event_transfers', 0)
-    gw_data['event_transfers_cost'] = entry_history.get('event_transfers_cost', 0)
-    active_chip = gw_data.get('active_chip', "No Chip Used")
-
-    # Safely get max/min when picks might be empty or points are uniform
     top_scorer_id = None
     max_points = 0
     underperformer_id = None
     min_points = 0
     
-    if picks:
-        top_scorer_pick = max(picks, key=lambda x: player_id_to_points.get(x['element'], 0))
-        top_scorer_id = top_scorer_pick['element']
-        max_points = player_id_to_points.get(top_scorer_id, 0)
+    top_scorer_pick = max(players, key=lambda x: player_data.get(x['element'], {}).get('points', 0))
+    top_scorer_id = top_scorer_pick['element']
+    max_points = player_data.get(top_scorer_id, {}).get('points', 0)
 
-        underperformer_pick = min(picks, key=lambda x: player_id_to_points.get(x['element'], 0))
-        underperformer_id = underperformer_pick['element']
-        min_points = player_id_to_points.get(underperformer_id, 0)
+    underperformer_pick = min(players, key=lambda x: player_data.get(x['element'], {}).get('points', 0))
+    underperformer_id = underperformer_pick['element']
+    min_points = player_data.get(underperformer_id, {}).get('points', 0)
 
-    top_scorer_position = next((pick['position'] for pick in picks if pick['element'] == top_scorer_id), None)
+    top_scorer_position = next((pick['position'] for pick in players if pick['element'] == top_scorer_id), None)
     top_scorer_played = top_scorer_position < 12 if top_scorer_position else False
 
-    starting_players = [pick for pick in picks if pick['position'] <= 11]
+    starting_players = [pick for pick in players if pick['position'] <= 11]
     formation = "{}-{}-{}".format(
-        sum(1 for pick in starting_players if player_id_to_position[pick['element']] == 2),
-        sum(1 for pick in starting_players if player_id_to_position[pick['element']] == 3),
-        sum(1 for pick in starting_players if player_id_to_position[pick['element']] == 4)
+        sum(1 for pick in starting_players if player_data.get(pick['element'], {}).get('position') == 2),
+        sum(1 for pick in starting_players if player_data.get(pick['element'], {}).get('position') == 3),
+        sum(1 for pick in starting_players if player_data.get(pick['element'], {}).get('position') == 4)
     )
 
-    captain_id = next((pick['element'] for pick in picks if pick['is_captain']), None)
-    captain_multiplier = next((pick['multiplier'] for pick in picks if pick['is_captain']), 1)
-    vice_captain_id = next((pick['element'] for pick in picks if pick['is_vice_captain']), None)
-    vice_captain_multiplier = next((pick['multiplier'] for pick in picks if pick['is_vice_captain']), 1)
+    captain_id = next((pick['element'] for pick in players if pick['is_captain']), None)
+    captain_multiplier = next((pick['multiplier'] for pick in players if pick['is_captain']), 1)
+    vice_captain_id = next((pick['element'] for pick in players if pick['is_vice_captain']), None)
+    vice_captain_multiplier = next((pick['multiplier'] for pick in players if pick['is_vice_captain']), 1)
 
-    captain_name = player_id_to_name.get(captain_id, 'Unknown')
-    captain_points = player_id_to_points.get(captain_id, 0) * captain_multiplier
-    vice_captain_name = player_id_to_name.get(vice_captain_id, 'Unknown')
-    vice_captain_points = player_id_to_points.get(vice_captain_id, 0) * vice_captain_multiplier
+    captain_name = player_data.get(captain_id, {}).get('name', 'Unknown')
+    captain_points = player_data.get(captain_id, {}).get('points', 0) * captain_multiplier
+    vice_captain_name = player_data.get(vice_captain_id, {}).get('name', 'Unknown')
+    vice_captain_points = player_data.get(vice_captain_id, {}).get('points', 0) * vice_captain_multiplier
 
-    defensive_points = sum(player_id_to_points[pick['element']] for pick in starting_players if player_id_to_position[pick['element']] in [1, 2])
-    attacking_points = sum(player_id_to_points[pick['element']] for pick in starting_players if player_id_to_position[pick['element']] in [3, 4])
+    defensive_points = sum(player_data.get(pick['element'], {}).get('points', 0) for pick in starting_players if player_data.get(pick['element'], {}).get('position') in [1, 2])
+    attacking_points = sum(player_data.get(pick['element'], {}).get('points', 0) for pick in starting_players if player_data.get(pick['element'], {}).get('position') in [3, 4])
 
     chip_used = active_chip
 
-    avg_points = calculate_gw_average(league_data, desired_gw)
-    gw_performance_vs_avg = round(gw_data['points'] - avg_points, 1)
-    if desired_gw == 1:
+    avg_points = calculate_gw_average(league_data, gameweek)
+    gw_performance_vs_avg = round(team_data_for_gameweek['points'] - avg_points, 1)
+    if gameweek == 1:
         league_rank_movement = 0
     else:
-        league_rank_movement = (manager_data.get('last_rank', 0) - manager_data.get('rank', 0))
+        league_rank_movement = (team_data.get('last_rank', 0) - team_data.get('rank', 0))
 
-    gw_data_list.append({
-        'Gameweek': desired_gw,
-        'Points': gw_data['points'],
-        'Overall Gameweek Rank': gw_data['overall_gameweek_rank'],
-        'Overall Rank': gw_data['overall_rank'],
-        'League Rank': gw_data['league_rank'],
+    team_gameweek_data_list.append({
+        'Gameweek': gameweek,
+        'Points': team_data_for_gameweek['points'],
+        'Overall Gameweek Rank': team_data_for_gameweek['overall_gameweek_rank'],
+        'Overall Rank': team_data_for_gameweek['overall_rank'],
+        'League Rank': team_data_for_gameweek['league_rank'],
         'League Rank Movement': league_rank_movement,
         'Captain': captain_name,
         'Captain Points': captain_points,
         'Vice-Captain': vice_captain_name,
         'Vice-Captain Points': vice_captain_points,
-        'Transfers': gw_data['event_transfers'],
-        'Transfer Cost': gw_data['event_transfers_cost'],
+        'Transfers': team_data_for_gameweek['event_transfers'],
+        'Transfer Cost': team_data_for_gameweek['event_transfers_cost'],
         'Team Value': entry_history.get('value', 0) / 10,
         'Points on Bench': entry_history.get('points_on_bench', 0),
         'Bank Money': entry_history.get('bank', 0) / 10,
-        'Top Scorer': player_id_to_name.get(top_scorer_id, 'Unknown'),
+        'Top Scorer': player_data.get(top_scorer_id, {}).get('name', 'Unknown'),
         'Top Scorer Points': max_points,
         'Top Scorer Played': top_scorer_played,
-        'Underperformer': player_id_to_name.get(underperformer_id, 'Unknown'),
+        'Underperformer': player_data.get(underperformer_id, {}).get('name', 'Unknown'),
         'Underperformer Points': min_points,
         'Formation': formation,
         'Defensive Points': defensive_points,
@@ -96,15 +95,15 @@ def get_detailed_gw_data(manager_data, desired_gw, player_id_to_name, player_id_
         'Performance vs Avg': gw_performance_vs_avg
     })
 
-    return gw_data_list
+    return team_gameweek_data_list
 
-def get_differential_king(league_data, desired_gw, player_id_to_name, player_id_to_points):
+def get_differential_king(league_data, gameweek, player_data):
     player_ownership = {} # player_id: [list of manager_names who own this player]
 
     # Iterate through all managers to build player ownership data
     for manager_data in league_data['standings']['results']:
         manager_name = manager_data['entry_name']
-        gw_picks = manager_data['gameweek_data'].get(str(desired_gw), {}).get('picks', [])
+        gw_picks = manager_data['gameweek_data'].get(str(gameweek), {}).get('picks', [])
         for pick in gw_picks:
             player_id = pick['element']
             if player_id not in player_ownership:
@@ -114,12 +113,12 @@ def get_differential_king(league_data, desired_gw, player_id_to_name, player_id_
     differential_players = []
     for player_id, owners in player_ownership.items():
         if len(owners) == 1: # Owned by only one manager
-            player_name = player_id_to_name.get(player_id, 'Unknown Player')
-            player_points = player_id_to_points.get(player_id, 0)
+            player_name = player_data.get(player_id, {}).get('name', 'Unknown Player')
+            player_points_val = player_data.get(player_id, {}).get('points', 0)
             differential_players.append({
                 'player_id': player_id,
                 'player_name': player_name,
-                'points': player_points,
+                'points': player_points_val,
                 'owner': owners[0] # The single owner
             })
 
@@ -129,3 +128,29 @@ def get_differential_king(league_data, desired_gw, player_id_to_name, player_id_
         return differential_king
     else:
         return None # No differential player found
+
+def process_manager_data(league_data, player_data, gameweek, all_time_stats_manager):
+    for entry in league_data['standings']['results']:
+        team_name = entry['entry_name']
+        team_gameweek_data_list = get_detailed_gw_data(league_data, entry, player_data, gameweek)[0]
+        
+        all_time_stats_manager.update_all_stats_for_manager(
+            team_gameweek_data_list,
+            team_name,
+            gameweek,
+            entry
+        )
+        
+        process_autosubs(entry, team_name, gameweek, player_data, all_time_stats_manager)
+
+def process_autosubs(entry, team_name, gameweek, player_data, all_time_stats_manager):
+    current_gw_autosubs = [
+        sub for sub in entry.get('gameweek_data', {}).get(gameweek, {}).get('automatic_subs', [])
+        if sub.get('event') == gameweek
+    ]
+    
+    for autosub in current_gw_autosubs:
+        player_id = autosub.get('element_in')
+        if player_id:
+            player = player_data.get('player_id')
+            all_time_stats_manager.update_best_autosub_cameo(team_name, gameweek, player.get('name'), player.get('points'))

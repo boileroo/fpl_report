@@ -1,13 +1,20 @@
+import os
 from datetime import datetime
 from functions.data_processing import get_detailed_gw_data
 
-def generate_analysis_report(gameweek, league_data, player_id_to_name, player_id_to_points, player_id_to_position, differential_king):
+def generate_reports(league_data, player_data, gameweek, differential_king, all_time_stats_manager):
+    league_name = league_data.get('name')
+    report = generate_analysis_report(league_data, player_data, gameweek, differential_king)
+    save_report_to_file(report, gameweek, league_name)
+    generate_all_time_analysis_report(all_time_stats_manager.stats, league_name)
+
+
+def generate_analysis_report(league_data, player_data, gameweek, differential_king ):
     output = f"Analysis generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
 
-    # Extract detailed gameweek data for all managers in the mini-league
-    for manager_data in league_data['standings']['results']:
-        manager_name = manager_data['entry_name']
-        gw_data = get_detailed_gw_data(manager_data, int(gameweek), player_id_to_name, player_id_to_points, player_id_to_position, league_data)
+    for entry in league_data['standings']['results']:
+        manager_name = entry['entry_name']
+        gw_data = get_detailed_gw_data(league_data, entry, player_data, gameweek)
 
         if not gw_data:
             output += f"\nManager: {manager_name} (No Gameweek {gameweek} data available)\n"
@@ -61,7 +68,6 @@ def generate_analysis_report(gameweek, league_data, player_id_to_name, player_id
 
     return output
 
-import os
 
 def save_report_to_file(output_content, gameweek, league_name):
     output_dir = f"outputs/{league_name}/gameweek_{gameweek}"
@@ -69,7 +75,6 @@ def save_report_to_file(output_content, gameweek, league_name):
     filepath = f"{output_dir}/gw_analysis.txt"
     with open(filepath, 'w') as file:
         file.write(output_content)
-    print(output_content)
     print(f"Analysis saved to {filepath}")
 
 def generate_all_time_analysis_report(all_time_stats, league_name):
