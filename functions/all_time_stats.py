@@ -80,89 +80,23 @@ class AllTimeStatsManager:
         }
 
     def _initialize_stats(self):
-        # Load current gameweek stats (this will either load existing or create default structure)
         self.all_time_stats = self._load_or_create_all_time_stats(str(self.filepath))
         
-        # Reset cumulative and counts data for each run to prevent incrementing
-        # This ensures that when the script is run multiple times for the same gameweek,
-        # the cumulative stats start fresh rather than adding to previous values
         default_structure = self._get_default_stats_structure()
         self.all_time_stats["cumulative"] = copy.deepcopy(default_structure["cumulative"])
         self.all_time_stats["counts"] = copy.deepcopy(default_structure["counts"])
         self.all_time_stats["gw_scores"] = copy.deepcopy(default_structure["gw_scores"])
         
-        # Check if current stats have the old flat structure and convert if needed
-        if self.all_time_stats and isinstance(self.all_time_stats, dict):
-            # Check if it has the old flat structure (look for keys that should be in records category)
-            old_record_keys = [
-                "highest_gw_score", "lowest_gw_score", "most_points_on_bench",
-                "highest_team_value", "biggest_bank_balance", "most_captain_points",
-                "worst_captain_points", "most_transfers", "highest_overall_gameweek_rank",
-                "lowest_overall_gameweek_rank", "highest_league_rank", "lowest_league_rank",
-                "biggest_league_rank_drop", "biggest_league_rank_climb", "highest_defensive_haul",
-                "highest_attacking_haul", "narrowest_gw_score_variance", "widest_gw_score_variance",
-                "best_autosub_cameo", "best_chip_play", "worst_chip_play"
-            ]
-            
-            # If we find old record keys at the top level, it's the old structure
-            if any(key in self.all_time_stats for key in old_record_keys):
-                # Convert old flat structure to new hierarchical structure
-                new_stats = self._get_default_stats_structure()
-                
-                # Copy record data
-                for key in old_record_keys:
-                    if key in self.all_time_stats:
-                        new_stats["records"][key] = self.all_time_stats[key]
-                
-                # Copy cumulative data using the same mapping as before
-                key_mapping = {
-                    "total_captaincy_points_per_manager": ("cumulative", "captaincy_points"),
-                    "most_popular_captain_choices": ("counts", "captain_choices"),
-                    "total_bench_points_wasted_per_manager": ("cumulative", "bench_points"),
-                    "total_bank_balance_per_manager": ("cumulative", "bank_balance"),
-                    "gameweek_count_per_manager": ("counts", "gameweek_participation"),
-                    "most_common_formations": ("counts", "formations"),
-                    "chip_usage_tally": ("counts", "chip_usage"),
-                    "total_defensive_points_per_manager": ("cumulative", "defensive_points"),
-                    "total_attacking_points_per_manager": ("cumulative", "attacking_points"),
-                    "gw_scores_per_manager": ("gw_scores", "gw_scores"),
-                    "total_autosub_points_per_manager": ("cumulative", "autosub_points"),
-                    "highest_league_rank_per_manager": ("manager_records", "highest_league_rank"),
-                    "lowest_league_rank_per_manager": ("manager_records", "lowest_league_rank"),
-                    "differential_king_per_gameweek": ("differential_king_per_gameweek", "differential_king_per_gameweek"),  # Direct mapping
-                    "highest_overall_rank": ("records", "highest_overall_rank"),
-                    "lowest_overall_rank": ("records", "lowest_overall_rank")
-                }
-                
-                # Copy data from old structure to new structure
-                for old_key, (new_category, new_key) in key_mapping.items():
-                    if old_key in self.all_time_stats:
-                        # Special handling for gw_scores and differential_king_per_gameweek
-                        if new_category in ["gw_scores", "differential_king_per_gameweek"]:
-                            new_stats[new_category] = self.all_time_stats[old_key]
-                        else:
-                            # For other categories, we need to map the data appropriately
-                            new_stats[new_category][new_key] = self.all_time_stats[old_key]
-                
-                # Replace the current stats with the converted structure
-                self.all_time_stats = new_stats
-        
-        # Load previous gameweek stats if available
         previous_gameweek_stats = {}
         if self.previous_gameweek > 0:
             previous_gameweek_stats = self._load_or_create_all_time_stats(str(self.previous_gw_filepath))
         
-        # If we have previous gameweek stats, merge them with current stats
         if previous_gameweek_stats and isinstance(previous_gameweek_stats, dict):
-            # Check if previous stats have the new hierarchical structure
             if "cumulative" in previous_gameweek_stats:
-                # New structure - copy categories directly
                 for category in ["cumulative", "counts"]:
                     if category in previous_gameweek_stats:
                         self.all_time_stats[category] = copy.deepcopy(previous_gameweek_stats[category])
             else:
-                # Old flat structure - need to migrate
-                # Initialize the new structure categories if they don't exist
                 if "cumulative" not in self.all_time_stats:
                     self.all_time_stats["cumulative"] = {
                         "captaincy_points": {},
@@ -181,7 +115,6 @@ class AllTimeStatsManager:
                         "gameweek_participation": {}
                     }
                 
-                # Map old keys to new structure
                 key_mapping = {
                     "total_captaincy_points_per_manager": ("cumulative", "captaincy_points"),
                     "most_popular_captain_choices": ("counts", "captain_choices"),
@@ -195,7 +128,6 @@ class AllTimeStatsManager:
                     "total_autosub_points_per_manager": ("cumulative", "autosub_points")
                 }
                 
-                # Copy data from old structure to new structure
                 for old_key, (new_category, new_key) in key_mapping.items():
                     if old_key in previous_gameweek_stats:
                         self.all_time_stats[new_category][new_key] = copy.deepcopy(previous_gameweek_stats[old_key])
@@ -224,7 +156,7 @@ class AllTimeStatsManager:
                 self.all_time_stats[stat_category][stat_key] = manager_stat
         else:
             current_stat = self.all_time_stats[stat_category].get(stat_key, {"value": None})
-            current_value = current_stat.get("value", None)  # Use .get() to avoid KeyError
+            current_value = current_stat.get("value", None)
             updated = False
 
             if current_value is None:
@@ -414,8 +346,6 @@ class AllTimeStatsManager:
             self.update_narrowest_gw_score_variance(team_name, gameweek_int, gw_variance)
             self.update_widest_gw_score_variance(team_name, gameweek_int, gw_variance)
 
-        # Replace the gw_scores list with just the current gameweek's score
-        # instead of appending to prevent duplicates across runs
         self.all_time_stats["gw_scores"][team_name] = [gw_data['Points']]
 
     def process_differential_king(self, differential_king_data):
@@ -463,7 +393,6 @@ class AllTimeStatsManager:
     
     @property
     def stats(self):
-        """Backward compatibility property to access all_time_stats as stats."""
         return self.all_time_stats
     
     def save_stats(self):
