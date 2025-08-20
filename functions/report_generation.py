@@ -10,7 +10,7 @@ def generate_reports(league_data, player_data, gameweek, all_time_stats_manager)
 
 
 def generate_gameweek_analysis_report(league_data, player_data, gameweek, differential_king, league_name ):
-    output = f"Analysis generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+    output = f"Analysis generated on: {datetime.now().strftime('%Y-%m-%d')}\n\n"
 
     for entry in league_data['standings']['results']:
         manager_name = entry['entry_name']
@@ -93,7 +93,7 @@ def generate_gameweek_analysis_report(league_data, player_data, gameweek, differ
 
 def generate_all_time_analysis_report(all_time_stats, league_name):
     output = f"# All-Time FPL League Records\n\n"
-    output += f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+    output += f"Last updated: {datetime.now().strftime('%Y-%m-%d')}\n\n"
     output += "## League Records\n\n"
     output += "| Statistic                | Team Name      | Gameweek | Value      |\n"
     output += "| ------------------------ | -------------- | -------- | ---------- |\n"

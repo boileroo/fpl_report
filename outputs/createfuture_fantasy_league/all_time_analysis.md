@@ -1,6 +1,6 @@
 # All-Time FPL League Records
 
-Last updated: 2025-08-20 15:24:50
+Last updated: 2025-08-20
 
 ## League Records
 
