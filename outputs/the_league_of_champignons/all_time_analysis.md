@@ -1,6 +1,6 @@
 # All-Time FPL League Records
 
-Last updated: 2025-08-20 09:05:52
+Last updated: 2025-08-20 10:11:21
 
 ## League Records
 
@@ -20,7 +20,7 @@ Last updated: 2025-08-20 09:05:52
 | Lowest Overall Rank      | Amorim or out? | 1        | 8771507    |
 | Biggest League Rank Drop | N/A            | N/A      | N/A        |
 | Biggest League Rank Climb | N/A            | N/A      | N/A        |
-| Best Autosub Cameo       | N/A            | N/A      | 0          (Player: None) |
+| Best Autosub Cameo       | Amorim or out? | 1        | 3          (Player: Virgil) |
 | Best Chip Play           | N/A            | N/A      | 0          (Player: None) (Chip: None) |
 | Worst Chip Play          | N/A            | N/A      | N/A        (Player: None) (Chip: None) |
 | Highest Defensive Haul (GK+DEF) | Anusol FC      | 1        | 31         |
@@ -158,6 +158,23 @@ Last updated: 2025-08-20 09:05:52
 | Viva la Villa  | 0   | 0   | 0   | 0   |
 | Redwood Rebels | 0   | 0   | 0   | 0   |
 | Amorim or out? | 0   | 0   | 0   | 0   |
+
+
+## Autosub Stats
+
+### Total Autosub Points Per Manager
+| Manager        | Total Autosub Points |
+| -------------- | -------------------- |
+| Amorim or out? | 3                    |
+| Ripon Rovers   | 2                    |
+| No Pukki No Party | 0                    |
+| Sesko Extra    | 0                    |
+| Anusol FC      | 0                    |
+| Sarr Chasm Bridged | 0                    |
+| McGinty's Marauders | 0                    |
+| Peaky Reijnders | 0                    |
+| Viva la Villa  | 0                    |
+| Redwood Rebels | 0                    |
 
 
 ## Defensive vs Attacking Balance

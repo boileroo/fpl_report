@@ -35,7 +35,8 @@ class AllTimeStatsManager:
             "widest_gw_score_variance",
             "highest_league_rank_per_manager",
             "lowest_league_rank_per_manager",
-            "differential_king_per_gameweek"
+            "differential_king_per_gameweek",
+            "total_autosub_points_per_manager"
         ]
 
         for key in cumulative_keys:
@@ -187,6 +188,9 @@ class AllTimeStatsManager:
     def update_total_attacking_points_per_manager(self, team_name, attacking_points):
         self.stats["total_attacking_points_per_manager"][team_name] = self.stats["total_attacking_points_per_manager"].get(team_name, 0) + attacking_points
 
+    def update_total_autosub_points_per_manager(self, team_name, autosub_points):
+        self.stats["total_autosub_points_per_manager"][team_name] = self.stats["total_autosub_points_per_manager"].get(team_name, 0) + autosub_points
+
     def update_all_stats_for_manager(self, gw_data, team_name, gameweek_int, manager_data):
         # Update individual stats using the manager's methods
         self.update_highest_gw_score(team_name, gameweek_int, gw_data['Points'])
@@ -221,6 +225,7 @@ class AllTimeStatsManager:
         self.update_total_captaincy_points_per_manager(team_name, gw_data['Captain Points'])
         self.update_most_popular_captain_choices(gw_data['Captain'])
         self.update_total_bench_points_wasted_per_manager(team_name, gw_data['Points on Bench'])
+        self.update_total_autosub_points_per_manager(team_name, gw_data.get('autosub_points', 0))
 
         # New formation stats
         formation = gw_data.get('Formation') # Assuming 'Formation' key exists in gw_data

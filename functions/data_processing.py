@@ -21,6 +21,37 @@ def get_detailed_gw_data(league_data, team_data, player_data, gameweek):
     team_data_for_gameweek['event_transfers'] = entry_history.get('event_transfers', 0)
     team_data_for_gameweek['event_transfers_cost'] = entry_history.get('event_transfers_cost', 0)
     active_chip = team_data_for_gameweek.get('active_chip', "No Chip Used")
+    
+    # Extract autosub information
+    automatic_subs = team_data_for_gameweek.get('automatic_subs', [])
+    current_gw_autosubs = [
+        sub for sub in automatic_subs
+        if sub.get('event') == gameweek
+    ]
+    
+    # Process autosub details
+    autosub_details = []
+    autosub_points = 0
+    
+    for autosub in current_gw_autosubs:
+        element_in = autosub.get('element_in')
+        element_out = autosub.get('element_out')
+        
+        # Get player details for both incoming and outgoing players
+        player_in_data = player_data.get(element_in, {})
+        player_out_data = player_data.get(element_out, {})
+        
+        # Calculate points gained from autosub (points of player in)
+        points_gained = player_in_data.get('points', 0)
+        autosub_points += points_gained
+        
+        autosub_details.append({
+            'element_in': element_in,
+            'element_out': element_out,
+            'player_in_name': player_in_data.get('name', 'Unknown'),
+            'player_out_name': player_out_data.get('name', 'Unknown'),
+            'points_gained': points_gained
+        })
 
     top_scorer_id = None
     max_points = 0
@@ -92,7 +123,9 @@ def get_detailed_gw_data(league_data, team_data, player_data, gameweek):
         'Defensive Points': defensive_points,
         'Attacking Points': attacking_points,
         'Chip Used': chip_used,
-        'Performance vs Avg': gw_performance_vs_avg
+        'Performance vs Avg': gw_performance_vs_avg,
+        'autosub_details': autosub_details,
+        'autosub_points': autosub_points
     })
 
     return team_gameweek_data_list
@@ -132,25 +165,17 @@ def get_differential_king(league_data, gameweek, player_data):
 def process_gameweek_for_league(league_data, player_data, gameweek, all_time_stats_manager):
     for entry in league_data['standings']['results']:
         team_name = entry['entry_name']
-        team_gameweek_data_list = get_detailed_gw_data(league_data, entry, player_data, gameweek)[0]
+        team_gameweek_data = get_detailed_gw_data(league_data, entry, player_data, gameweek)[0]
+        
+        autosub_details = team_gameweek_data.get('autosub_details', [])
+        for autosub in autosub_details:
+            player_name = autosub.get('player_in_name', 'Unknown')
+            points = autosub.get('points_gained', 0)
+            all_time_stats_manager.update_best_autosub_cameo(team_name, gameweek, player_name, points)
         
         all_time_stats_manager.update_all_stats_for_manager(
-            team_gameweek_data_list,
+            team_gameweek_data,
             team_name,
             gameweek,
             entry
         )
-        
-        process_autosubs(entry, team_name, gameweek, player_data, all_time_stats_manager)
-
-def process_autosubs(entry, team_name, gameweek, player_data, all_time_stats_manager):
-    current_gw_autosubs = [
-        sub for sub in entry.get('gameweek_data', {}).get(gameweek, {}).get('automatic_subs', [])
-        if sub.get('event') == gameweek
-    ]
-    
-    for autosub in current_gw_autosubs:
-        player_id = autosub.get('element_in')
-        if player_id:
-            player = player_data.get('player_id')
-            all_time_stats_manager.update_best_autosub_cameo(team_name, gameweek, player.get('name'), player.get('points'))

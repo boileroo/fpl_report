@@ -45,6 +45,22 @@ def generate_analysis_report(league_data, player_data, gameweek, differential_ki
         output += f"Attacking Points: {data['Attacking Points']}\n"
         output += f"Chip Used: {data['Chip Used']}\n"
         output += f"Performance vs League Avg: {data['Performance vs Avg']}\n"
+        
+        # Add autosub information
+        autosub_details = data.get('autosub_details', [])
+        autosub_points = data.get('autosub_points', 0)
+        
+        output += "\nAutosubs:\n"
+        if autosub_details:
+            output += f"  Points gained from autosubs: {autosub_points}\n"
+            for autosub in autosub_details:
+                player_in = autosub.get('player_in_name', 'Unknown')
+                player_out = autosub.get('player_out_name', 'Unknown')
+                points_gained = autosub.get('points_gained', 0)
+                output += f"  Substituted {player_out} → {player_in} (+{points_gained} points)\n"
+        else:
+            output += "  No autosubs made this gameweek\n"
+        
         output += "-" * 80 + "\n"
 
     # Extract league standings
@@ -284,45 +300,56 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
             output += f"| {manager:<14} | {bb_count:<3} | {tc_count:<3} | {fh_count:<3} | {wc_count:<3} |\n"
         output += "\n"
 
+    # Total autosub points per manager
+    if "total_autosub_points_per_manager" in all_time_stats:
+        output += "\n## Autosub Stats\n\n"
+        output += "### Total Autosub Points Per Manager\n"
+        output += "| Manager        | Total Autosub Points |\n"
+        output += "| -------------- | -------------------- |\n"
+        sorted_managers = sorted(all_time_stats["total_autosub_points_per_manager"].items(), key=lambda item: item[1], reverse=True)
+        for manager, points in sorted_managers:
+            output += f"| {manager:<14} | {points:<20} |\n"
+        output += "\n"
+
         # Add defensive/attacking balance stats
-        if "total_defensive_points_per_manager" in all_time_stats and "total_attacking_points_per_manager" in all_time_stats and "gameweek_count_per_manager" in all_time_stats:
-            output += "\n## Defensive vs Attacking Balance\n\n"
-            output += "### Team Balance Comparison\n"
-            output += "| Team Name | Avg Defensive Points | Avg Attacking Points | Balance Ratio (D/A) |\n"
-            output += "| --------- | -------------------- | -------------------- | ------------------- |\n"
+    if "total_defensive_points_per_manager" in all_time_stats and "total_attacking_points_per_manager" in all_time_stats and "gameweek_count_per_manager" in all_time_stats:
+        output += "\n## Defensive vs Attacking Balance\n\n"
+        output += "### Team Balance Comparison\n"
+        output += "| Team Name | Avg Defensive Points | Avg Attacking Points | Balance Ratio (D/A) |\n"
+        output += "| --------- | -------------------- | -------------------- | ------------------- |\n"
 
-            # Calculate average defensive and attacking points per manager
-            defensive_averages = {}
-            attacking_averages = {}
-            for manager in all_time_stats["total_defensive_points_per_manager"]:
-                gameweek_count = all_time_stats["gameweek_count_per_manager"].get(manager, 0)
-                if gameweek_count > 0:
-                    defensive_averages[manager] = all_time_stats["total_defensive_points_per_manager"][manager] / gameweek_count
-                    attacking_averages[manager] = all_time_stats["total_attacking_points_per_manager"][manager] / gameweek_count
+        # Calculate average defensive and attacking points per manager
+        defensive_averages = {}
+        attacking_averages = {}
+        for manager in all_time_stats["total_defensive_points_per_manager"]:
+            gameweek_count = all_time_stats["gameweek_count_per_manager"].get(manager, 0)
+            if gameweek_count > 0:
+                defensive_averages[manager] = all_time_stats["total_defensive_points_per_manager"][manager] / gameweek_count
+                attacking_averages[manager] = all_time_stats["total_attacking_points_per_manager"][manager] / gameweek_count
 
-            # Most defence-heavy team (highest average defensive points)
-            if defensive_averages:
-                most_defensive_team = max(defensive_averages.items(), key=lambda x: x[1])
+        # Most defence-heavy team (highest average defensive points)
+        if defensive_averages:
+            most_defensive_team = max(defensive_averages.items(), key=lambda x: x[1])
 
-            # Most attack-heavy team (highest average attacking points)
-            if attacking_averages:
-                most_attacking_team = max(attacking_averages.items(), key=lambda x: x[1])
+        # Most attack-heavy team (highest average attacking points)
+        if attacking_averages:
+            most_attacking_team = max(attacking_averages.items(), key=lambda x: x[1])
 
-            # Add the comparison table with all managers
-            for manager in sorted(defensive_averages.keys()):
-                def_avg = defensive_averages.get(manager, 0)
-                att_avg = attacking_averages.get(manager, 0)
-                balance_ratio = def_avg / att_avg if att_avg > 0 else float('inf')
-                output += f"| {manager} | {def_avg:.2f} | {att_avg:.2f} | {balance_ratio:.2f} |\n"
-            output += "\n"
+        # Add the comparison table with all managers
+        for manager in sorted(defensive_averages.keys()):
+            def_avg = defensive_averages.get(manager, 0)
+            att_avg = attacking_averages.get(manager, 0)
+            balance_ratio = def_avg / att_avg if att_avg > 0 else float('inf')
+            output += f"| {manager} | {def_avg:.2f} | {att_avg:.2f} | {balance_ratio:.2f} |\n"
+        output += "\n"
 
-            output += f"### Most Defence-Heavy Team\n"
-            output += f"Team: {most_defensive_team[0]}\n"
-            output += f"Average Defensive Points (GK+DEF): {most_defensive_team[1]:.2f}\n\n"
+        output += f"### Most Defence-Heavy Team\n"
+        output += f"Team: {most_defensive_team[0]}\n"
+        output += f"Average Defensive Points (GK+DEF): {most_defensive_team[1]:.2f}\n\n"
 
-            output += f"### Most Attack-Heavy Team\n"
-            output += f"Team: {most_attacking_team[0]}\n"
-            output += f"Average Attacking Points (MID+FWD): {most_attacking_team[1]:.2f}\n\n"
+        output += f"### Most Attack-Heavy Team\n"
+        output += f"Team: {most_attacking_team[0]}\n"
+        output += f"Average Attacking Points (MID+FWD): {most_attacking_team[1]:.2f}\n\n"
 
 
     output_dir = f"outputs/{league_name}"

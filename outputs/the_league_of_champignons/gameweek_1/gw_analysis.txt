@@ -1,4 +1,4 @@
-Analysis generated on: 2025-08-20 09:05:52
+Analysis generated on: 2025-08-20 10:11:21
 
 
 Manager: No Pukki No Party
@@ -23,6 +23,9 @@ Defensive Points: 22
 Attacking Points: 37
 Chip Used: None
 Performance vs League Avg: 17.3
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: Sesko Extra
@@ -47,6 +50,9 @@ Defensive Points: 23
 Attacking Points: 30
 Chip Used: None
 Performance vs League Avg: 11.3
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: Anusol FC
@@ -71,6 +77,10 @@ Defensive Points: 31
 Attacking Points: 26
 Chip Used: None
 Performance vs League Avg: 10.3
+
+Autosubs:
+  Points gained from autosubs: 0
+  Substituted Fábio Vieira → Collins (+0 points)
 --------------------------------------------------------------------------------
 
 Manager: Ripon Rovers
@@ -95,6 +105,10 @@ Defensive Points: 24
 Attacking Points: 30
 Chip Used: None
 Performance vs League Avg: 7.3
+
+Autosubs:
+  Points gained from autosubs: 2
+  Substituted Gvardiol → Dunk (+2 points)
 --------------------------------------------------------------------------------
 
 Manager: Sarr Chasm Bridged
@@ -119,6 +133,9 @@ Defensive Points: 20
 Attacking Points: 33
 Chip Used: None
 Performance vs League Avg: 0.3
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: McGinty's Marauders
@@ -143,6 +160,9 @@ Defensive Points: 21
 Attacking Points: 24
 Chip Used: None
 Performance vs League Avg: -1.7
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: Peaky Reijnders
@@ -167,6 +187,9 @@ Defensive Points: 14
 Attacking Points: 29
 Chip Used: None
 Performance vs League Avg: -3.7
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: Viva la Villa
@@ -191,6 +214,9 @@ Defensive Points: 18
 Attacking Points: 24
 Chip Used: None
 Performance vs League Avg: -10.7
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: Redwood Rebels
@@ -215,6 +241,9 @@ Defensive Points: 18
 Attacking Points: 23
 Chip Used: None
 Performance vs League Avg: -11.7
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: Amorim or out?
@@ -239,6 +268,10 @@ Defensive Points: 19
 Attacking Points: 16
 Chip Used: None
 Performance vs League Avg: -18.7
+
+Autosubs:
+  Points gained from autosubs: 3
+  Substituted Akanji → Virgil (+3 points)
 --------------------------------------------------------------------------------
 
 League Standings:

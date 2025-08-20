@@ -199,10 +199,10 @@
         ]
     },
     "best_autosub_cameo": {
-        "team": null,
-        "gameweek": null,
-        "value": 0,
-        "player": null
+        "team": "Amorim or out?",
+        "gameweek": 1,
+        "value": 3,
+        "player": "Virgil"
     },
     "best_chip_play": {
         "team": null,
@@ -375,5 +375,17 @@
         "team": "Amorim or out?",
         "gameweek": 1,
         "value": 8771507
+    },
+    "total_autosub_points_per_manager": {
+        "No Pukki No Party": 0,
+        "Sesko Extra": 0,
+        "Anusol FC": 0,
+        "Ripon Rovers": 2,
+        "Sarr Chasm Bridged": 0,
+        "McGinty's Marauders": 0,
+        "Peaky Reijnders": 0,
+        "Viva la Villa": 0,
+        "Redwood Rebels": 0,
+        "Amorim or out?": 3
     }
 }
