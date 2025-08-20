@@ -72,6 +72,14 @@ def generate_gameweek_analysis_report(league_data, player_data, gameweek, differ
     for team in team_data:
         output += f"{team['Team Name']},{team['Points']}\n"
     
+    # New Entries
+    new_entries = league_data.get('new_entries', {}).get('results', [])
+    if new_entries:
+        output += "\n## New Entries\n"
+        for entry in new_entries:
+            output += f"- {entry['entry_name']}\n"
+        output += "\n"
+    
     # Differential King
     output += "\n## Differential King\n\n"
     if differential_king:
