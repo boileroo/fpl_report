@@ -129,7 +129,7 @@ def get_differential_king(league_data, gameweek, player_data):
     else:
         return None # No differential player found
 
-def process_manager_data(league_data, player_data, gameweek, all_time_stats_manager):
+def process_gameweek_for_league(league_data, player_data, gameweek, all_time_stats_manager):
     for entry in league_data['standings']['results']:
         team_name = entry['entry_name']
         team_gameweek_data_list = get_detailed_gw_data(league_data, entry, player_data, gameweek)[0]

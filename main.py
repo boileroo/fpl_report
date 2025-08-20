@@ -1,6 +1,6 @@
 from functions.data_operations import fetch_raw_data, create_mappings
 from functions.report_generation import generate_reports
-from functions.data_processing import process_manager_data, get_differential_king
+from functions.data_processing import process_gameweek_for_league, get_differential_king
 from functions.all_time_stats import AllTimeStatsManager
 import os
 
@@ -27,7 +27,7 @@ def main():
 
     all_time_stats_manager = AllTimeStatsManager(league_data['name'], gameweek)
     
-    process_manager_data(league_data, player_data, gameweek, all_time_stats_manager)
+    process_gameweek_for_league(league_data, player_data, gameweek, all_time_stats_manager)
     
     differential_king = get_differential_king(league_data, gameweek, player_data)
     all_time_stats_manager.process_differential_king(differential_king)
