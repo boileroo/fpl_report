@@ -22,14 +22,12 @@ def get_detailed_gw_data(league_data, team_data, player_data, gameweek):
     team_data_for_gameweek['event_transfers_cost'] = entry_history.get('event_transfers_cost', 0)
     active_chip = team_data_for_gameweek.get('active_chip', "No Chip Used")
     
-    # Extract autosub information
     automatic_subs = team_data_for_gameweek.get('automatic_subs', [])
     current_gw_autosubs = [
         sub for sub in automatic_subs
         if sub.get('event') == gameweek
     ]
     
-    # Process autosub details
     autosub_details = []
     autosub_points = 0
     
@@ -37,11 +35,9 @@ def get_detailed_gw_data(league_data, team_data, player_data, gameweek):
         element_in = autosub.get('element_in')
         element_out = autosub.get('element_out')
         
-        # Get player details for both incoming and outgoing players
         player_in_data = player_data.get(element_in, {})
         player_out_data = player_data.get(element_out, {})
         
-        # Calculate points gained from autosub (points of player in)
         points_gained = player_in_data.get('points', 0)
         autosub_points += points_gained
         
@@ -131,9 +127,7 @@ def get_detailed_gw_data(league_data, team_data, player_data, gameweek):
     return team_gameweek_data_list
 
 def get_differential_king(league_data, gameweek, player_data):
-    player_ownership = {} # player_id: [list of manager_names who own this player]
-
-    # Iterate through all managers to build player ownership data
+    player_ownership = {} 
     for manager_data in league_data['standings']['results']:
         manager_name = manager_data['entry_name']
         gw_picks = manager_data['gameweek_data'].get(str(gameweek), {}).get('picks', [])
@@ -145,22 +139,21 @@ def get_differential_king(league_data, gameweek, player_data):
 
     differential_players = []
     for player_id, owners in player_ownership.items():
-        if len(owners) == 1: # Owned by only one manager
+        if len(owners) == 1: 
             player_name = player_data.get(player_id, {}).get('name', 'Unknown Player')
             player_points_val = player_data.get(player_id, {}).get('points', 0)
             differential_players.append({
                 'player_id': player_id,
                 'player_name': player_name,
                 'points': player_points_val,
-                'owner': owners[0] # The single owner
+                'owner': owners[0] 
             })
 
-    # Find the differential player with the highest score
     if differential_players:
         differential_king = max(differential_players, key=lambda x: x['points'])
         return differential_king
     else:
-        return None # No differential player found
+        return None 
 
 def process_gameweek_for_league(league_data, player_data, gameweek, all_time_stats_manager):
     for entry in league_data['standings']['results']:
@@ -172,6 +165,9 @@ def process_gameweek_for_league(league_data, player_data, gameweek, all_time_sta
             points = autosub.get('points_gained', 0)
             all_time_stats_manager.update_best_autosub_cameo(team_name, gameweek, player_name, points)
         
+        differential_king = get_differential_king(league_data, gameweek, player_data)
+        all_time_stats_manager.process_differential_king(differential_king)
+
         team_name = entry['entry_name']
         all_time_stats_manager.update_all_stats_for_manager(
             team_gameweek_data,

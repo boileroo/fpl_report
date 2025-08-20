@@ -28,11 +28,8 @@ def main():
     all_time_stats_manager = AllTimeStatsManager(league_data['name'], gameweek)
     
     process_gameweek_for_league(league_data, player_data, gameweek, all_time_stats_manager)
-    
-    differential_king = get_differential_king(league_data, gameweek, player_data)
-    all_time_stats_manager.process_differential_king(differential_king)
-    
-    generate_reports(league_data, player_data, gameweek, differential_king, all_time_stats_manager)
+    generate_reports(league_data, player_data, gameweek, all_time_stats_manager)
+
     all_time_stats_manager.save_stats()
 
 if __name__ == "__main__":

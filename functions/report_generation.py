@@ -1,15 +1,15 @@
 import os
 from datetime import datetime
-from functions.data_processing import get_detailed_gw_data
+from functions.data_processing import get_detailed_gw_data, get_differential_king
 
-def generate_reports(league_data, player_data, gameweek, differential_king, all_time_stats_manager):
-    league_name = league_data.get('name')
-    report = generate_analysis_report(league_data, player_data, gameweek, differential_king)
-    save_report_to_file(report, gameweek, league_name)
+def generate_reports(league_data, player_data, gameweek, all_time_stats_manager):
+    league_name = league_data['name']
+    differential_king = get_differential_king(league_data, gameweek, player_data)
+    generate_gameweek_analysis_report(league_data, player_data, gameweek, differential_king, league_name)
     generate_all_time_analysis_report(all_time_stats_manager.stats, league_name)
 
 
-def generate_analysis_report(league_data, player_data, gameweek, differential_king ):
+def generate_gameweek_analysis_report(league_data, player_data, gameweek, differential_king, league_name ):
     output = f"Analysis generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
 
     for entry in league_data['standings']['results']:
@@ -82,16 +82,14 @@ def generate_analysis_report(league_data, player_data, gameweek, differential_ki
         output += "No Differential King found for this gameweek (no player owned by only one manager scored points).\n"
     output += "\n"
 
-    return output
-
-
-def save_report_to_file(output_content, gameweek, league_name):
     output_dir = f"outputs/{league_name}/gameweek_{gameweek}"
     os.makedirs(output_dir, exist_ok=True)
     filepath = f"{output_dir}/gw_analysis.txt"
     with open(filepath, 'w') as file:
-        file.write(output_content)
+        file.write(output)
     print(f"Analysis saved to {filepath}")
+
+
 
 def generate_all_time_analysis_report(all_time_stats, league_name):
     output = f"# All-Time FPL League Records\n\n"
