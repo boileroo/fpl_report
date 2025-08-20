@@ -164,7 +164,6 @@ def get_differential_king(league_data, gameweek, player_data):
 
 def process_gameweek_for_league(league_data, player_data, gameweek, all_time_stats_manager):
     for entry in league_data['standings']['results']:
-        team_name = entry['entry_name']
         team_gameweek_data = get_detailed_gw_data(league_data, entry, player_data, gameweek)[0]
         
         autosub_details = team_gameweek_data.get('autosub_details', [])
@@ -173,9 +172,9 @@ def process_gameweek_for_league(league_data, player_data, gameweek, all_time_sta
             points = autosub.get('points_gained', 0)
             all_time_stats_manager.update_best_autosub_cameo(team_name, gameweek, player_name, points)
         
+        team_name = entry['entry_name']
         all_time_stats_manager.update_all_stats_for_manager(
             team_gameweek_data,
             team_name,
-            gameweek,
-            entry
+            gameweek
         )

@@ -184,8 +184,6 @@ class AllTimeStatsManager:
 
     def _add_cumulative_stat(self, category, team_name, value):
         self.all_time_stats["cumulative"][category][team_name] = self.all_time_stats["cumulative"][category].get(team_name, 0) + value
-
-    # Backward compatibility methods - these maintain the same interface as the original
     
     def update_highest_gw_score(self, team_name, gameweek, value):
         self._update_stat_record("records", "highest_gw_score", team_name, gameweek, value, is_highest=True)
@@ -272,7 +270,7 @@ class AllTimeStatsManager:
     def update_total_autosub_points_per_manager(self, team_name, autosub_points):
         self._add_cumulative_stat("autosub_points", team_name, autosub_points)
 
-    def update_all_stats_for_manager(self, gw_data, team_name, gameweek_int, entry=None):
+    def update_all_stats_for_manager(self, gw_data, team_name, gameweek_int):
         self._update_basic_records(gw_data, team_name, gameweek_int)
         self._update_league_rank_stats(gw_data, team_name, gameweek_int)
         self._update_cumulative_stats(gw_data, team_name, gameweek_int)
