@@ -1,7 +1,7 @@
 import os
 import sys # Added for sys.exit()
 from functions.fpl_api import retrieve_league_data, fetch_game_data
-from functions.file_operations import save_to_json, load_json
+from functions.utils import save_to_json, load_json
 from functions.utils import get_formatted_league_name
 
 
