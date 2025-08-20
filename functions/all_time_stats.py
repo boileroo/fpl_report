@@ -83,6 +83,14 @@ class AllTimeStatsManager:
         # Load current gameweek stats (this will either load existing or create default structure)
         self.all_time_stats = self._load_or_create_all_time_stats(str(self.filepath))
         
+        # Reset cumulative and counts data for each run to prevent incrementing
+        # This ensures that when the script is run multiple times for the same gameweek,
+        # the cumulative stats start fresh rather than adding to previous values
+        default_structure = self._get_default_stats_structure()
+        self.all_time_stats["cumulative"] = copy.deepcopy(default_structure["cumulative"])
+        self.all_time_stats["counts"] = copy.deepcopy(default_structure["counts"])
+        self.all_time_stats["gw_scores"] = copy.deepcopy(default_structure["gw_scores"])
+        
         # Check if current stats have the old flat structure and convert if needed
         if self.all_time_stats and isinstance(self.all_time_stats, dict):
             # Check if it has the old flat structure (look for keys that should be in records category)

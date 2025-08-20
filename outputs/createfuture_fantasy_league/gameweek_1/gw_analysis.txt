@@ -1,4 +1,4 @@
-Analysis generated on: 2025-08-20 09:01:48
+Analysis generated on: 2025-08-20 14:41:23
 
 
 Manager: Craig's Crunchers
@@ -23,6 +23,9 @@ Defensive Points: 20
 Attacking Points: 48
 Chip Used: bboost
 Performance vs League Avg: 28.2
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: Under my Cucurella
@@ -47,6 +50,9 @@ Defensive Points: 17
 Attacking Points: 49
 Chip Used: None
 Performance vs League Avg: 16.2
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: No Pukki No Party
@@ -71,6 +77,9 @@ Defensive Points: 22
 Attacking Points: 37
 Chip Used: None
 Performance vs League Avg: 14.2
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: Montyrose
@@ -95,6 +104,9 @@ Defensive Points: 22
 Attacking Points: 39
 Chip Used: None
 Performance vs League Avg: 11.2
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: Haalandaise Sauce FC
@@ -119,6 +131,11 @@ Defensive Points: 10
 Attacking Points: 45
 Chip Used: None
 Performance vs League Avg: 8.2
+
+Autosubs:
+  Points gained from autosubs: 11
+  Substituted Boscagli → Henry (+1 points)
+  Substituted Tosin → Reijnders (+10 points)
 --------------------------------------------------------------------------------
 
 Manager: BOY BETO KNOW
@@ -143,6 +160,9 @@ Defensive Points: 10
 Attacking Points: 38
 Chip Used: None
 Performance vs League Avg: 3.2
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: Red Star Bellegarde
@@ -167,6 +187,9 @@ Defensive Points: 21
 Attacking Points: 27
 Chip Used: None
 Performance vs League Avg: 3.2
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: ÒYÈKÚ MÉJÌ
@@ -191,6 +214,9 @@ Defensive Points: 13
 Attacking Points: 38
 Chip Used: None
 Performance vs League Avg: 1.2
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: Yoro Wissa Harry
@@ -215,6 +241,9 @@ Defensive Points: 13
 Attacking Points: 36
 Chip Used: None
 Performance vs League Avg: -0.8
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: ThomasMuellersDayOff
@@ -239,6 +268,9 @@ Defensive Points: 33
 Attacking Points: 22
 Chip Used: None
 Performance vs League Avg: -0.8
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: ChatGPTs Picks
@@ -263,6 +295,10 @@ Defensive Points: 16
 Attacking Points: 30
 Chip Used: None
 Performance vs League Avg: -3.8
+
+Autosubs:
+  Points gained from autosubs: 1
+  Substituted Marc Guiu → L.Miley (+1 points)
 --------------------------------------------------------------------------------
 
 Manager: Wirtz case Vicario
@@ -287,6 +323,9 @@ Defensive Points: 17
 Attacking Points: 29
 Chip Used: None
 Performance vs League Avg: -3.8
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: Neville Wears Prada
@@ -311,6 +350,9 @@ Defensive Points: 21
 Attacking Points: 25
 Chip Used: None
 Performance vs League Avg: -3.8
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: Full Slot Ahead
@@ -335,6 +377,10 @@ Defensive Points: 18
 Attacking Points: 28
 Chip Used: None
 Performance vs League Avg: -3.8
+
+Autosubs:
+  Points gained from autosubs: 1
+  Substituted Bailey → Devenny (+1 points)
 --------------------------------------------------------------------------------
 
 Manager: Don'tLookBackElanga
@@ -359,6 +405,10 @@ Defensive Points: 12
 Attacking Points: 39
 Chip Used: None
 Performance vs League Avg: -4.8
+
+Autosubs:
+  Points gained from autosubs: 3
+  Substituted Tosin → Konsa (+3 points)
 --------------------------------------------------------------------------------
 
 Manager: Sesko Extra
@@ -383,6 +433,9 @@ Defensive Points: 12
 Attacking Points: 27
 Chip Used: None
 Performance vs League Avg: -10.8
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: Logan's Runners
@@ -407,6 +460,10 @@ Defensive Points: 21
 Attacking Points: 24
 Chip Used: None
 Performance vs League Avg: -10.8
+
+Autosubs:
+  Points gained from autosubs: 3
+  Substituted Foden → Palmer (+3 points)
 --------------------------------------------------------------------------------
 
 Manager: Bruno's Mars
@@ -431,6 +488,9 @@ Defensive Points: 14
 Attacking Points: 22
 Chip Used: None
 Performance vs League Avg: -19.8
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 Manager: The Bearded One
@@ -455,6 +515,9 @@ Defensive Points: 9
 Attacking Points: 19
 Chip Used: None
 Performance vs League Avg: -21.8
+
+Autosubs:
+  No autosubs made this gameweek
 --------------------------------------------------------------------------------
 
 League Standings:

@@ -125,7 +125,7 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
     }
 
     for key, display_name in stats_map.items():
-        stat = all_time_stats.get(key)
+        stat = all_time_stats["records"].get(key)
         
         team_display = "N/A"
         gameweek_display = "N/A"
@@ -175,20 +175,20 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
 
     output += "\n## League Rank History\n\n"
     # Highest/Lowest League Rank per Manager
-    if "highest_league_rank_per_manager" in all_time_stats and all_time_stats["highest_league_rank_per_manager"]:
+    if "highest_league_rank" in all_time_stats["manager_records"] and all_time_stats["manager_records"]["highest_league_rank"]:
         output += "### Highest (Best) League Rank Per Manager\n"
         output += "| Manager        | Best Rank | Gameweek |\n"
         output += "| -------------- | --------- | -------- |\n"
-        sorted_managers = sorted(all_time_stats["highest_league_rank_per_manager"].items(), key=lambda item: item[1]['value'])
+        sorted_managers = sorted(all_time_stats["manager_records"]["highest_league_rank"].items(), key=lambda item: item[1]['value'])
         for manager, data in sorted_managers:
             output += f"| {manager:<14} | {data['value']:<9} | {data['gameweek']:<8} |\n"
         output += "\n"
 
-    if "lowest_league_rank_per_manager" in all_time_stats and all_time_stats["lowest_league_rank_per_manager"]:
+    if "lowest_league_rank" in all_time_stats["manager_records"] and all_time_stats["manager_records"]["lowest_league_rank"]:
         output += "### Lowest (Worst) League Rank Per Manager\n"
         output += "| Manager        | Worst Rank | Gameweek |\n"
         output += "| -------------- | ---------- | -------- |\n"
-        sorted_managers = sorted(all_time_stats["lowest_league_rank_per_manager"].items(), key=lambda item: item[1]['value'], reverse=True)
+        sorted_managers = sorted(all_time_stats["manager_records"]["lowest_league_rank"].items(), key=lambda item: item[1]['value'], reverse=True)
         for manager, data in sorted_managers:
             output += f"| {manager:<14} | {data['value']:<10} | {data['gameweek']:<8} |\n"
         output += "\n"
@@ -209,21 +209,21 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
     output += "\n## Captaincy Stats\n\n"
     
     # Total captaincy points accumulated per manager
-    if "total_captaincy_points_per_manager" in all_time_stats:
+    if "captaincy_points" in all_time_stats["cumulative"]:
         output += "### Total Captaincy Points Per Manager\n"
         output += "| Manager        | Total Points |\n"
         output += "| -------------- | ------------ |\n"
-        sorted_managers = sorted(all_time_stats["total_captaincy_points_per_manager"].items(), key=lambda item: item[1], reverse=True)
+        sorted_managers = sorted(all_time_stats["cumulative"]["captaincy_points"].items(), key=lambda item: item[1], reverse=True)
         for manager, points in sorted_managers:
             output += f"| {manager:<14} | {points:<12} |\n"
         output += "\n"
 
     # Most popular captain choices
-    if "most_popular_captain_choices" in all_time_stats:
+    if "captain_choices" in all_time_stats["counts"]:
         output += "### Most Popular Captain Choices\n"
         output += "| Player Name    | Times Captained |\n"
         output += "| -------------- | --------------- |\n"
-        sorted_players = sorted(all_time_stats["most_popular_captain_choices"].items(), key=lambda item: item[1], reverse=True)
+        sorted_players = sorted(all_time_stats["counts"]["captain_choices"].items(), key=lambda item: item[1], reverse=True)
         for player, count in sorted_players:
             output += f"| {player:<14} | {count:<15} |\n"
         output += "\n"
@@ -231,25 +231,25 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
     output += "\n## Bench and Autosub Stats\n\n"
 
     # Total bench points wasted per manager
-    if "total_bench_points_wasted_per_manager" in all_time_stats:
+    if "bench_points" in all_time_stats["cumulative"]:
         output += "### Total Bench Points Wasted Per Manager\n"
         output += "| Manager        | Total Points Wasted |\n"
         output += "| -------------- | ------------------- |\n"
-        sorted_managers = sorted(all_time_stats["total_bench_points_wasted_per_manager"].items(), key=lambda item: item[1], reverse=True)
+        sorted_managers = sorted(all_time_stats["cumulative"]["bench_points"].items(), key=lambda item: item[1], reverse=True)
         for manager, points in sorted_managers:
             output += f"| {manager:<14} | {points:<19} |\n"
         output += "\n"
 
     # Most Frugal Manager (Average Bank Left Unused)
-    if "total_bank_balance_per_manager" in all_time_stats and "gameweek_count_per_manager" in all_time_stats:
+    if "bank_balance" in all_time_stats["cumulative"] and "gameweek_participation" in all_time_stats["counts"]:
         output += "## Frugality Stats\n\n"
         output += "### Most Frugal Manager (Average Bank Left Unused)\n"
         output += "| Manager        | Average Bank Left Unused |\n"
         output += "| -------------- | ------------------------ |\n"
         
         frugal_managers = {}
-        for manager, total_bank in all_time_stats["total_bank_balance_per_manager"].items():
-            gameweek_count = all_time_stats["gameweek_count_per_manager"].get(manager, 0)
+        for manager, total_bank in all_time_stats["cumulative"]["bank_balance"].items():
+            gameweek_count = all_time_stats["counts"]["gameweek_participation"].get(manager, 0)
             if gameweek_count > 0:
                 frugal_managers[manager] = total_bank / gameweek_count
             else:
@@ -263,27 +263,27 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
     output += "\n## Formation Stats\n\n"
 
     # Most Common Formations
-    if "most_common_formations" in all_time_stats:
+    if "formations" in all_time_stats["counts"]:
         output += "### Most Common Formations\n"
         output += "| Formation | Count |\n"
         output += "| --------- | ----- |\n"
-        sorted_formations = sorted(all_time_stats["most_common_formations"].items(), key=lambda item: item[1], reverse=True)
+        sorted_formations = sorted(all_time_stats["counts"]["formations"].items(), key=lambda item: item[1], reverse=True)
         for formation, count in sorted_formations:
             output += f"| {formation:<9} | {count:<5} |\n"
         output += "\n"
 
     # Highest Score by Formation
-    if "highest_score_by_formation" in all_time_stats:
+    if "highest_score_by_formation" in all_time_stats["formations"]:
         output += "### Highest Score by Formation\n"
         output += "| Formation | Team Name      | Gameweek | Score |\n"
         output += "| --------- | -------------- | -------- | ----- |\n"
-        for formation, data in all_time_stats["highest_score_by_formation"].items():
+        for formation, data in all_time_stats["formations"]["highest_score_by_formation"].items():
             output += f"| {formation:<9} | {data['team']:<14} | {data['gameweek']:<8} | {data['value']:<5} |\n"
         output += "\n"
 
 
     # Chip Usage Stats
-    if "chip_usage_tally" in all_time_stats and all_time_stats["chip_usage_tally"]:
+    if "chip_usage" in all_time_stats["counts"] and all_time_stats["counts"]["chip_usage"]:
         output += "\n## Chip Usage Stats\n\n"
 
         # Chip Usage Tally
@@ -291,7 +291,7 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
         output += "| Manager        | BB | TC | FH | WC |\n"
         output += "| -------------- | -- | -- | -- | -- |\n"
 
-        for manager, chips in all_time_stats["chip_usage_tally"].items():
+        for manager, chips in all_time_stats["counts"]["chip_usage"].items():
             bb_count = chips.get("BB", 0)
             tc_count = chips.get("TC", 0)
             fh_count = chips.get("FH", 0)
@@ -301,18 +301,18 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
         output += "\n"
 
     # Total autosub points per manager
-    if "total_autosub_points_per_manager" in all_time_stats:
+    if "autosub_points" in all_time_stats["cumulative"]:
         output += "\n## Autosub Stats\n\n"
         output += "### Total Autosub Points Per Manager\n"
         output += "| Manager        | Total Autosub Points |\n"
         output += "| -------------- | -------------------- |\n"
-        sorted_managers = sorted(all_time_stats["total_autosub_points_per_manager"].items(), key=lambda item: item[1], reverse=True)
+        sorted_managers = sorted(all_time_stats["cumulative"]["autosub_points"].items(), key=lambda item: item[1], reverse=True)
         for manager, points in sorted_managers:
             output += f"| {manager:<14} | {points:<20} |\n"
         output += "\n"
 
         # Add defensive/attacking balance stats
-    if "total_defensive_points_per_manager" in all_time_stats and "total_attacking_points_per_manager" in all_time_stats and "gameweek_count_per_manager" in all_time_stats:
+    if "defensive_points" in all_time_stats["cumulative"] and "attacking_points" in all_time_stats["cumulative"] and "gameweek_participation" in all_time_stats["counts"]:
         output += "\n## Defensive vs Attacking Balance\n\n"
         output += "### Team Balance Comparison\n"
         output += "| Team Name | Avg Defensive Points | Avg Attacking Points | Balance Ratio (D/A) |\n"
@@ -321,11 +321,11 @@ def generate_all_time_analysis_report(all_time_stats, league_name):
         # Calculate average defensive and attacking points per manager
         defensive_averages = {}
         attacking_averages = {}
-        for manager in all_time_stats["total_defensive_points_per_manager"]:
-            gameweek_count = all_time_stats["gameweek_count_per_manager"].get(manager, 0)
+        for manager in all_time_stats["cumulative"]["defensive_points"]:
+            gameweek_count = all_time_stats["counts"]["gameweek_participation"].get(manager, 0)
             if gameweek_count > 0:
-                defensive_averages[manager] = all_time_stats["total_defensive_points_per_manager"][manager] / gameweek_count
-                attacking_averages[manager] = all_time_stats["total_attacking_points_per_manager"][manager] / gameweek_count
+                defensive_averages[manager] = all_time_stats["cumulative"]["defensive_points"][manager] / gameweek_count
+                attacking_averages[manager] = all_time_stats["cumulative"]["attacking_points"][manager] / gameweek_count
 
         # Most defence-heavy team (highest average defensive points)
         if defensive_averages:

@@ -1,6 +1,6 @@
 # All-Time FPL League Records
 
-Last updated: 2025-08-20 10:11:21
+Last updated: 2025-08-20 14:40:29
 
 ## League Records
 
@@ -26,7 +26,7 @@ Last updated: 2025-08-20 10:11:21
 | Highest Defensive Haul (GK+DEF) | Anusol FC      | 1        | 31         |
 | Highest Attacking Haul (MID+FWD) | No Pukki No Party | 1        | 37         |
 | Mr/Ms Consistency (Narrowest GW Score Variance) | N/A            | N/A      | N/A        |
-| YOLO Award (Widest GW Score Variance) | N/A            | N/A      | N/A        |
+| YOLO Award (Widest GW Score Variance) | N/A            | N/A      | 0.00       |
 
 ## League Rank History
 

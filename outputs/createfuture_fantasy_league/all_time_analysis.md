@@ -1,6 +1,6 @@
 # All-Time FPL League Records
 
-Last updated: 2025-08-20 09:01:48
+Last updated: 2025-08-20 14:41:23
 
 ## League Records
 
@@ -20,13 +20,13 @@ Last updated: 2025-08-20 09:01:48
 | Lowest Overall Rank      | The Bearded One | 1        | 8771507    |
 | Biggest League Rank Drop | N/A            | N/A      | N/A        |
 | Biggest League Rank Climb | N/A            | N/A      | N/A        |
-| Best Autosub Cameo       | N/A            | N/A      | 0          (Player: None) |
+| Best Autosub Cameo       | Haalandaise Sauce FC | 1        | 10         (Player: Reijnders) |
 | Best Chip Play           | N/A            | N/A      | 0          (Player: None) (Chip: None) |
 | Worst Chip Play          | N/A            | N/A      | N/A        (Player: None) (Chip: None) |
 | Highest Defensive Haul (GK+DEF) | ThomasMuellersDayOff | 1        | 33         |
 | Highest Attacking Haul (MID+FWD) | Under my Cucurella | 1        | 49         |
 | Mr/Ms Consistency (Narrowest GW Score Variance) | N/A            | N/A      | N/A        |
-| YOLO Award (Widest GW Score Variance) | N/A            | N/A      | N/A        |
+| YOLO Award (Widest GW Score Variance) | N/A            | N/A      | 0.00       |
 
 ## League Rank History
 
@@ -215,6 +215,32 @@ Last updated: 2025-08-20 09:01:48
 | Logan's Runners | 0   | 0   | 0   | 0   |
 | Bruno's Mars   | 0   | 0   | 0   | 0   |
 | The Bearded One | 0   | 0   | 0   | 0   |
+
+
+## Autosub Stats
+
+### Total Autosub Points Per Manager
+| Manager        | Total Autosub Points |
+| -------------- | -------------------- |
+| Haalandaise Sauce FC | 11                   |
+| Don'tLookBackElanga | 3                    |
+| Logan's Runners | 3                    |
+| ChatGPTs Picks | 1                    |
+| Full Slot Ahead | 1                    |
+| Craig's Crunchers | 0                    |
+| Under my Cucurella | 0                    |
+| No Pukki No Party | 0                    |
+| Montyrose      | 0                    |
+| BOY BETO KNOW  | 0                    |
+| Red Star Bellegarde | 0                    |
+| ÒYÈKÚ MÉJÌ     | 0                    |
+| Yoro Wissa Harry | 0                    |
+| ThomasMuellersDayOff | 0                    |
+| Wirtz case Vicario | 0                    |
+| Neville Wears Prada | 0                    |
+| Sesko Extra    | 0                    |
+| Bruno's Mars   | 0                    |
+| The Bearded One | 0                    |
 
 
 ## Defensive vs Attacking Balance
