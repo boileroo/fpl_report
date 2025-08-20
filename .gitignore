@@ -1,3 +1,6 @@
 venv/
 .DS_Store
 __pycache__
+
+**/game_data.json
+**/league_data.json
