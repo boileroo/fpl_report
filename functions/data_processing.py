@@ -10,7 +10,6 @@ def get_detailed_gw_data(league_data, team_data, player_data, gameweek):
     team_data_for_gameweek = team_data['gameweek_data'].get(str(gameweek), {})
     players = team_data_for_gameweek.get('picks', [])
     if not players: 
-
         return []
     
     entry_history = team_data_for_gameweek.get('entry_history', {})
@@ -157,7 +156,14 @@ def get_differential_king(league_data, gameweek, player_data):
 
 def process_gameweek_for_league(league_data, player_data, gameweek, all_time_stats_manager):
     for entry in league_data['standings']['results']:
-        team_gameweek_data = get_detailed_gw_data(league_data, entry, player_data, gameweek)[0]
+        team_name = entry['entry_name']
+        team_gameweek_data_list = get_detailed_gw_data(league_data, entry, player_data, gameweek)
+        
+        # Skip if no data for this gameweek
+        if not team_gameweek_data_list:
+            continue
+            
+        team_gameweek_data = team_gameweek_data_list[0]
         
         autosub_details = team_gameweek_data.get('autosub_details', [])
         for autosub in autosub_details:
@@ -168,7 +174,6 @@ def process_gameweek_for_league(league_data, player_data, gameweek, all_time_sta
         differential_king = get_differential_king(league_data, gameweek, player_data)
         all_time_stats_manager.process_differential_king(differential_king)
 
-        team_name = entry['entry_name']
         all_time_stats_manager.update_all_stats_for_manager(
             team_gameweek_data,
             team_name,

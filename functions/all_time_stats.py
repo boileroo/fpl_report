@@ -2,7 +2,7 @@ import copy
 import statistics
 import json
 from pathlib import Path
-from functions.utils import ensure_output_directory_exists, save_to_json
+from functions.utils import ensure_directory_exists, save_to_json
 
 class AllTimeStatsManager:
     def __init__(self, league_name, gameweek):
@@ -12,15 +12,12 @@ class AllTimeStatsManager:
         self.filepath = self._get_gameweek_filepath(league_name, gameweek)
         self.previous_gw_filepath = self._get_gameweek_filepath(league_name, self.previous_gameweek)
         
-        self._ensure_output_directory()
+        ensure_directory_exists(self.filepath)
         self._initialize_stats()
 
     def _get_gameweek_filepath(self, league_name, gameweek):
         filename = f"all_time_stats_gw_{gameweek}.json"
         return Path("outputs") / league_name / f"gameweek_{gameweek}" / filename
-
-    def _ensure_output_directory(self):
-        ensure_output_directory_exists(self.filepath)
 
     def _load_or_create_all_time_stats(self, filepath):
         try:
@@ -80,57 +77,15 @@ class AllTimeStatsManager:
         }
 
     def _initialize_stats(self):
-        self.all_time_stats = self._load_or_create_all_time_stats(str(self.filepath))
-        
-        default_structure = self._get_default_stats_structure()
-        self.all_time_stats["cumulative"] = copy.deepcopy(default_structure["cumulative"])
-        self.all_time_stats["counts"] = copy.deepcopy(default_structure["counts"])
-        self.all_time_stats["gw_scores"] = copy.deepcopy(default_structure["gw_scores"])
-        
-        previous_gameweek_stats = {}
-        if self.previous_gameweek > 0:
+        if self.gameweek == 1:
+            self.all_time_stats = self._get_default_stats_structure()
+        else:
             previous_gameweek_stats = self._load_or_create_all_time_stats(str(self.previous_gw_filepath))
-        
-        if previous_gameweek_stats and isinstance(previous_gameweek_stats, dict):
-            if "cumulative" in previous_gameweek_stats:
-                for category in ["cumulative", "counts"]:
-                    if category in previous_gameweek_stats:
-                        self.all_time_stats[category] = copy.deepcopy(previous_gameweek_stats[category])
+            
+            if previous_gameweek_stats and isinstance(previous_gameweek_stats, dict):
+                self.all_time_stats = copy.deepcopy(previous_gameweek_stats)
             else:
-                if "cumulative" not in self.all_time_stats:
-                    self.all_time_stats["cumulative"] = {
-                        "captaincy_points": {},
-                        "bench_points": {},
-                        "bank_balance": {},
-                        "defensive_points": {},
-                        "attacking_points": {},
-                        "autosub_points": {}
-                    }
-                    
-                if "counts" not in self.all_time_stats:
-                    self.all_time_stats["counts"] = {
-                        "captain_choices": {},
-                        "formations": {},
-                        "chip_usage": {},
-                        "gameweek_participation": {}
-                    }
-                
-                key_mapping = {
-                    "total_captaincy_points_per_manager": ("cumulative", "captaincy_points"),
-                    "most_popular_captain_choices": ("counts", "captain_choices"),
-                    "total_bench_points_wasted_per_manager": ("cumulative", "bench_points"),
-                    "total_bank_balance_per_manager": ("cumulative", "bank_balance"),
-                    "gameweek_count_per_manager": ("counts", "gameweek_participation"),
-                    "most_common_formations": ("counts", "formations"),
-                    "chip_usage_tally": ("counts", "chip_usage"),
-                    "total_defensive_points_per_manager": ("cumulative", "defensive_points"),
-                    "total_attacking_points_per_manager": ("cumulative", "attacking_points"),
-                    "total_autosub_points_per_manager": ("cumulative", "autosub_points")
-                }
-                
-                for old_key, (new_category, new_key) in key_mapping.items():
-                    if old_key in previous_gameweek_stats:
-                        self.all_time_stats[new_category][new_key] = copy.deepcopy(previous_gameweek_stats[old_key])
+                self.all_time_stats = self._get_default_stats_structure()
 
     def _update_stat_record(self, stat_category, stat_key, team_name, gameweek, value, is_highest=True, **kwargs):
         if stat_category == "manager_records":

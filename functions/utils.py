@@ -11,5 +11,5 @@ def load_json(filename):
     with open(filename, 'r') as f:
         return json.load(f)
 
-def ensure_output_directory_exists(filepath):
+def ensure_directory_exists(filepath):
     filepath.parent.mkdir(parents=True, exist_ok=True)
