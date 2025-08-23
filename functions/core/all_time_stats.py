@@ -1,0 +1,457 @@
+import copy
+import statistics
+import json
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
+from functions.utils import ensure_directory_exists, save_to_json
+from functions.exceptions import DataProcessingError
+from functions.config import OUTPUT_BASE_DIR, ALL_TIME_STATS_GW_FILENAME_TEMPLATE
+from functions.data.data_validation import validate_all_time_stats
+
+class AllTimeStatsManager:
+    def __init__(self, league_name: str, gameweek: int) -> None:
+        try:
+            self.league_name = league_name
+            self.gameweek = gameweek
+            self.previous_gameweek = gameweek - 1
+            self.filepath = self._get_gameweek_filepath(league_name, gameweek)
+            self.previous_gw_filepath = self._get_gameweek_filepath(league_name, self.previous_gameweek)
+            
+            ensure_directory_exists(self.filepath)
+            self._initialize_stats()
+        except Exception as e:
+            raise DataProcessingError(
+                f"Error initializing AllTimeStatsManager for league {league_name}, gameweek {gameweek}",
+                context="AllTimeStatsManager.__init__"
+            ) from e
+
+    def _get_gameweek_filepath(self, league_name: str, gameweek: int) -> Path:
+        filename = ALL_TIME_STATS_GW_FILENAME_TEMPLATE.format(gameweek)
+        return Path(OUTPUT_BASE_DIR) / league_name / f"gameweek_{gameweek}" / filename
+
+    def _load_or_create_all_time_stats(self, filepath: str) -> Dict[str, Any]:
+        try:
+            with open(filepath, 'r') as f:
+                data = json.load(f)
+                # Validate loaded data
+                valid, message = validate_all_time_stats(data)
+                if not valid:
+                    print(f"Warning: Invalid all-time stats structure in {filepath}: {message}")
+                    return self._get_default_stats_structure()
+                return data
+        except FileNotFoundError:
+            return self._get_default_stats_structure()
+        except json.JSONDecodeError as e:
+            # If file exists but is corrupted, return default structure
+            print(f"Warning: Corrupted JSON file {filepath}, using default structure")
+            return self._get_default_stats_structure()
+        except Exception as e:
+            print(f"Warning: Error loading stats from {filepath}, using default structure: {str(e)}")
+            return self._get_default_stats_structure()
+
+    def _get_default_stats_structure(self) -> Dict[str, Any]:
+        return {
+            "records": {
+                "highest_gw_score": {"team": None, "gameweek": None, "value": 0},
+                "lowest_gw_score": {"team": None, "gameweek": None, "value": float('inf')},
+                "most_points_on_bench": {"team": None, "gameweek": None, "value": 0},
+                "highest_team_value": {"team": None, "gameweek": None, "value": 0},
+                "biggest_bank_balance": {"team": None, "gameweek": None, "value": 0},
+                "most_captain_points": {"team": None, "gameweek": None, "value": 0},
+                "worst_captain_points": {"team": None, "gameweek": None, "value": float('inf')},
+                "most_transfers": {"team": None, "gameweek": None, "value": 0},
+                "highest_overall_gameweek_rank": {"team": None, "gameweek": None, "value": float('inf')},
+                "lowest_overall_gameweek_rank": {"team": None, "gameweek": None, "value": 0},
+                "highest_league_rank": {"team": None, "gameweek": None, "value": float('inf')},
+                "lowest_league_rank": {"team": None, "gameweek": None, "value": 0},
+                "biggest_league_rank_drop": {"team": None, "gameweek": None, "value": float('inf')},
+                "biggest_league_rank_climb": {"team": None, "gameweek": None, "value": 0},
+                "highest_defensive_haul": {"team": None, "gameweek": None, "value": 0},
+                "highest_attacking_haul": {"team": None, "gameweek": None, "value": 0},
+                "narrowest_gw_score_variance": {"team": None, "gameweek": None, "value": float('inf')},
+                "widest_gw_score_variance": {"team": None, "gameweek": None, "value": 0},
+                "best_autosub_cameo": {"team": None, "gameweek": None, "value": 0, "player": None},
+                "best_chip_play": {"team": None, "gameweek": None, "value": 0, "chip": None, "player": None},
+                "worst_chip_play": {"team": None, "gameweek": None, "value": float('inf'), "chip": None, "player": None}
+            },
+            "cumulative": {
+                "captaincy_points": {},
+                "bench_points": {},
+                "bank_balance": {},
+                "defensive_points": {},
+                "attacking_points": {},
+                "autosub_points": {}
+            },
+            "counts": {
+                "captain_choices": {},
+                "formations": {},
+                "chip_usage": {},
+                "gameweek_participation": {}
+            },
+            "manager_records": {
+                "highest_league_rank": {},
+                "lowest_league_rank": {}
+            },
+            "formations": {
+                "highest_score_by_formation": {}
+            },
+            "gw_scores": {},
+            "differential_king_per_gameweek": {}
+        }
+
+    def _initialize_stats(self) -> None:
+        try:
+            # For gameweek 1, start with a fresh stats structure
+            if self.gameweek == 1:
+                self.all_time_stats = self._get_default_stats_structure()
+            else:
+                # For subsequent gameweeks, load previous gameweek's stats as the base
+                previous_gameweek_stats = self._load_or_create_all_time_stats(str(self.previous_gw_filepath))
+                
+                # Validate previous gameweek stats
+                valid, message = validate_all_time_stats(previous_gameweek_stats)
+                if not valid:
+                    print(f"Warning: Invalid previous gameweek stats structure: {message}")
+                    self.all_time_stats = self._get_default_stats_structure()
+                else:
+                    # If previous gameweek stats exist and are valid, use them as the base
+                    if previous_gameweek_stats and isinstance(previous_gameweek_stats, dict):
+                        self.all_time_stats = copy.deepcopy(previous_gameweek_stats)
+                    else:
+                        # If no previous stats exist, start with a fresh structure
+                        self.all_time_stats = self._get_default_stats_structure()
+        except Exception as e:
+            raise DataProcessingError(
+                f"Error initializing stats for gameweek {self.gameweek}",
+                context="_initialize_stats"
+            ) from e
+
+    def _update_stat_record(self, stat_category: str, stat_key: str, team_name: str, gameweek: int, value: Union[int, float], is_highest: bool = True, **kwargs: Any) -> None:
+        try:
+            if stat_category == "manager_records":
+                manager_stat = self.all_time_stats[stat_category].get(stat_key, {})
+                current_manager_record = manager_stat.get(team_name, {"value": None})
+                current_value = current_manager_record["value"]
+                updated = False
+
+                if current_value is None:
+                    updated = True
+                elif is_highest:
+                    if value > current_value:
+                        updated = True
+                else: 
+                    if value < current_value:
+                        updated = True
+
+                if updated:
+                    manager_stat[team_name] = {
+                        "gameweek": gameweek,
+                        "value": value
+                    }
+                    self.all_time_stats[stat_category][stat_key] = manager_stat
+            else:
+                current_stat = self.all_time_stats[stat_category].get(stat_key, {"value": None})
+                current_value = current_stat.get("value", None)
+                updated = False
+
+                if current_value is None:
+                    updated = True
+                elif is_highest:
+                    if value > current_value:
+                        updated = True
+                else:
+                    if value < current_value:
+                        updated = True
+
+                if updated:
+                    self.all_time_stats[stat_category][stat_key] = {
+                        "team": team_name,
+                        "gameweek": gameweek,
+                        "value": value
+                    }
+                    
+                    for key, val in kwargs.items():
+                        if val is not None:
+                            self.all_time_stats[stat_category][stat_key][key] = val
+        except Exception as e:
+            print(f"Warning: Error updating stat record {stat_category}.{stat_key} for team {team_name}: {str(e)}")
+
+    def _increment_stat_count(self, category: str, key: str, increment: int = 1) -> None:
+        try:
+            self.all_time_stats["counts"][category][key] = self.all_time_stats["counts"][category].get(key, 0) + increment
+        except Exception as e:
+            print(f"Warning: Error incrementing stat count {category}.{key}: {str(e)}")
+
+    def _add_cumulative_stat(self, category: str, team_name: str, value: Union[int, float]) -> None:
+        try:
+            self.all_time_stats["cumulative"][category][team_name] = self.all_time_stats["cumulative"][category].get(team_name, 0) + value
+        except Exception as e:
+            print(f"Warning: Error adding cumulative stat {category} for team {team_name}: {str(e)}")
+    
+    def update_highest_gw_score(self, team_name: str, gameweek: int, value: int) -> None:
+        self._update_stat_record("records", "highest_gw_score", team_name, gameweek, value, is_highest=True)
+
+    def update_lowest_gw_score(self, team_name: str, gameweek: int, value: int) -> None:
+        self._update_stat_record("records", "lowest_gw_score", team_name, gameweek, value, is_highest=False)
+
+    def update_most_points_on_bench(self, team_name: str, gameweek: int, value: int) -> None:
+        self._update_stat_record("records", "most_points_on_bench", team_name, gameweek, value, is_highest=True)
+
+    def update_highest_team_value(self, team_name: str, gameweek: int, value: Union[int, float]) -> None:
+        self._update_stat_record("records", "highest_team_value", team_name, gameweek, value, is_highest=True)
+
+    def update_biggest_bank_balance(self, team_name: str, gameweek: int, value: Union[int, float]) -> None:
+        self._update_stat_record("records", "biggest_bank_balance", team_name, gameweek, value, is_highest=True)
+
+    def update_most_captain_points(self, team_name: str, gameweek: int, value: int, player_name: str) -> None:
+        self._update_stat_record("records", "most_captain_points", team_name, gameweek, value, is_highest=True, player=player_name)
+
+    def update_worst_captain_points(self, team_name: str, gameweek: int, value: int, player_name: str) -> None:
+        self._update_stat_record("records", "worst_captain_points", team_name, gameweek, value, is_highest=False, player=player_name)
+
+    def update_most_transfers(self, team_name: str, gameweek: int, value: int) -> None:
+        self._update_stat_record("records", "most_transfers", team_name, gameweek, value, is_highest=True)
+
+    def update_best_chip_play(self, team_name: str, gameweek: int, value: int, chip_name: str, player_name: Optional[str] = None) -> None:
+        self._update_stat_record("records", "best_chip_play", team_name, gameweek, value, is_highest=True, chip=chip_name, player=player_name)
+
+    def update_worst_chip_play(self, team_name: str, gameweek: int, value: Union[int, float], chip_name: str, player_name: Optional[str] = None) -> None:
+        self._update_stat_record("records", "worst_chip_play", team_name, gameweek, value, is_highest=False, chip=chip_name, player=player_name)
+
+    def update_highest_defensive_haul(self, team_name: str, gameweek: int, value: int) -> None:
+        self._update_stat_record("records", "highest_defensive_haul", team_name, gameweek, value, is_highest=True)
+
+    def update_highest_attacking_haul(self, team_name: str, gameweek: int, value: int) -> None:
+        self._update_stat_record("records", "highest_attacking_haul", team_name, gameweek, value, is_highest=True)
+
+    def update_chip_usage_tally(self, team_name: str, chip_name: str) -> None:
+        try:
+            self.all_time_stats["counts"]["chip_usage"].setdefault(team_name, {}).setdefault(chip_name, 0)
+            self.all_time_stats["counts"]["chip_usage"][team_name][chip_name] += 1
+        except Exception as e:
+            print(f"Warning: Error updating chip usage tally for team {team_name}, chip {chip_name}: {str(e)}")
+
+    def update_highest_overall_gameweek_rank(self, team_name: str, gameweek: int, value: int) -> None:
+        self._update_stat_record("records", "highest_overall_gameweek_rank", team_name, gameweek, value, is_highest=False)
+
+    def update_lowest_overall_gameweek_rank(self, team_name: str, gameweek: int, value: int) -> None:
+        self._update_stat_record("records", "lowest_overall_gameweek_rank", team_name, gameweek, value, is_highest=True)
+
+    def update_highest_overall_rank(self, team_name: str, gameweek: int, value: int) -> None:
+        self._update_stat_record("records", "highest_overall_rank", team_name, gameweek, value, is_highest=False)
+
+    def update_lowest_overall_rank(self, team_name: str, gameweek: int, value: int) -> None:
+        self._update_stat_record("records", "lowest_overall_rank", team_name, gameweek, value, is_highest=True)
+
+    def update_biggest_league_rank_drop(self, team_name: str, gameweek: int, value: int) -> None:
+        self._update_stat_record("records", "biggest_league_rank_drop", team_name, gameweek, value, is_highest=False)
+
+    def update_biggest_league_rank_climb(self, team_name: str, gameweek: int, value: int) -> None:
+        self._update_stat_record("records", "biggest_league_rank_climb", team_name, gameweek, value, is_highest=True)
+
+    def update_highest_league_rank_per_manager(self, team_name: str, gameweek: int, value: int) -> None:
+        self._update_stat_record("manager_records", "highest_league_rank", team_name, gameweek, value, is_highest=False)
+
+    def update_lowest_league_rank_per_manager(self, team_name: str, gameweek: int, value: int) -> None:
+        self._update_stat_record("manager_records", "lowest_league_rank", team_name, gameweek, value, is_highest=True)
+
+    def update_total_captaincy_points_per_manager(self, team_name: str, captain_points: int) -> None:
+        self._add_cumulative_stat("captaincy_points", team_name, captain_points)
+
+    def update_most_popular_captain_choices(self, player_name: str) -> None:
+        self._increment_stat_count("captain_choices", player_name)
+
+    def update_total_bench_points_wasted_per_manager(self, team_name: str, bench_points: int) -> None:
+        self._add_cumulative_stat("bench_points", team_name, bench_points)
+
+    def update_best_autosub_cameo(self, team_name: str, gameweek: int, player_name: str, points: int) -> None:
+        self._update_stat_record("records", "best_autosub_cameo", team_name, gameweek, points, is_highest=True, player=player_name)
+
+    def update_total_defensive_points_per_manager(self, team_name: str, defensive_points: int) -> None:
+        self._add_cumulative_stat("defensive_points", team_name, defensive_points)
+
+    def update_total_attacking_points_per_manager(self, team_name: str, attacking_points: int) -> None:
+        self._add_cumulative_stat("attacking_points", team_name, attacking_points)
+
+    def update_total_autosub_points_per_manager(self, team_name: str, autosub_points: int) -> None:
+        self._add_cumulative_stat("autosub_points", team_name, autosub_points)
+
+    def update_all_stats_for_manager(self, gw_data: Dict[str, Any], team_name: str, gameweek_int: int) -> Dict[str, Any]:
+        try:
+            self._update_basic_records(gw_data, team_name, gameweek_int)
+            self._update_league_rank_stats(gw_data, team_name, gameweek_int)
+            self._update_cumulative_stats(gw_data, team_name, gameweek_int)
+            self._update_formation_stats(gw_data, team_name, gameweek_int)
+            self._update_chip_stats(gw_data, team_name, gameweek_int)
+            self._update_performance_stats(gw_data, team_name, gameweek_int)
+        except Exception as e:
+            raise DataProcessingError(
+                f"Error updating all stats for manager {team_name} in gameweek {gameweek_int}",
+                context="update_all_stats_for_manager"
+            ) from e
+        
+        return self.all_time_stats
+
+    def _update_basic_records(self, gw_data: Dict[str, Any], team_name: str, gameweek_int: int) -> None:
+        try:
+            self.update_highest_gw_score(team_name, gameweek_int, gw_data['Points'])
+            self.update_lowest_gw_score(team_name, gameweek_int, gw_data['Points'])
+            self.update_most_points_on_bench(team_name, gameweek_int, gw_data['Points on Bench'])
+            self.update_highest_team_value(team_name, gameweek_int, gw_data['Team Value'])
+            self.update_biggest_bank_balance(team_name, gameweek_int, gw_data['Bank Money'])
+            self.update_most_captain_points(team_name, gameweek_int, gw_data['Captain Points'], gw_data['Captain'])
+            self.update_worst_captain_points(team_name, gameweek_int, gw_data['Captain Points'], gw_data['Captain'])
+            self.update_most_transfers(team_name, gameweek_int, gw_data['Transfers'])
+            self.update_highest_overall_rank(team_name, gameweek_int, gw_data['Overall Rank'])
+            self.update_lowest_overall_rank(team_name, gameweek_int, gw_data['Overall Rank'])
+            self.update_highest_overall_gameweek_rank(team_name, gameweek_int, gw_data['Overall Gameweek Rank'])
+            self.update_lowest_overall_gameweek_rank(team_name, gameweek_int, gw_data['Overall Gameweek Rank'])
+        except Exception as e:
+            print(f"Warning: Error updating basic records for team {team_name}: {str(e)}")
+
+    def _update_league_rank_stats(self, gw_data: Dict[str, Any], team_name: str, gameweek_int: int) -> None:
+        try:
+            if self.gameweek == 1:
+                league_rank_movement_for_stats = 0
+            else:
+                league_rank_movement_for_stats = gw_data.get('League Rank Movement', 0)
+                
+            if league_rank_movement_for_stats < 0:
+                self.update_biggest_league_rank_drop(team_name, gameweek_int, league_rank_movement_for_stats)
+            elif league_rank_movement_for_stats > 0:
+                self.update_biggest_league_rank_climb(team_name, gameweek_int, league_rank_movement_for_stats)
+
+            self.update_highest_league_rank_per_manager(team_name, gameweek_int, gw_data['League Rank'])
+            self.update_lowest_league_rank_per_manager(team_name, gameweek_int, gw_data['League Rank'])
+        except Exception as e:
+            print(f"Warning: Error updating league rank stats for team {team_name}: {str(e)}")
+
+    def _update_cumulative_stats(self, gw_data: Dict[str, Any], team_name: str, gameweek_int: int) -> None:
+        try:
+            self.update_total_captaincy_points_per_manager(team_name, gw_data['Captain Points'])
+            self.update_most_popular_captain_choices(gw_data['Captain'])
+            self.update_total_bench_points_wasted_per_manager(team_name, gw_data['Points on Bench'])
+            self.update_total_autosub_points_per_manager(team_name, gw_data.get('autosub_points', 0))
+            
+            self._add_cumulative_stat("bank_balance", team_name, gw_data['Bank Money'])
+            self._increment_stat_count("gameweek_participation", team_name)
+            
+            self.update_total_defensive_points_per_manager(team_name, gw_data['Defensive Points'])
+            self.update_total_attacking_points_per_manager(team_name, gw_data['Attacking Points'])
+        except Exception as e:
+            print(f"Warning: Error updating cumulative stats for team {team_name}: {str(e)}")
+
+    def _update_formation_stats(self, gw_data: Dict[str, Any], team_name: str, gameweek_int: int) -> None:
+        try:
+            formation = gw_data.get('Formation')
+            if formation:
+                self._increment_stat_count("formations", formation)
+                self.update_highest_score_by_formation(formation, team_name, gameweek_int, gw_data['Points'])
+        except Exception as e:
+            print(f"Warning: Error updating formation stats for team {team_name}: {str(e)}")
+
+    def _update_chip_stats(self, gw_data: Dict[str, Any], team_name: str, gameweek_int: int) -> None:
+        try:
+            chip_used = gw_data.get('Chip Used', "No Chip Used")
+            if chip_used != "No Chip Used" and chip_used != "No Chip":
+                self.update_chip_usage_tally(team_name, chip_used)
+                if chip_used in ["BB", "TC", "FH", "WC"]:
+                    self.update_best_chip_play(team_name, gameweek_int, gw_data['Points'], chip_used)
+                    self.update_worst_chip_play(team_name, gameweek_int, gw_data['Points'], chip_used)
+        except Exception as e:
+            print(f"Warning: Error updating chip stats for team {team_name}: {str(e)}")
+
+    def _update_performance_stats(self, gw_data: Dict[str, Any], team_name: str, gameweek_int: int) -> None:
+        try:
+            self.update_highest_defensive_haul(team_name, gameweek_int, gw_data['Defensive Points'])
+            self.update_highest_attacking_haul(team_name, gameweek_int, gw_data['Attacking Points'])
+            
+            manager_gw_scores = self.all_time_stats["gw_scores"].get(team_name, [])
+            if len(manager_gw_scores) >= 2:
+                try:
+                    gw_variance = statistics.variance(manager_gw_scores)
+                    self.update_narrowest_gw_score_variance(team_name, gameweek_int, gw_variance)
+                    self.update_widest_gw_score_variance(team_name, gameweek_int, gw_variance)
+                except statistics.StatisticsError:
+                    # Handle case where variance cannot be calculated
+                    pass
+
+            # Update with current gameweek score
+            if team_name not in self.all_time_stats["gw_scores"]:
+                self.all_time_stats["gw_scores"][team_name] = []
+            self.all_time_stats["gw_scores"][team_name].append(gw_data['Points'])
+        except Exception as e:
+            print(f"Warning: Error updating performance stats for team {team_name}: {str(e)}")
+
+    def process_differential_king(self, differential_king_data: Optional[Dict[str, Any]]) -> None:
+        try:
+            if differential_king_data:
+                self.update_differential_king_per_gameweek(
+                    gameweek=self.gameweek,
+                    player_name=differential_king_data['player_name'],
+                    points=differential_king_data['points'],
+                    team_name=differential_king_data['owner']
+                )
+        except Exception as e:
+            print(f"Warning: Error processing differential king: {str(e)}")
+
+    def update_differential_king_per_gameweek(self, gameweek: int, player_name: str, points: int, team_name: str) -> None:
+        try:
+            current_differential_king = self.all_time_stats["differential_king_per_gameweek"].get(str(gameweek))
+            
+            updated = False
+            if current_differential_king is None:
+                updated = True
+            elif points > current_differential_king["points"]:
+                updated = True
+                
+            if updated:
+                self.all_time_stats["differential_king_per_gameweek"][str(gameweek)] = {
+                    "player": player_name,
+                    "points": points,
+                    "team": team_name
+                }
+        except Exception as e:
+            print(f"Warning: Error updating differential king for gameweek {gameweek}: {str(e)}")
+
+    def update_narrowest_gw_score_variance(self, team_name: str, gameweek: int, variance: float) -> None:
+        self._update_stat_record("records", "narrowest_gw_score_variance", team_name, gameweek, variance, is_highest=False)
+        
+    def update_widest_gw_score_variance(self, team_name: str, gameweek: int, variance: float) -> None:
+        self._update_stat_record("records", "widest_gw_score_variance", team_name, gameweek, variance, is_highest=True)
+
+    def update_most_common_formations(self, formation: str) -> None:
+        self._increment_stat_count("formations", formation)
+
+    def update_highest_score_by_formation(self, formation: str, team_name: str, gameweek: int, score: int) -> None:
+        try:
+            current_highest = self.all_time_stats["formations"]["highest_score_by_formation"].get(formation, {"value": None})
+            if current_highest["value"] is None or score > current_highest["value"]:
+                self.all_time_stats["formations"]["highest_score_by_formation"][formation] = {
+                    "team": team_name,
+                    "gameweek": gameweek,
+                    "value": score
+                }
+        except Exception as e:
+            print(f"Warning: Error updating highest score by formation {formation} for team {team_name}: {str(e)}")
+    
+    @property
+    def stats(self) -> Dict[str, Any]:
+        return self.all_time_stats
+    
+    def save_stats(self) -> None:
+        try:
+            # Validate stats before saving
+            valid, message = validate_all_time_stats(self.all_time_stats)
+            if not valid:
+                raise DataProcessingError(
+                    f"Invalid all-time stats structure: {message}",
+                    context="save_stats_validation"
+                )
+            
+            save_to_json(self.all_time_stats, str(self.filepath))
+        except Exception as e:
+            raise DataProcessingError(
+                f"Error saving stats to {self.filepath}",
+                context="save_stats"
+            ) from e

@@ -1,43 +1,44 @@
-from functions.data_operations import fetch_raw_data, create_mappings
-from functions.report_generation import generate_reports
-from functions.data_processing import process_gameweek_for_league, get_differential_king
-from functions.all_time_stats import AllTimeStatsManager
-import os
-
+import warnings
+from typing import List, Tuple
+from functions.core.fpl_report_app import FPLReportApp
 import sys
 
-def _parse_arguments():
+# Suppress urllib3 OpenSSL compatibility warning on macOS
+warnings.filterwarnings("ignore", message="urllib3 v2 only supports OpenSSL 1.1.1+")
+
+def _parse_arguments() -> Tuple[int, List[int]]:
     if len(sys.argv) < 2:
         print("Usage: python3 main.py <gameweek> [league_id1] [league_id2] ...")
         sys.exit(1)
     
-    gameweek = sys.argv[1]
+    try:
+        gameweek = int(sys.argv[1])
+    except ValueError:
+        print(f"Error: Gameweek must be a number, got '{sys.argv[1]}'")
+        sys.exit(1)
     
     # If no league IDs provided, use fallback
     if len(sys.argv) == 2:
         league_ids = [1523783, 952600]
     else:
-        league_ids = [int(arg) for arg in sys.argv[2:]]
+        try:
+            league_ids = [int(arg) for arg in sys.argv[2:]]
+        except ValueError as e:
+            print(f"Error: League IDs must be numbers. Invalid value: {e}")
+            sys.exit(1)
 
-    return int(gameweek), league_ids
+    return gameweek, league_ids
 
-def _initialize_data(league_id, gameweek,):
-    league_data_filepath, game_data_filepath = fetch_raw_data(league_id, gameweek)
-    league_data, player_data = create_mappings(league_data_filepath, game_data_filepath)
-    return league_data, player_data
-
-def main():
+def main() -> None:
     gameweek, league_ids = _parse_arguments()
     
+    app = FPLReportApp()
+    
     for league_id in league_ids:
-        league_data, player_data = _initialize_data(league_id, gameweek)
-
-        all_time_stats_manager = AllTimeStatsManager(league_data['name'], gameweek)
-        
-        process_gameweek_for_league(league_data, player_data, gameweek, all_time_stats_manager)
-        generate_reports(league_data, player_data, gameweek, all_time_stats_manager)
-
-        all_time_stats_manager.save_stats()
+        success = app.run_league_analysis(league_id, gameweek)
+        if not success:
+            print(f"Failed to process league {league_id}")
+            continue
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,463 @@
+{
+    "records": {
+        "highest_gw_score": {
+            "team": "No Pukki No Party",
+            "gameweek": 1,
+            "value": 72
+        },
+        "lowest_gw_score": {
+            "team": "Sarr Chasm Bridged",
+            "gameweek": 2,
+            "value": 0
+        },
+        "most_points_on_bench": {
+            "team": "Redwood Rebels",
+            "gameweek": 1,
+            "value": 30
+        },
+        "highest_team_value": {
+            "team": "No Pukki No Party",
+            "gameweek": 2,
+            "value": 100.1
+        },
+        "biggest_bank_balance": {
+            "team": "Viva la Villa",
+            "gameweek": 2,
+            "value": 1.9
+        },
+        "most_captain_points": {
+            "team": "No Pukki No Party",
+            "gameweek": 1,
+            "value": 26,
+            "player": "Haaland"
+        },
+        "worst_captain_points": {
+            "team": "Ripon Rovers",
+            "gameweek": 2,
+            "value": 0,
+            "player": "Palmer"
+        },
+        "most_transfers": {
+            "team": "Redwood Rebels",
+            "gameweek": 2,
+            "value": 2
+        },
+        "highest_overall_gameweek_rank": {
+            "team": "No Pukki No Party",
+            "gameweek": 1,
+            "value": 728920
+        },
+        "lowest_overall_gameweek_rank": {
+            "team": "Amorim or out?",
+            "gameweek": 1,
+            "value": 8771522
+        },
+        "highest_league_rank": {
+            "team": null,
+            "gameweek": null,
+            "value": Infinity
+        },
+        "lowest_league_rank": {
+            "team": null,
+            "gameweek": null,
+            "value": 0
+        },
+        "biggest_league_rank_drop": {
+            "team": "We're Massive AFC",
+            "gameweek": 2,
+            "value": -11
+        },
+        "biggest_league_rank_climb": {
+            "team": "Redwood Rebels",
+            "gameweek": 2,
+            "value": 4
+        },
+        "highest_defensive_haul": {
+            "team": "Anusol FC",
+            "gameweek": 1,
+            "value": 31
+        },
+        "highest_attacking_haul": {
+            "team": "No Pukki No Party",
+            "gameweek": 1,
+            "value": 37
+        },
+        "narrowest_gw_score_variance": {
+            "team": null,
+            "gameweek": null,
+            "value": Infinity
+        },
+        "widest_gw_score_variance": {
+            "team": null,
+            "gameweek": null,
+            "value": 0
+        },
+        "best_autosub_cameo": {
+            "team": "Redwood Rebels",
+            "gameweek": 1,
+            "value": 3,
+            "player": "Virgil"
+        },
+        "best_chip_play": {
+            "team": null,
+            "gameweek": null,
+            "value": 0,
+            "chip": null,
+            "player": null
+        },
+        "worst_chip_play": {
+            "team": null,
+            "gameweek": null,
+            "value": Infinity,
+            "chip": null,
+            "player": null
+        },
+        "highest_overall_rank": {
+            "team": "No Pukki No Party",
+            "gameweek": 2,
+            "value": 476322
+        },
+        "lowest_overall_rank": {
+            "team": "We're Massive AFC",
+            "gameweek": 2,
+            "value": 9609252
+        }
+    },
+    "cumulative": {
+        "captaincy_points": {
+            "No Pukki No Party": 28,
+            "Sesko Extra": 28,
+            "Anusol FC": 16,
+            "Ripon Rovers": 16,
+            "Sarr Chasm Bridged": 4,
+            "McGinty's Marauders": 16,
+            "Peaky Reijnders": 16,
+            "Viva la Villa": 4,
+            "Redwood Rebels": 8,
+            "Amorim or out?": 2,
+            "We're Massive AFC": 4
+        },
+        "bench_points": {
+            "No Pukki No Party": 8,
+            "Sesko Extra": 12,
+            "Anusol FC": 24,
+            "Ripon Rovers": 13,
+            "Sarr Chasm Bridged": 2,
+            "McGinty's Marauders": 6,
+            "Peaky Reijnders": 9,
+            "Viva la Villa": 7,
+            "Redwood Rebels": 30,
+            "Amorim or out?": 16,
+            "We're Massive AFC": 0
+        },
+        "bank_balance": {
+            "No Pukki No Party": 0.0,
+            "Sesko Extra": 0.0,
+            "Anusol FC": 0.0,
+            "Ripon Rovers": 0.0,
+            "Sarr Chasm Bridged": 0.0,
+            "McGinty's Marauders": 1.0,
+            "Peaky Reijnders": 0.0,
+            "Viva la Villa": 2.4,
+            "Redwood Rebels": 1.0,
+            "Amorim or out?": 1.0,
+            "We're Massive AFC": 1.5
+        },
+        "defensive_points": {
+            "No Pukki No Party": 25,
+            "Sesko Extra": 28,
+            "Anusol FC": 36,
+            "Ripon Rovers": 29,
+            "Sarr Chasm Bridged": 21,
+            "McGinty's Marauders": 25,
+            "Peaky Reijnders": 14,
+            "Viva la Villa": 19,
+            "Redwood Rebels": 24,
+            "Amorim or out?": 20,
+            "We're Massive AFC": 1
+        },
+        "attacking_points": {
+            "No Pukki No Party": 54,
+            "Sesko Extra": 39,
+            "Anusol FC": 26,
+            "Ripon Rovers": 47,
+            "Sarr Chasm Bridged": 33,
+            "McGinty's Marauders": 24,
+            "Peaky Reijnders": 32,
+            "Viva la Villa": 27,
+            "Redwood Rebels": 45,
+            "Amorim or out?": 27,
+            "We're Massive AFC": 14
+        },
+        "autosub_points": {
+            "No Pukki No Party": 0,
+            "Sesko Extra": 0,
+            "Anusol FC": 0,
+            "Ripon Rovers": 2,
+            "Sarr Chasm Bridged": 0,
+            "McGinty's Marauders": 0,
+            "Peaky Reijnders": 0,
+            "Viva la Villa": 0,
+            "Redwood Rebels": 0,
+            "Amorim or out?": 3,
+            "We're Massive AFC": 0
+        }
+    },
+    "counts": {
+        "captain_choices": {
+            "Haaland": 4,
+            "M.Salah": 7,
+            "Watkins": 2,
+            "Bowen": 3,
+            "Havertz": 2,
+            "Palmer": 1,
+            "Saka": 1,
+            "Delap": 1
+        },
+        "formations": {
+            "4-4-2": 4,
+            "3-5-2": 11,
+            "5-3-2": 1,
+            "3-4-3": 4,
+            "4-3-3": 1
+        },
+        "chip_usage": {
+            "No Pukki No Party": {
+                "null": 1,
+                "null": 1
+            },
+            "Sesko Extra": {
+                "null": 1,
+                "null": 1
+            },
+            "Anusol FC": {
+                "null": 1,
+                "null": 1
+            },
+            "Ripon Rovers": {
+                "null": 1,
+                "null": 1
+            },
+            "Sarr Chasm Bridged": {
+                "null": 1,
+                "null": 1
+            },
+            "McGinty's Marauders": {
+                "null": 1,
+                "null": 1
+            },
+            "Peaky Reijnders": {
+                "null": 1,
+                "null": 1
+            },
+            "Viva la Villa": {
+                "null": 1,
+                "null": 1
+            },
+            "Redwood Rebels": {
+                "null": 1,
+                "null": 1
+            },
+            "Amorim or out?": {
+                "null": 1,
+                "null": 1
+            },
+            "We're Massive AFC": {
+                "null": 1
+            }
+        },
+        "gameweek_participation": {
+            "No Pukki No Party": 2,
+            "Sesko Extra": 2,
+            "Anusol FC": 2,
+            "Ripon Rovers": 2,
+            "Sarr Chasm Bridged": 2,
+            "McGinty's Marauders": 2,
+            "Peaky Reijnders": 2,
+            "Viva la Villa": 2,
+            "Redwood Rebels": 2,
+            "Amorim or out?": 2,
+            "We're Massive AFC": 1
+        }
+    },
+    "manager_records": {
+        "highest_league_rank": {
+            "No Pukki No Party": {
+                "gameweek": 1,
+                "value": 1
+            },
+            "Sesko Extra": {
+                "gameweek": 1,
+                "value": 2
+            },
+            "Anusol FC": {
+                "gameweek": 1,
+                "value": 3
+            },
+            "Ripon Rovers": {
+                "gameweek": 2,
+                "value": 2
+            },
+            "Sarr Chasm Bridged": {
+                "gameweek": 1,
+                "value": 5
+            },
+            "McGinty's Marauders": {
+                "gameweek": 1,
+                "value": 6
+            },
+            "Peaky Reijnders": {
+                "gameweek": 1,
+                "value": 7
+            },
+            "Viva la Villa": {
+                "gameweek": 1,
+                "value": 8
+            },
+            "Redwood Rebels": {
+                "gameweek": 2,
+                "value": 5
+            },
+            "Amorim or out?": {
+                "gameweek": 2,
+                "value": 9
+            },
+            "We're Massive AFC": {
+                "gameweek": 2,
+                "value": 11
+            }
+        },
+        "lowest_league_rank": {
+            "No Pukki No Party": {
+                "gameweek": 1,
+                "value": 1
+            },
+            "Sesko Extra": {
+                "gameweek": 2,
+                "value": 3
+            },
+            "Anusol FC": {
+                "gameweek": 2,
+                "value": 4
+            },
+            "Ripon Rovers": {
+                "gameweek": 1,
+                "value": 4
+            },
+            "Sarr Chasm Bridged": {
+                "gameweek": 2,
+                "value": 7
+            },
+            "McGinty's Marauders": {
+                "gameweek": 1,
+                "value": 6
+            },
+            "Peaky Reijnders": {
+                "gameweek": 2,
+                "value": 8
+            },
+            "Viva la Villa": {
+                "gameweek": 2,
+                "value": 10
+            },
+            "Redwood Rebels": {
+                "gameweek": 1,
+                "value": 9
+            },
+            "Amorim or out?": {
+                "gameweek": 1,
+                "value": 10
+            },
+            "We're Massive AFC": {
+                "gameweek": 2,
+                "value": 11
+            }
+        }
+    },
+    "formations": {
+        "highest_score_by_formation": {
+            "4-4-2": {
+                "team": "No Pukki No Party",
+                "gameweek": 1,
+                "value": 72
+            },
+            "3-5-2": {
+                "team": "Sesko Extra",
+                "gameweek": 1,
+                "value": 66
+            },
+            "5-3-2": {
+                "team": "Anusol FC",
+                "gameweek": 1,
+                "value": 65
+            },
+            "3-4-3": {
+                "team": "Ripon Rovers",
+                "gameweek": 1,
+                "value": 62
+            },
+            "4-3-3": {
+                "team": "Anusol FC",
+                "gameweek": 2,
+                "value": 5
+            }
+        }
+    },
+    "gw_scores": {
+        "No Pukki No Party": [
+            72,
+            18
+        ],
+        "Sesko Extra": [
+            66,
+            12
+        ],
+        "Anusol FC": [
+            65,
+            5
+        ],
+        "Ripon Rovers": [
+            62,
+            22
+        ],
+        "Sarr Chasm Bridged": [
+            55,
+            0
+        ],
+        "McGinty's Marauders": [
+            53,
+            3
+        ],
+        "Peaky Reijnders": [
+            51,
+            2
+        ],
+        "Viva la Villa": [
+            44,
+            2
+        ],
+        "Redwood Rebels": [
+            43,
+            24
+        ],
+        "Amorim or out?": [
+            36,
+            11
+        ],
+        "We're Massive AFC": [
+            16
+        ]
+    },
+    "differential_king_per_gameweek": {
+        "1": {
+            "player": "Semenyo",
+            "points": 15,
+            "team": "Sarr Chasm Bridged"
+        },
+        "2": {
+            "player": "Neto",
+            "points": 7,
+            "team": "Sesko Extra"
+        }
+    }
+}
