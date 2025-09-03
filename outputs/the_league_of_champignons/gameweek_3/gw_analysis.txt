@@ -1,0 +1,326 @@
+League: the_league_of_champignons
+Analysis generated on: 2025-09-02
+
+
+Manager: Ripon Rovers
+--------------------------------------------------------------------------------
+Gameweek: 3
+Points: 77
+Overall Gameweek Rank: 101611
+Overall Rank: 197978
+League Rank: 1
+League Rank Movement: 1
+Captain: B.Fernandes, 20 points
+Vice-Captain: João Pedro, 9 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 99.7
+Points on Bench: 8
+Bank Money: 0.4
+Top Scorer: Guéhi, 15 points
+Underperformer: Gvardiol, 0 points
+Formation: 3-5-2
+Defensive Points: 26
+Attacking Points: 41
+Chip Used: None
+Performance vs League Avg: 26.9
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: No Pukki No Party
+--------------------------------------------------------------------------------
+Gameweek: 3
+Points: 65
+Overall Gameweek Rank: 890269
+Overall Rank: 349096
+League Rank: 2
+League Rank Movement: -1
+Captain: Haaland, 18 points
+Vice-Captain: B.Fernandes, 10 points
+Transfers: 3
+Transfer Cost: 4
+Team Value: 100.7
+Points on Bench: 7
+Bank Money: 0.2
+Top Scorer: Grealish, 10 points
+Underperformer: Van de Ven, 1 points
+Formation: 3-4-3
+Defensive Points: 11
+Attacking Points: 45
+Chip Used: None
+Performance vs League Avg: 14.9
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Sesko Extra
+--------------------------------------------------------------------------------
+Gameweek: 3
+Points: 56
+Overall Gameweek Rank: 2787549
+Overall Rank: 3374916
+League Rank: 3
+League Rank Movement: 2
+Captain: João Pedro, 18 points
+Vice-Captain: Sels, 2 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 100.2
+Points on Bench: 2
+Bank Money: 4.0
+Top Scorer: João Pedro, 9 points
+Underperformer: Cherki, 0 points
+Formation: 4-4-2
+Defensive Points: 21
+Attacking Points: 26
+Chip Used: None
+Performance vs League Avg: 5.9
+
+Autosubs:
+  Points gained from autosubs: 6
+  Substituted Cherki → Burn (+6 points)
+--------------------------------------------------------------------------------
+
+Manager: Sarr Chasm Bridged
+--------------------------------------------------------------------------------
+Gameweek: 3
+Points: 34
+Overall Gameweek Rank: 10116820
+Overall Rank: 4561541
+League Rank: 4
+League Rank Movement: -2
+Captain: M.Salah, 6 points
+Vice-Captain: Semenyo, 2 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 100.0
+Points on Bench: 9
+Bank Money: 0.3
+Top Scorer: Sarr, 7 points
+Underperformer: Kinsky, 0 points
+Formation: 3-5-2
+Defensive Points: 9
+Attacking Points: 22
+Chip Used: None
+Performance vs League Avg: -16.1
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Anusol FC
+--------------------------------------------------------------------------------
+Gameweek: 3
+Points: 32
+Overall Gameweek Rank: 10473917
+Overall Rank: 5075894
+League Rank: 5
+League Rank Movement: -1
+Captain: Wood, 4 points
+Vice-Captain: M.Salah, 3 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 100.4
+Points on Bench: 14
+Bank Money: 0.3
+Top Scorer: Virgil, 8 points
+Underperformer: Andrey Santos, 0 points
+Formation: 4-3-3
+Defensive Points: 20
+Attacking Points: 10
+Chip Used: None
+Performance vs League Avg: -18.1
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Redwood Rebels
+--------------------------------------------------------------------------------
+Gameweek: 3
+Points: 52
+Overall Gameweek Rank: 4021860
+Overall Rank: 5468010
+League Rank: 6
+League Rank Movement: 2
+Captain: Rice, 8 points
+Vice-Captain: Watkins, 2 points
+Transfers: 1
+Transfer Cost: 0
+Team Value: 99.9
+Points on Bench: 30
+Bank Money: 1.9
+Top Scorer: Guéhi, 15 points (on bench)
+Underperformer: Cunha, 1 points
+Formation: 4-4-2
+Defensive Points: 29
+Attacking Points: 19
+Chip Used: None
+Performance vs League Avg: 1.9
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Peaky Reijnders
+--------------------------------------------------------------------------------
+Gameweek: 3
+Points: 51
+Overall Gameweek Rank: 4473361
+Overall Rank: 5576235
+League Rank: 7
+League Rank Movement: 0
+Captain: B.Fernandes, 20 points
+Vice-Captain: Watkins, 2 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 100.1
+Points on Bench: 18
+Bank Money: 0.5
+Top Scorer: Guéhi, 15 points (on bench)
+Underperformer: Strand Larsen, 0 points
+Formation: 3-5-2
+Defensive Points: 7
+Attacking Points: 34
+Chip Used: None
+Performance vs League Avg: 0.9
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: McGinty's Marauders
+--------------------------------------------------------------------------------
+Gameweek: 3
+Points: 39
+Overall Gameweek Rank: 8866535
+Overall Rank: 7189208
+League Rank: 8
+League Rank Movement: -2
+Captain: Wood, 4 points
+Vice-Captain: B.Fernandes, 10 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 99.6
+Points on Bench: 6
+Bank Money: 0.7
+Top Scorer: B.Fernandes, 10 points
+Underperformer: N.Williams, 1 points
+Formation: 3-4-3
+Defensive Points: 10
+Attacking Points: 27
+Chip Used: None
+Performance vs League Avg: -11.1
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Amorim or out?
+--------------------------------------------------------------------------------
+Gameweek: 3
+Points: 60
+Overall Gameweek Rank: 1744002
+Overall Rank: 8142624
+League Rank: 9
+League Rank Movement: 1
+Captain: Richarlison, 4 points
+Vice-Captain: Pope, 5 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 99.8
+Points on Bench: 0
+Bank Money: 5.0
+Top Scorer: Enzo, 12 points
+Underperformer: McGill, 0 points
+Formation: 3-4-3
+Defensive Points: 20
+Attacking Points: 38
+Chip Used: None
+Performance vs League Avg: 9.9
+
+Autosubs:
+  Points gained from autosubs: 1
+  Substituted Cherki → Šeško (+1 points)
+--------------------------------------------------------------------------------
+
+Manager: Viva la Villa
+--------------------------------------------------------------------------------
+Gameweek: 3
+Points: 35
+Overall Gameweek Rank: 9905084
+Overall Rank: 8753780
+League Rank: 10
+League Rank Movement: -1
+Captain: B.Fernandes, 20 points
+Vice-Captain: Ekitiké, 2 points
+Transfers: 2
+Transfer Cost: 4
+Team Value: 100.1
+Points on Bench: 4
+Bank Money: 1.8
+Top Scorer: B.Fernandes, 10 points
+Underperformer: Aït-Nouri, 0 points
+Formation: 3-4-3
+Defensive Points: 3
+Attacking Points: 22
+Chip Used: None
+Performance vs League Avg: -15.1
+
+Autosubs:
+  Points gained from autosubs: 1
+  Substituted Dorgu → Konsa (+1 points)
+--------------------------------------------------------------------------------
+
+Manager: We're Massive AFC
+--------------------------------------------------------------------------------
+Gameweek: 3
+Points: 61
+Overall Gameweek Rank: 1399112
+Overall Rank: 9688349
+League Rank: 11
+League Rank Movement: 0
+Captain: Delap, 2 points
+Vice-Captain: Henderson, 7 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 99.9
+Points on Bench: 7
+Bank Money: 1.5
+Top Scorer: Guéhi, 15 points
+Underperformer: Aït-Nouri, 0 points
+Formation: 4-4-2
+Defensive Points: 31
+Attacking Points: 29
+Chip Used: None
+Performance vs League Avg: 10.9
+
+Autosubs:
+  Points gained from autosubs: 10
+  Substituted Wan-Bissaka → Virgil (+8 points)
+  Substituted Nørgaard → Kudus (+2 points)
+--------------------------------------------------------------------------------
+
+League Standings:
+Team Name,Points
+Ripon Rovers,195
+No Pukki No Party,190
+Sesko Extra,159
+Sarr Chasm Bridged,152
+Anusol FC,149
+Redwood Rebels,147
+Peaky Reijnders,146
+McGinty's Marauders,135
+Amorim or out?,126
+Viva la Villa,118
+We're Massive AFC,98
+
+## Differential King
+
+The Differential King for Gameweek 3 is: 
+Player: Sarr (7 points)
+Owned by: Sarr Chasm Bridged
+
