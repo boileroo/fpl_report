@@ -1,0 +1,576 @@
+League: createfuture_fantasy_league
+Analysis generated on: 2025-09-15
+
+
+Manager: Montyrose
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 81
+Overall Gameweek Rank: 1043748
+Overall Rank: 158007
+League Rank: 1
+League Rank Movement: 0
+Captain: M.Salah, 18 points
+Vice-Captain: Haaland, 13 points
+Transfers: 1
+Transfer Cost: 0
+Team Value: 100.9
+Points on Bench: 0
+Bank Money: 1.5
+Top Scorer: Van de Ven, 14 points
+Underperformer: Johnson, 1 points
+Formation: 3-4-3
+Defensive Points: 27
+Attacking Points: 35
+Chip Used: bboost
+Performance vs League Avg: 12.7
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Under my Cucurella
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 83
+Overall Gameweek Rank: 800402
+Overall Rank: 248514
+League Rank: 2
+League Rank Movement: 2
+Captain: M.Salah, 18 points
+Vice-Captain: Haaland, 13 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 100.6
+Points on Bench: 7
+Bank Money: 1.0
+Top Scorer: Van de Ven, 14 points
+Underperformer: Marc Guiu, 0 points
+Formation: 3-5-2
+Defensive Points: 33
+Attacking Points: 41
+Chip Used: None
+Performance vs League Avg: 14.7
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Neville Wears Prada
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 73
+Overall Gameweek Rank: 2649081
+Overall Rank: 507742
+League Rank: 3
+League Rank Movement: 0
+Captain: M.Salah, 18 points
+Vice-Captain: Guéhi, 6 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.2
+Points on Bench: 14
+Bank Money: 0.0
+Top Scorer: M.Salah, 9 points
+Underperformer: Wan-Bissaka, 0 points
+Formation: 3-4-3
+Defensive Points: 28
+Attacking Points: 36
+Chip Used: None
+Performance vs League Avg: 4.7
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: No Pukki No Party
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 63
+Overall Gameweek Rank: 5927176
+Overall Rank: 696784
+League Rank: 4
+League Rank Movement: -2
+Captain: Ekitiké, 4 points
+Vice-Captain: Haaland, 13 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 101.3
+Points on Bench: 12
+Bank Money: 0.2
+Top Scorer: Van de Ven, 14 points
+Underperformer: N.Williams, 0 points
+Formation: 3-4-3
+Defensive Points: 29
+Attacking Points: 32
+Chip Used: None
+Performance vs League Avg: -5.3
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: BOY BETO KNOW
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 91
+Overall Gameweek Rank: 197213
+Overall Rank: 1284798
+League Rank: 5
+League Rank Movement: 7
+Captain: Haaland, 26 points
+Vice-Captain: Woltemade, 9 points
+Transfers: 2
+Transfer Cost: 4
+Team Value: 99.8
+Points on Bench: 7
+Bank Money: 5.5
+Top Scorer: Van de Ven, 14 points
+Underperformer: Kostoulas, 0 points
+Formation: 3-5-2
+Defensive Points: 35
+Attacking Points: 43
+Chip Used: None
+Performance vs League Avg: 22.7
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Yoro Wissa Harry
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 66
+Overall Gameweek Rank: 5132356
+Overall Rank: 1568798
+League Rank: 6
+League Rank Movement: -1
+Captain: M.Salah, 18 points
+Vice-Captain: Sánchez, 2 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 100.1
+Points on Bench: 3
+Bank Money: 1.9
+Top Scorer: Semenyo, 13 points
+Underperformer: N.Williams, 0 points
+Formation: 3-5-2
+Defensive Points: 16
+Attacking Points: 41
+Chip Used: None
+Performance vs League Avg: -2.3
+
+Autosubs:
+  Points gained from autosubs: 4
+  Substituted Isak → Anderson (+4 points)
+--------------------------------------------------------------------------------
+
+Manager: Haalandaise Sauce FC
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 76
+Overall Gameweek Rank: 2009724
+Overall Rank: 1682822
+League Rank: 7
+League Rank Movement: 1
+Captain: Haaland, 26 points
+Vice-Captain: Ekitiké, 2 points
+Transfers: 1
+Transfer Cost: 0
+Team Value: 100.3
+Points on Bench: 0
+Bank Money: 0.4
+Top Scorer: Van de Ven, 14 points
+Underperformer: M.Bizot, 0 points
+Formation: 4-4-2
+Defensive Points: 31
+Attacking Points: 32
+Chip Used: None
+Performance vs League Avg: 7.7
+
+Autosubs:
+  Points gained from autosubs: 1
+  Substituted Estêvão → Henry (+1 points)
+--------------------------------------------------------------------------------
+
+Manager: Wirtz case Vicario
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 76
+Overall Gameweek Rank: 2100449
+Overall Rank: 2291634
+League Rank: 8
+League Rank Movement: 1
+Captain: M.Salah, 18 points
+Vice-Captain: Watkins, 2 points
+Transfers: 3
+Transfer Cost: 4
+Team Value: 100.4
+Points on Bench: 8
+Bank Money: 0.5
+Top Scorer: Semenyo, 13 points
+Underperformer: Marc Guiu, 0 points
+Formation: 3-5-2
+Defensive Points: 23
+Attacking Points: 44
+Chip Used: None
+Performance vs League Avg: 7.7
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Red Star Bellegarde
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 75
+Overall Gameweek Rank: 2313259
+Overall Rank: 2403564
+League Rank: 9
+League Rank Movement: 2
+Captain: Haaland, 26 points
+Vice-Captain: A.Becker, 6 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 100.1
+Points on Bench: 9
+Bank Money: 2.6
+Top Scorer: Haaland, 13 points
+Underperformer: Rice, 1 points
+Formation: 4-4-2
+Defensive Points: 35
+Attacking Points: 27
+Chip Used: None
+Performance vs League Avg: 6.7
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Craig's Crunchers
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 57
+Overall Gameweek Rank: 8176451
+Overall Rank: 3255461
+League Rank: 10
+League Rank Movement: -3
+Captain: M.Salah, 18 points
+Vice-Captain: Watkins, 2 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 100.5
+Points on Bench: 3
+Bank Money: 0.0
+Top Scorer: Haaland, 13 points
+Underperformer: N.Williams, 0 points
+Formation: 4-4-2
+Defensive Points: 14
+Attacking Points: 34
+Chip Used: None
+Performance vs League Avg: -11.3
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Sesko Extra
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 73
+Overall Gameweek Rank: 2784551
+Overall Rank: 3384082
+League Rank: 11
+League Rank Movement: 3
+Captain: M.Salah, 18 points
+Vice-Captain: João Pedro, 7 points
+Transfers: 1
+Transfer Cost: 0
+Team Value: 100.6
+Points on Bench: 10
+Bank Money: 0.0
+Top Scorer: Van de Ven, 14 points
+Underperformer: Gudmundsson, 0 points
+Formation: 3-4-3
+Defensive Points: 27
+Attacking Points: 37
+Chip Used: None
+Performance vs League Avg: 4.7
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: ThomasMuellersDayOff
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 50
+Overall Gameweek Rank: 9896587
+Overall Rank: 3514500
+League Rank: 12
+League Rank Movement: -6
+Captain: João Pedro, 14 points
+Vice-Captain: Grealish, 2 points
+Transfers: 1
+Transfer Cost: 0
+Team Value: 100.6
+Points on Bench: 19
+Bank Money: 1.5
+Top Scorer: Gabriel, 9 points
+Underperformer: Baleba, 0 points
+Formation: 4-3-3
+Defensive Points: 27
+Attacking Points: 16
+Chip Used: None
+Performance vs League Avg: -18.3
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: ÒYÈKÚ MÉJÌ
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 59
+Overall Gameweek Rank: 7300033
+Overall Rank: 3882893
+League Rank: 13
+League Rank Movement: -3
+Captain: M.Salah, 18 points
+Vice-Captain: João Pedro, 7 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.1
+Points on Bench: 14
+Bank Money: 1.9
+Top Scorer: Van de Ven, 14 points
+Underperformer: N.Williams, 0 points
+Formation: 4-4-2
+Defensive Points: 23
+Attacking Points: 27
+Chip Used: None
+Performance vs League Avg: -9.3
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Logan's Runners
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 66
+Overall Gameweek Rank: 5132356
+Overall Rank: 4252402
+League Rank: 14
+League Rank Movement: -1
+Captain: João Pedro, 14 points
+Vice-Captain: Raya, 6 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 100.6
+Points on Bench: 17
+Bank Money: 3.3
+Top Scorer: Semenyo, 13 points
+Underperformer: Aït-Nouri, 0 points
+Formation: 3-4-3
+Defensive Points: 21
+Attacking Points: 38
+Chip Used: None
+Performance vs League Avg: -2.3
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Full Slot Ahead
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 75
+Overall Gameweek Rank: 2251481
+Overall Rank: 5195396
+League Rank: 15
+League Rank Movement: 2
+Captain: M.Salah, 18 points
+Vice-Captain: João Pedro, 7 points
+Transfers: 1
+Transfer Cost: 0
+Team Value: 100.1
+Points on Bench: 5
+Bank Money: 0.3
+Top Scorer: Van de Ven, 14 points
+Underperformer: Tuanzebe, 0 points
+Formation: 3-4-3
+Defensive Points: 18
+Attacking Points: 48
+Chip Used: None
+Performance vs League Avg: 6.7
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Don'tLookBackElanga
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 64
+Overall Gameweek Rank: 5575551
+Overall Rank: 5601242
+League Rank: 16
+League Rank Movement: 0
+Captain: M.Salah, 18 points
+Vice-Captain: Watkins, 2 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.4
+Points on Bench: 7
+Bank Money: 0.0
+Top Scorer: Van de Ven, 14 points
+Underperformer: Wan-Bissaka, 0 points
+Formation: 3-4-3
+Defensive Points: 22
+Attacking Points: 33
+Chip Used: None
+Performance vs League Avg: -4.3
+
+Autosubs:
+  Points gained from autosubs: 6
+  Substituted Wan-Bissaka → Konsa (+6 points)
+--------------------------------------------------------------------------------
+
+Manager: ChatGPTs Picks
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 54
+Overall Gameweek Rank: 8958280
+Overall Rank: 6062741
+League Rank: 17
+League Rank Movement: -2
+Captain: Mbeumo, 4 points
+Vice-Captain: Haaland, 13 points
+Transfers: 1
+Transfer Cost: 0
+Team Value: 100.4
+Points on Bench: 7
+Bank Money: 0.6
+Top Scorer: Van de Ven, 14 points
+Underperformer: L.Miley, 0 points
+Formation: 3-4-3
+Defensive Points: 20
+Attacking Points: 32
+Chip Used: None
+Performance vs League Avg: -14.3
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: The Bearded One
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 66
+Overall Gameweek Rank: 5132356
+Overall Rank: 7543573
+League Rank: 18
+League Rank Movement: 1
+Captain: M.Salah, 18 points
+Vice-Captain: Woltemade, 9 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 99.9
+Points on Bench: 10
+Bank Money: 0.2
+Top Scorer: M.Salah, 9 points
+Underperformer: Marc Guiu, 0 points
+Formation: 3-5-2
+Defensive Points: 21
+Attacking Points: 36
+Chip Used: None
+Performance vs League Avg: -2.3
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Mee, Isak and Stones
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 55
+Overall Gameweek Rank: 8685802
+Overall Rank: 8073279
+League Rank: 19
+League Rank Movement: -1
+Captain: Gakpo, 6 points
+Vice-Captain: M.Salah, 9 points
+Transfers: 1
+Transfer Cost: 0
+Team Value: 100.5
+Points on Bench: 3
+Bank Money: 3.3
+Top Scorer: Van de Ven, 14 points
+Underperformer: Füllkrug, 0 points
+Formation: 3-5-2
+Defensive Points: 25
+Attacking Points: 27
+Chip Used: None
+Performance vs League Avg: -13.3
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Bruno's Mars
+--------------------------------------------------------------------------------
+Gameweek: 4
+Points: 63
+Overall Gameweek Rank: 6094088
+Overall Rank: 8513270
+League Rank: 20
+League Rank Movement: 0
+Captain: M.Salah, 18 points
+Vice-Captain: Mateta, 2 points
+Transfers: 1
+Transfer Cost: 0
+Team Value: 100.2
+Points on Bench: 19
+Bank Money: 1.6
+Top Scorer: Zubimendi, 16 points
+Underperformer: Sels, 1 points
+Formation: 3-4-3
+Defensive Points: 9
+Attacking Points: 45
+Chip Used: None
+Performance vs League Avg: -5.3
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+League Standings:
+Team Name,Points
+Montyrose,271
+Under my Cucurella,266
+Neville Wears Prada,257
+No Pukki No Party,253
+BOY BETO KNOW,244
+Yoro Wissa Harry,240
+Haalandaise Sauce FC,239
+Wirtz case Vicario,233
+Red Star Bellegarde,232
+Craig's Crunchers,225
+Sesko Extra,224
+ThomasMuellersDayOff,223
+ÒYÈKÚ MÉJÌ,220
+Logan's Runners,218
+Full Slot Ahead,211
+Don'tLookBackElanga,207
+ChatGPTs Picks,204
+The Bearded One,190
+Mee, Isak and Stones,184
+Bruno's Mars,178
+
+## Differential King
+
+The Differential King for Gameweek 4 is: 
+Player: Zubimendi (16 points)
+Owned by: Bruno's Mars
+
