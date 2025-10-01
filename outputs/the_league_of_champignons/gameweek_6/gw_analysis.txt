@@ -1,0 +1,325 @@
+League: the_league_of_champignons
+Analysis generated on: 2025-10-01
+
+
+Manager: Ripon Rovers
+--------------------------------------------------------------------------------
+Gameweek: 6
+Points: 73
+Overall Gameweek Rank: 801440
+Overall Rank: 224804
+League Rank: 1
+League Rank Movement: 0
+Captain: Haaland, 48 points
+Vice-Captain: Semenyo, 7 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 100.4
+Points on Bench: 9
+Bank Money: 0.8
+Top Scorer: Haaland, 16 points
+Underperformer: B.Fernandes, -1 points
+Formation: 3-5-2
+Defensive Points: 5
+Attacking Points: 36
+Chip Used: 3xc
+Performance vs League Avg: 22.5
+
+Autosubs:
+  Points gained from autosubs: 2
+  Substituted Muniz → Mitoma (+2 points)
+--------------------------------------------------------------------------------
+
+Manager: Peaky Reijnders
+--------------------------------------------------------------------------------
+Gameweek: 6
+Points: 80
+Overall Gameweek Rank: 289694
+Overall Rank: 777398
+League Rank: 2
+League Rank Movement: 2
+Captain: Haaland, 48 points
+Vice-Captain: B.Fernandes, -1 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 100.1
+Points on Bench: 1
+Bank Money: 2.4
+Top Scorer: Haaland, 16 points
+Underperformer: Estève, -2 points
+Formation: 3-5-2
+Defensive Points: 12
+Attacking Points: 36
+Chip Used: 3xc
+Performance vs League Avg: 29.5
+
+Autosubs:
+  Points gained from autosubs: 7
+  Substituted Murillo → Guéhi (+7 points)
+--------------------------------------------------------------------------------
+
+Manager: No Pukki No Party
+--------------------------------------------------------------------------------
+Gameweek: 6
+Points: 38
+Overall Gameweek Rank: 7216236
+Overall Rank: 1613748
+League Rank: 3
+League Rank Movement: -1
+Captain: Haaland, 32 points
+Vice-Captain: João Pedro, 2 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 101.2
+Points on Bench: 6
+Bank Money: 0.0
+Top Scorer: Haaland, 16 points
+Underperformer: Chalobah, -3 points
+Formation: 4-3-3
+Defensive Points: 0
+Attacking Points: 22
+Chip Used: wildcard
+Performance vs League Avg: -12.5
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: McGinty's Marauders
+--------------------------------------------------------------------------------
+Gameweek: 6
+Points: 61
+Overall Gameweek Rank: 2671597
+Overall Rank: 1711508
+League Rank: 4
+League Rank Movement: -1
+Captain: Haaland, 32 points
+Vice-Captain: Semenyo, 7 points
+Transfers: 1
+Transfer Cost: 0
+Team Value: 100.3
+Points on Bench: 0
+Bank Money: 0.9
+Top Scorer: Haaland, 16 points
+Underperformer: Estève, -2 points
+Formation: 4-4-2
+Defensive Points: 15
+Attacking Points: 30
+Chip Used: None
+Performance vs League Avg: 10.5
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Sarr Chasm Bridged
+--------------------------------------------------------------------------------
+Gameweek: 6
+Points: 67
+Overall Gameweek Rank: 1681291
+Overall Rank: 2961863
+League Rank: 5
+League Rank Movement: 0
+Captain: Haaland, 32 points
+Vice-Captain: M.Salah, 2 points
+Transfers: 3
+Transfer Cost: 8
+Team Value: 100.3
+Points on Bench: 4
+Bank Money: 0.1
+Top Scorer: Haaland, 16 points
+Underperformer: Kinsky, 0 points
+Formation: 4-4-2
+Defensive Points: 13
+Attacking Points: 38
+Chip Used: None
+Performance vs League Avg: 16.5
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Viva la Villa
+--------------------------------------------------------------------------------
+Gameweek: 6
+Points: 78
+Overall Gameweek Rank: 393463
+Overall Rank: 3586473
+League Rank: 6
+League Rank Movement: 3
+Captain: Haaland, 48 points
+Vice-Captain: Gyökeres, 2 points
+Transfers: 2
+Transfer Cost: 0
+Team Value: 100.7
+Points on Bench: 11
+Bank Money: 1.6
+Top Scorer: Haaland, 16 points
+Underperformer: Chalobah, -3 points
+Formation: 3-4-3
+Defensive Points: 7
+Attacking Points: 39
+Chip Used: 3xc
+Performance vs League Avg: 27.5
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Sesko Extra
+--------------------------------------------------------------------------------
+Gameweek: 6
+Points: 37
+Overall Gameweek Rank: 7460706
+Overall Rank: 5878234
+League Rank: 7
+League Rank Movement: 0
+Captain: Mbeumo, 4 points
+Vice-Captain: Sels, 2 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.4
+Points on Bench: 2
+Bank Money: 0.4
+Top Scorer: Haaland, 16 points
+Underperformer: Burn, 0 points
+Formation: 3-4-3
+Defensive Points: 7
+Attacking Points: 28
+Chip Used: None
+Performance vs League Avg: -13.5
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Anusol FC
+--------------------------------------------------------------------------------
+Gameweek: 6
+Points: 26
+Overall Gameweek Rank: 10295284
+Overall Rank: 6376942
+League Rank: 8
+League Rank Movement: -2
+Captain: Wood, 4 points
+Vice-Captain: M.Salah, 2 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 100.7
+Points on Bench: 2
+Bank Money: 0.3
+Top Scorer: Semenyo, 7 points
+Underperformer: Cucurella, 0 points
+Formation: 4-4-2
+Defensive Points: 6
+Attacking Points: 18
+Chip Used: None
+Performance vs League Avg: -24.5
+
+Autosubs:
+  Points gained from autosubs: 1
+  Substituted Muniz → Collins (+1 points)
+--------------------------------------------------------------------------------
+
+Manager: We're Massive AFC
+--------------------------------------------------------------------------------
+Gameweek: 6
+Points: 40
+Overall Gameweek Rank: 6960889
+Overall Rank: 7976762
+League Rank: 9
+League Rank Movement: 1
+Captain: M.Salah, 4 points
+Vice-Captain: João Pedro, 2 points
+Transfers: 3
+Transfer Cost: 0
+Team Value: 101.0
+Points on Bench: 26
+Bank Money: 0.3
+Top Scorer: Enzo, 9 points
+Underperformer: N.Williams, 1 points
+Formation: 3-5-2
+Defensive Points: 12
+Attacking Points: 26
+Chip Used: None
+Performance vs League Avg: -10.5
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Redwood Rebels
+--------------------------------------------------------------------------------
+Gameweek: 6
+Points: 17
+Overall Gameweek Rank: 11763320
+Overall Rank: 8267389
+League Rank: 10
+League Rank Movement: -2
+Captain: Foden, 2 points
+Vice-Captain: João Pedro, 2 points
+Transfers: 1
+Transfer Cost: 0
+Team Value: 100.5
+Points on Bench: 27
+Bank Money: 2.8
+Top Scorer: Rice, 9 points (on bench)
+Underperformer: Cucurella, 0 points
+Formation: 4-4-2
+Defensive Points: 7
+Attacking Points: 9
+Chip Used: None
+Performance vs League Avg: -33.5
+
+Autosubs:
+  No autosubs made this gameweek
+--------------------------------------------------------------------------------
+
+Manager: Amorim or out?
+--------------------------------------------------------------------------------
+Gameweek: 6
+Points: 28
+Overall Gameweek Rank: 9787513
+Overall Rank: 8890508
+League Rank: 11
+League Rank Movement: 0
+Captain: Richarlison, 4 points
+Vice-Captain: Pope, 2 points
+Transfers: 0
+Transfer Cost: 0
+Team Value: 99.7
+Points on Bench: 8
+Bank Money: 5.0
+Top Scorer: Enzo, 9 points
+Underperformer: B.Fernandes, -1 points
+Formation: 4-4-2
+Defensive Points: 11
+Attacking Points: 15
+Chip Used: None
+Performance vs League Avg: -22.5
+
+Autosubs:
+  Points gained from autosubs: 1
+  Substituted Cherki → Frimpong (+1 points)
+--------------------------------------------------------------------------------
+
+League Standings:
+Team Name,Points
+Ripon Rovers,380
+Peaky Reijnders,359
+No Pukki No Party,342
+McGinty's Marauders,340
+Sarr Chasm Bridged,323
+Viva la Villa,315
+Sesko Extra,289
+Anusol FC,283
+We're Massive AFC,263
+Redwood Rebels,259
+Amorim or out?,248
+
+## Differential King
+
+The Differential King for Gameweek 6 is: 
+Player: Šeško (8 points)
+Owned by: Amorim or out?
+

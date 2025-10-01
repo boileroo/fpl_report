@@ -1,0 +1,768 @@
+{
+    "records": {
+        "highest_gw_score": {
+            "team": "BOY BETO KNOW",
+            "gameweek": 4,
+            "value": 91
+        },
+        "lowest_gw_score": {
+            "team": "ThomasMuellersDayOff",
+            "gameweek": 5,
+            "value": 30
+        },
+        "most_points_on_bench": {
+            "team": "Logan's Runners",
+            "gameweek": 2,
+            "value": 25
+        },
+        "highest_team_value": {
+            "team": "No Pukki No Party",
+            "gameweek": 5,
+            "value": 101.6
+        },
+        "biggest_bank_balance": {
+            "team": "BOY BETO KNOW",
+            "gameweek": 3,
+            "value": 7.3
+        },
+        "most_captain_points": {
+            "team": "Haalandaise Sauce FC",
+            "gameweek": 5,
+            "value": 32,
+            "player": "Haaland"
+        },
+        "worst_captain_points": {
+            "team": "The Bearded One",
+            "gameweek": 2,
+            "value": 0,
+            "player": "Palmer"
+        },
+        "most_transfers": {
+            "team": "Logan's Runners",
+            "gameweek": 2,
+            "value": 5
+        },
+        "highest_overall_gameweek_rank": {
+            "team": "Craig's Crunchers",
+            "gameweek": 1,
+            "value": 66690
+        },
+        "lowest_overall_gameweek_rank": {
+            "team": "ThomasMuellersDayOff",
+            "gameweek": 5,
+            "value": 10587947
+        },
+        "highest_league_rank": {
+            "team": null,
+            "gameweek": null,
+            "value": Infinity
+        },
+        "lowest_league_rank": {
+            "team": null,
+            "gameweek": null,
+            "value": 0
+        },
+        "biggest_league_rank_drop": {
+            "team": "Red Star Bellegarde",
+            "gameweek": 2,
+            "value": -7
+        },
+        "biggest_league_rank_climb": {
+            "team": "ThomasMuellersDayOff",
+            "gameweek": 2,
+            "value": 7
+        },
+        "highest_defensive_haul": {
+            "team": "BOY BETO KNOW",
+            "gameweek": 4,
+            "value": 35
+        },
+        "highest_attacking_haul": {
+            "team": "Mee, Isak and Stones",
+            "gameweek": 5,
+            "value": 51
+        },
+        "narrowest_gw_score_variance": {
+            "team": "Don'tLookBackElanga",
+            "gameweek": 3,
+            "value": 0
+        },
+        "widest_gw_score_variance": {
+            "team": "Craig's Crunchers",
+            "gameweek": 3,
+            "value": 1152
+        },
+        "best_autosub_cameo": {
+            "team": "Montyrose",
+            "gameweek": 1,
+            "value": 10,
+            "player": "Reijnders"
+        },
+        "best_chip_play": {
+            "team": null,
+            "gameweek": null,
+            "value": 0,
+            "chip": null,
+            "player": null
+        },
+        "worst_chip_play": {
+            "team": null,
+            "gameweek": null,
+            "value": Infinity,
+            "chip": null,
+            "player": null
+        },
+        "highest_overall_rank": {
+            "team": "Montyrose",
+            "gameweek": 5,
+            "value": 61246
+        },
+        "lowest_overall_rank": {
+            "team": "The Bearded One",
+            "gameweek": 2,
+            "value": 9090209
+        }
+    },
+    "cumulative": {
+        "captaincy_points": {
+            "Craig's Crunchers": 70,
+            "Under my Cucurella": 60,
+            "No Pukki No Party": 84,
+            "Montyrose": 66,
+            "Haalandaise Sauce FC": 116,
+            "BOY BETO KNOW": 114,
+            "Red Star Bellegarde": 106,
+            "\u00d2Y\u00c8K\u00da M\u00c9J\u00cc": 66,
+            "Yoro Wissa Harry": 66,
+            "ThomasMuellersDayOff": 70,
+            "ChatGPTs Picks": 54,
+            "Wirtz case Vicario": 66,
+            "Neville Wears Prada": 80,
+            "Full Slot Ahead": 60,
+            "Don'tLookBackElanga": 42,
+            "Sesko Extra": 52,
+            "Logan's Runners": 70,
+            "Bruno's Mars": 42,
+            "The Bearded One": 58,
+            "Mee, Isak and Stones": 22
+        },
+        "bench_points": {
+            "Craig's Crunchers": 28,
+            "Under my Cucurella": 36,
+            "No Pukki No Party": 53,
+            "Montyrose": 54,
+            "Haalandaise Sauce FC": 15,
+            "BOY BETO KNOW": 21,
+            "Red Star Bellegarde": 47,
+            "\u00d2Y\u00c8K\u00da M\u00c9J\u00cc": 40,
+            "Yoro Wissa Harry": 30,
+            "ThomasMuellersDayOff": 62,
+            "ChatGPTs Picks": 29,
+            "Wirtz case Vicario": 47,
+            "Neville Wears Prada": 49,
+            "Full Slot Ahead": 20,
+            "Don'tLookBackElanga": 32,
+            "Sesko Extra": 32,
+            "Logan's Runners": 81,
+            "Bruno's Mars": 53,
+            "The Bearded One": 51,
+            "Mee, Isak and Stones": 33
+        },
+        "bank_balance": {
+            "Craig's Crunchers": 0.0,
+            "Under my Cucurella": 2.0,
+            "No Pukki No Party": 1.1,
+            "Montyrose": 4.5,
+            "Haalandaise Sauce FC": 1.7000000000000002,
+            "BOY BETO KNOW": 18.9,
+            "Red Star Bellegarde": 7.4,
+            "\u00d2Y\u00c8K\u00da M\u00c9J\u00cc": 5.0,
+            "Yoro Wissa Harry": 14.3,
+            "ThomasMuellersDayOff": 4.3,
+            "ChatGPTs Picks": 6.0,
+            "Wirtz case Vicario": 1.0,
+            "Neville Wears Prada": 0.0,
+            "Full Slot Ahead": 0.6,
+            "Don'tLookBackElanga": 0.0,
+            "Sesko Extra": 0.1,
+            "Logan's Runners": 8.2,
+            "Bruno's Mars": 10.7,
+            "The Bearded One": 4.2,
+            "Mee, Isak and Stones": 5.5
+        },
+        "defensive_points": {
+            "Craig's Crunchers": 66,
+            "Under my Cucurella": 95,
+            "No Pukki No Party": 92,
+            "Montyrose": 107,
+            "Haalandaise Sauce FC": 86,
+            "BOY BETO KNOW": 81,
+            "Red Star Bellegarde": 118,
+            "\u00d2Y\u00c8K\u00da M\u00c9J\u00cc": 75,
+            "Yoro Wissa Harry": 71,
+            "ThomasMuellersDayOff": 118,
+            "ChatGPTs Picks": 71,
+            "Wirtz case Vicario": 84,
+            "Neville Wears Prada": 100,
+            "Full Slot Ahead": 69,
+            "Don'tLookBackElanga": 62,
+            "Sesko Extra": 81,
+            "Logan's Runners": 93,
+            "Bruno's Mars": 49,
+            "The Bearded One": 70,
+            "Mee, Isak and Stones": 61
+        },
+        "attacking_points": {
+            "Craig's Crunchers": 159,
+            "Under my Cucurella": 177,
+            "No Pukki No Party": 167,
+            "Montyrose": 186,
+            "Haalandaise Sauce FC": 161,
+            "BOY BETO KNOW": 161,
+            "Red Star Bellegarde": 130,
+            "\u00d2Y\u00c8K\u00da M\u00c9J\u00cc": 137,
+            "Yoro Wissa Harry": 162,
+            "ThomasMuellersDayOff": 103,
+            "ChatGPTs Picks": 149,
+            "Wirtz case Vicario": 154,
+            "Neville Wears Prada": 152,
+            "Full Slot Ahead": 170,
+            "Don'tLookBackElanga": 151,
+            "Sesko Extra": 153,
+            "Logan's Runners": 135,
+            "Bruno's Mars": 129,
+            "The Bearded One": 105,
+            "Mee, Isak and Stones": 130
+        },
+        "autosub_points": {
+            "Craig's Crunchers": 1,
+            "Under my Cucurella": 0,
+            "No Pukki No Party": 6,
+            "Montyrose": 1,
+            "Haalandaise Sauce FC": 21,
+            "BOY BETO KNOW": 7,
+            "Red Star Bellegarde": 4,
+            "\u00d2Y\u00c8K\u00da M\u00c9J\u00cc": 1,
+            "Yoro Wissa Harry": 14,
+            "ThomasMuellersDayOff": 5,
+            "ChatGPTs Picks": 2,
+            "Wirtz case Vicario": 5,
+            "Neville Wears Prada": 0,
+            "Full Slot Ahead": 4,
+            "Don'tLookBackElanga": 16,
+            "Sesko Extra": 10,
+            "Logan's Runners": 11,
+            "Bruno's Mars": 0,
+            "The Bearded One": 4,
+            "Mee, Isak and Stones": 6
+        }
+    },
+    "counts": {
+        "captain_choices": {
+            "Haaland": 24,
+            "M.Salah": 45,
+            "Ekitik\u00e9": 3,
+            "Jo\u00e3o Pedro": 15,
+            "Watkins": 2,
+            "Beto": 1,
+            "Gy\u00f6keres": 1,
+            "Saka": 1,
+            "Palmer": 1,
+            "Wood": 1,
+            "Mbeumo": 2,
+            "Johnson": 1,
+            "B.Fernandes": 1,
+            "Gakpo": 1
+        },
+        "formations": {
+            "3-4-3": 43,
+            "3-5-2": 24,
+            "4-4-2": 21,
+            "4-3-3": 5,
+            "5-3-2": 4,
+            "5-2-3": 1,
+            "5-4-1": 1
+        },
+        "chip_usage": {
+            "Craig's Crunchers": {
+                "bboost": 1,
+                "null": 1,
+                "null": 1
+            },
+            "Under my Cucurella": {
+                "null": 1,
+                "null": 1
+            },
+            "No Pukki No Party": {
+                "null": 1,
+                "null": 1
+            },
+            "Montyrose": {
+                "null": 1,
+                "bboost": 1,
+                "null": 1
+            },
+            "Haalandaise Sauce FC": {
+                "null": 1,
+                "null": 1
+            },
+            "BOY BETO KNOW": {
+                "null": 1,
+                "null": 1
+            },
+            "Red Star Bellegarde": {
+                "null": 1,
+                "null": 1
+            },
+            "\u00d2Y\u00c8K\u00da M\u00c9J\u00cc": {
+                "null": 1,
+                "null": 1
+            },
+            "Yoro Wissa Harry": {
+                "null": 1,
+                "freehit": 1,
+                "null": 1
+            },
+            "ThomasMuellersDayOff": {
+                "null": 1,
+                "null": 1
+            },
+            "ChatGPTs Picks": {
+                "null": 1,
+                "wildcard": 1
+            },
+            "Wirtz case Vicario": {
+                "null": 1,
+                "freehit": 1,
+                "null": 1
+            },
+            "Neville Wears Prada": {
+                "null": 1,
+                "null": 1
+            },
+            "Full Slot Ahead": {
+                "null": 1,
+                "null": 1
+            },
+            "Don'tLookBackElanga": {
+                "null": 1,
+                "null": 1
+            },
+            "Sesko Extra": {
+                "null": 1,
+                "bboost": 1
+            },
+            "Logan's Runners": {
+                "null": 1,
+                "null": 1
+            },
+            "Bruno's Mars": {
+                "null": 1,
+                "null": 1
+            },
+            "The Bearded One": {
+                "null": 1,
+                "null": 1
+            },
+            "Mee, Isak and Stones": {
+                "null": 1,
+                "wildcard": 1
+            }
+        },
+        "gameweek_participation": {
+            "Craig's Crunchers": 5,
+            "Under my Cucurella": 5,
+            "No Pukki No Party": 5,
+            "Montyrose": 5,
+            "Haalandaise Sauce FC": 5,
+            "BOY BETO KNOW": 5,
+            "Red Star Bellegarde": 5,
+            "\u00d2Y\u00c8K\u00da M\u00c9J\u00cc": 5,
+            "Yoro Wissa Harry": 5,
+            "ThomasMuellersDayOff": 5,
+            "ChatGPTs Picks": 5,
+            "Wirtz case Vicario": 5,
+            "Neville Wears Prada": 5,
+            "Full Slot Ahead": 5,
+            "Don'tLookBackElanga": 5,
+            "Sesko Extra": 5,
+            "Logan's Runners": 5,
+            "Bruno's Mars": 5,
+            "The Bearded One": 5,
+            "Mee, Isak and Stones": 4
+        }
+    },
+    "manager_records": {
+        "highest_league_rank": {
+            "Craig's Crunchers": {
+                "gameweek": 1,
+                "value": 1
+            },
+            "Under my Cucurella": {
+                "gameweek": 2,
+                "value": 1
+            },
+            "No Pukki No Party": {
+                "gameweek": 3,
+                "value": 2
+            },
+            "Montyrose": {
+                "gameweek": 3,
+                "value": 1
+            },
+            "Haalandaise Sauce FC": {
+                "gameweek": 5,
+                "value": 3
+            },
+            "BOY BETO KNOW": {
+                "gameweek": 4,
+                "value": 5
+            },
+            "Red Star Bellegarde": {
+                "gameweek": 5,
+                "value": 6
+            },
+            "\u00d2Y\u00c8K\u00da M\u00c9J\u00cc": {
+                "gameweek": 2,
+                "value": 7
+            },
+            "Yoro Wissa Harry": {
+                "gameweek": 3,
+                "value": 5
+            },
+            "ThomasMuellersDayOff": {
+                "gameweek": 2,
+                "value": 2
+            },
+            "ChatGPTs Picks": {
+                "gameweek": 1,
+                "value": 11
+            },
+            "Wirtz case Vicario": {
+                "gameweek": 4,
+                "value": 8
+            },
+            "Neville Wears Prada": {
+                "gameweek": 3,
+                "value": 3
+            },
+            "Full Slot Ahead": {
+                "gameweek": 1,
+                "value": 14
+            },
+            "Don'tLookBackElanga": {
+                "gameweek": 2,
+                "value": 11
+            },
+            "Sesko Extra": {
+                "gameweek": 5,
+                "value": 4
+            },
+            "Logan's Runners": {
+                "gameweek": 5,
+                "value": 12
+            },
+            "Bruno's Mars": {
+                "gameweek": 1,
+                "value": 18
+            },
+            "The Bearded One": {
+                "gameweek": 5,
+                "value": 15
+            },
+            "Mee, Isak and Stones": {
+                "gameweek": 5,
+                "value": 13
+            }
+        },
+        "lowest_league_rank": {
+            "Craig's Crunchers": {
+                "gameweek": 4,
+                "value": 10
+            },
+            "Under my Cucurella": {
+                "gameweek": 3,
+                "value": 4
+            },
+            "No Pukki No Party": {
+                "gameweek": 5,
+                "value": 8
+            },
+            "Montyrose": {
+                "gameweek": 2,
+                "value": 5
+            },
+            "Haalandaise Sauce FC": {
+                "gameweek": 2,
+                "value": 10
+            },
+            "BOY BETO KNOW": {
+                "gameweek": 3,
+                "value": 12
+            },
+            "Red Star Bellegarde": {
+                "gameweek": 2,
+                "value": 14
+            },
+            "\u00d2Y\u00c8K\u00da M\u00c9J\u00cc": {
+                "gameweek": 5,
+                "value": 17
+            },
+            "Yoro Wissa Harry": {
+                "gameweek": 1,
+                "value": 9
+            },
+            "ThomasMuellersDayOff": {
+                "gameweek": 5,
+                "value": 14
+            },
+            "ChatGPTs Picks": {
+                "gameweek": 2,
+                "value": 18
+            },
+            "Wirtz case Vicario": {
+                "gameweek": 2,
+                "value": 13
+            },
+            "Neville Wears Prada": {
+                "gameweek": 1,
+                "value": 13
+            },
+            "Full Slot Ahead": {
+                "gameweek": 3,
+                "value": 17
+            },
+            "Don'tLookBackElanga": {
+                "gameweek": 5,
+                "value": 19
+            },
+            "Sesko Extra": {
+                "gameweek": 1,
+                "value": 16
+            },
+            "Logan's Runners": {
+                "gameweek": 1,
+                "value": 17
+            },
+            "Bruno's Mars": {
+                "gameweek": 3,
+                "value": 20
+            },
+            "The Bearded One": {
+                "gameweek": 2,
+                "value": 20
+            },
+            "Mee, Isak and Stones": {
+                "gameweek": 4,
+                "value": 19
+            }
+        }
+    },
+    "formations": {
+        "highest_score_by_formation": {
+            "3-4-3": {
+                "team": "Craig's Crunchers",
+                "gameweek": 1,
+                "value": 86
+            },
+            "3-5-2": {
+                "team": "BOY BETO KNOW",
+                "gameweek": 4,
+                "value": 91
+            },
+            "4-4-2": {
+                "team": "ThomasMuellersDayOff",
+                "gameweek": 2,
+                "value": 77
+            },
+            "4-3-3": {
+                "team": "Red Star Bellegarde",
+                "gameweek": 1,
+                "value": 61
+            },
+            "5-3-2": {
+                "team": "Logan's Runners",
+                "gameweek": 2,
+                "value": 73
+            },
+            "5-2-3": {
+                "team": "ThomasMuellersDayOff",
+                "gameweek": 3,
+                "value": 39
+            },
+            "5-4-1": {
+                "team": "The Bearded One",
+                "gameweek": 3,
+                "value": 53
+            }
+        }
+    },
+    "gw_scores": {
+        "Craig's Crunchers": [
+            86,
+            38,
+            44,
+            57,
+            55
+        ],
+        "Under my Cucurella": [
+            74,
+            62,
+            47,
+            83,
+            38
+        ],
+        "No Pukki No Party": [
+            72,
+            57,
+            65,
+            63,
+            51
+        ],
+        "Montyrose": [
+            69,
+            51,
+            70,
+            81,
+            60
+        ],
+        "Haalandaise Sauce FC": [
+            66,
+            42,
+            55,
+            76,
+            63
+        ],
+        "BOY BETO KNOW": [
+            61,
+            49,
+            47,
+            91,
+            41
+        ],
+        "Red Star Bellegarde": [
+            61,
+            44,
+            52,
+            75,
+            57
+        ],
+        "\u00d2Y\u00c8K\u00da M\u00c9J\u00cc": [
+            59,
+            53,
+            49,
+            59,
+            46
+        ],
+        "Yoro Wissa Harry": [
+            57,
+            52,
+            65,
+            66,
+            46
+        ],
+        "ThomasMuellersDayOff": [
+            57,
+            77,
+            39,
+            50,
+            30
+        ],
+        "ChatGPTs Picks": [
+            54,
+            36,
+            64,
+            54,
+            44
+        ],
+        "Wirtz case Vicario": [
+            54,
+            51,
+            56,
+            76,
+            36
+        ],
+        "Neville Wears Prada": [
+            54,
+            63,
+            67,
+            73,
+            41
+        ],
+        "Full Slot Ahead": [
+            54,
+            41,
+            53,
+            75,
+            43
+        ],
+        "Don'tLookBackElanga": [
+            53,
+            53,
+            37,
+            64,
+            38
+        ],
+        "Sesko Extra": [
+            47,
+            58,
+            46,
+            73,
+            60
+        ],
+        "Logan's Runners": [
+            47,
+            73,
+            48,
+            66,
+            41
+        ],
+        "Bruno's Mars": [
+            38,
+            38,
+            43,
+            63,
+            51
+        ],
+        "The Bearded One": [
+            36,
+            35,
+            53,
+            66,
+            48
+        ],
+        "Mee, Isak and Stones": [
+            39,
+            40,
+            55,
+            49
+        ]
+    },
+    "differential_king_per_gameweek": {
+        "1": {
+            "player": "Wood",
+            "points": 13,
+            "team": "ThomasMuellersDayOff"
+        },
+        "2": {
+            "player": "Gy\u00f6keres",
+            "points": 12,
+            "team": "Neville Wears Prada"
+        },
+        "3": {
+            "player": "Senesi",
+            "points": 14,
+            "team": "Montyrose"
+        },
+        "4": {
+            "player": "Zubimendi",
+            "points": 16,
+            "team": "Bruno's Mars"
+        },
+        "5": {
+            "player": "Thiago",
+            "points": 13,
+            "team": "Mee, Isak and Stones"
+        }
+    }
+}
